@@ -146,6 +146,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main\colon-case-main.cpp" />
+    <ClCompile Include="src\main\splash-screen\r3-colonCase-MainMenu.cpp" />
+    <ClCompile Include="src\main\splash-screen\r3-colonCase-MainMenuFactory.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\main\splash-screen\r3-colonCase-mainMenu.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
