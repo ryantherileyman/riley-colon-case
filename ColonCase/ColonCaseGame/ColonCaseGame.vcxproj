@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main\colon-case-main.cpp" />
+    <ClCompile Include="src\main\r3-colonCase-GameClient.cpp" />
     <ClCompile Include="src\main\sfml-utils\r3-sfml-utils.cpp" />
     <ClCompile Include="src\main\splash-screen\r3-colonCase-MainMenuUiUtils.cpp" />
     <ClCompile Include="src\main\splash-screen\r3-colonCase-MainMenu.cpp" />
@@ -154,6 +155,7 @@
     <ClCompile Include="src\main\splash-screen\r3-colonCase-SplashSceneRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\main\r3-colonCase-client.hpp" />
     <ClInclude Include="src\main\sfml-utils\r3-sfml-utils.hpp" />
     <ClInclude Include="src\main\splash-screen\r3-colonCase-mainMenu.hpp" />
     <ClInclude Include="src\main\splash-screen\r3-colonCase-splashScreen.hpp" />

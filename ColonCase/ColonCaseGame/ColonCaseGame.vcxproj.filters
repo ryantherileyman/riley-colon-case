@@ -36,6 +36,9 @@
     <ClCompile Include="src\main\splash-screen\r3-colonCase-SplashSceneRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\r3-colonCase-GameClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\splash-screen\r3-colonCase-mainMenu.hpp">
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\main\sfml-utils\r3-sfml-utils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\r3-colonCase-client.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
