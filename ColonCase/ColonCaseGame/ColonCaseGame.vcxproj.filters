@@ -24,9 +24,27 @@
     <ClCompile Include="src\main\splash-screen\r3-colonCase-MainMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\splash-screen\r3-colonCase-SplashSceneController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\splash-screen\r3-colonCase-MainMenuUiUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\sfml-utils\r3-sfml-utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\splash-screen\r3-colonCase-SplashSceneRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\splash-screen\r3-colonCase-mainMenu.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\splash-screen\r3-colonCase-splashScreen.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\sfml-utils\r3-sfml-utils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

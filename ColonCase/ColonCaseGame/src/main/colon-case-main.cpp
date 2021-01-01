@@ -2,30 +2,32 @@
 #include <chrono>
 #include <thread>
 #include <SFML/Graphics.hpp>
+#include "sfml-utils/r3-sfml-utils.hpp"
+#include "splash-screen/r3-colonCase-splashScreen.hpp"
 
 int main() {
 	sf::RenderWindow window;
 	window.create(sf::VideoMode(800, 450), L"Riley Entertainment - The Colon Case");
-	window.setView(sf::View(sf::FloatRect(0.0f, 0.0f, 1920.0f, 1080.0f)));
+	window.setView(r3::SfmlUtils::ViewUtils::createView(800, 450));
 
-	sf::Texture splashTexture;
-	if (!splashTexture.loadFromFile("resources/colon-case-splash.png")) {
-		throw "Could not load splash screen graphic";
-	}
-	sf::Sprite splashSprite;
-	splashSprite.setTexture(splashTexture);
+	r3::colonCase::SplashSceneController splashSceneController(window);
 
+	sf::Clock frameClock;
+	
 	while (window.isOpen()) {
 		sf::Event event;
 		while (window.pollEvent(event)) {
-			if (event.type == sf::Event::Closed) {
+			r3::colonCase::SplashSceneClientRequest clientRequest = splashSceneController.processEvent(event);
+			if (clientRequest == r3::colonCase::SplashSceneClientRequest::EXIT_GAME) {
 				window.close();
 			}
 		}
 
 		if (window.isOpen()) {
-			window.draw(splashSprite);
-			window.display();
+			if (frameClock.getElapsedTime().asMicroseconds() >= 8333) {
+				splashSceneController.render();
+				frameClock.restart();
+			}
 		}
 
 		std::this_thread::sleep_for(std::chrono::microseconds(10));
