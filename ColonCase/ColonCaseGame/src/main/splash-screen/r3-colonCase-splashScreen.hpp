@@ -19,6 +19,7 @@ namespace r3 {
 
 		typedef enum class ColonCase_SplashSceneClientRequest {
 			NONE,
+			START_NEW_GAME,
 			EXIT_GAME,
 		} SplashSceneClientRequest;
 

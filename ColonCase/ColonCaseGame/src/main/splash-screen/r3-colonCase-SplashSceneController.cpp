@@ -43,6 +43,7 @@ namespace r3 {
 		}
 
 		void SplashSceneController::render() {
+			this->window->setView(r3::SfmlUtils::ViewUtils::createView(this->window->getSize().x, this->window->getSize().y));
 			this->renderer->render(*this->window, *this->mainMenu);
 			this->window->display();
 		}
@@ -77,9 +78,15 @@ namespace r3 {
 
 			if (mousePositionResult.overMenuItemFlag) {
 				switch (mousePositionResult.overMenuItemId) {
+
+				case MainMenuItemId::START_NEW_GAME:
+					result = SplashSceneClientRequest::START_NEW_GAME;
+					break;
+
 				case MainMenuItemId::EXIT_GAME:
 					result = SplashSceneClientRequest::EXIT_GAME;
 					break;
+
 				}
 			}
 			else {
@@ -93,9 +100,15 @@ namespace r3 {
 			SplashSceneClientRequest result = SplashSceneClientRequest::NONE;
 
 			switch (menuItemId) {
+
+			case MainMenuItemId::START_NEW_GAME:
+				result = SplashSceneClientRequest::START_NEW_GAME;
+				break;
+
 			case MainMenuItemId::EXIT_GAME:
 				result = SplashSceneClientRequest::EXIT_GAME;
 				break;
+
 			}
 
 			return result;
