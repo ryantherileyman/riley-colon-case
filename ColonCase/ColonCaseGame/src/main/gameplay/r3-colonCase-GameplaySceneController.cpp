@@ -109,8 +109,8 @@ namespace r3 {
 			float gameplaySeconds = this->gameplayClock.getElapsedTime().asSeconds();
 			sf::Vector2f playerRenderPosition = this->resolvePlayerPosition(gameplaySeconds);
 
-			float viewWidth = 15.0f * 2.0f;
-			float viewHeight = 8.4375f * 2.0f;
+			float viewWidth = 15.0f;
+			float viewHeight = 8.4375f;
 
 			this->window->setView(sf::View(sf::FloatRect(playerRenderPosition.x - viewWidth / 2.0f, playerRenderPosition.y - viewHeight / 2.0f, viewWidth, viewHeight)));
 
@@ -178,7 +178,6 @@ namespace r3 {
 				textureRectTop = 768;
 				break;
 			}
-
 
 			float secondsSinceAnimationStart = gameplaySeconds - this->playerAnimationStartSeconds;
 			if (!this->playerMovingFlag) {
