@@ -45,6 +45,12 @@
     <ClCompile Include="src\main\gameplay\r3-colonCase-CompassDirectionUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\json\r3-jsoncpp-JsonValidationUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\json\jsoncpp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\splash-screen\r3-colonCase-mainMenu.hpp">
@@ -60,6 +66,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\main\gameplay\r3-colonCase-gameplay.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\json\r3-jsoncpp-utils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\tiled\r3-tiled-defn.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
