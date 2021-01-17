@@ -34,6 +34,15 @@ namespace r3 {
 			return result;
 		}
 
+		bool intInRange(const Json::Value& jsonValue, const char* propertyName, const r3::validation::IntRange& range) {
+			bool result = true;
+			if (requiredInt(jsonValue, propertyName)) {
+				int intValue = jsonValue[propertyName].asInt();
+				result = range.isInRange(intValue);
+			}
+			return result;
+		}
+
 		bool requiredFloat(const Json::Value& jsonValue, const char* propertyName) {
 			bool result =
 				jsonValue.isMember(propertyName) &&
@@ -52,6 +61,14 @@ namespace r3 {
 			bool result =
 				jsonValue.isMember(propertyName) &&
 				jsonValue[propertyName].isArray();
+			return result;
+		}
+
+		bool optionalArray(const Json::Value& jsonValue, const char* propertyName) {
+			bool result = true;
+			if (jsonValue.isMember(propertyName)) {
+				result = jsonValue[propertyName].isArray();
+			}
 			return result;
 		}
 

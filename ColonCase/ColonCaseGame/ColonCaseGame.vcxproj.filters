@@ -48,7 +48,19 @@
     <ClCompile Include="src\main\json\r3-jsoncpp-JsonValidationUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\json\jsoncpp.cpp">
+    <ClCompile Include="src\main\json\r3-jsoncpp-JsonLoaderUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\tiled\r3-tiled-JsonTilesetLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\tiled\r3-tiled-JsonCustomPropertyLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\tiled\r3-tiled-JsonLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\validation\r3-validation-IntRange.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -72,6 +84,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\main\tiled\r3-tiled-defn.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\tiled\r3-tiled-JsonLoader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\validation\r3-validation-utils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -35,14 +35,19 @@ namespace r3 {
 
 		typedef struct Tiled_TilesetTileDefn {
 			int id = 0;
-			std::string imagePath;
-			int imageWidth = 0;
-			int imageHeight = 0;
+			TilesetImageDefn imageDefn;
 			std::vector<CustomPropertyDefn> propertyDefnList;
 		} TilesetTileDefn;
 
+		typedef enum class Tiled_TilesetType {
+			UNKNOWN,
+			IMAGE,
+			TILE_LIST,
+		} TilesetType;
+
 		typedef struct Tiled_TilesetDefn {
-			std::string version;
+			double version = 0.0;
+			TilesetType type = TilesetType::UNKNOWN;
 			std::string name;
 			int columns = 0;
 			int tileCount = 0;
@@ -108,7 +113,7 @@ namespace r3 {
 			int height = 0;
 			std::vector<int> data;
 			std::vector<MapLayerObjectDefn> objectDefnList;
-			std::vector<MapLayerDefn> layerDefnList;
+			std::vector<struct Tiled_MapLayerDefn> layerDefnList;
 			std::vector<CustomPropertyDefn> propertyDefnList;
 		} MapLayerDefn;
 

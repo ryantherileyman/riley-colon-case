@@ -1,0 +1,61 @@
+
+namespace r3 {
+
+	namespace tiled {
+
+		namespace JsonPropertyName {
+
+			const char* ID = "id";
+			const char* NAME = "name";
+			const char* TYPE = "type";
+			const char* VERSION = "version";
+			const char* X = "x";
+			const char* Y = "y";
+			const char* WIDTH = "width";
+			const char* HEIGHT = "height";
+			const char* PROPERTY_LIST = "properties";
+			const char* VALUE = "value";
+
+			namespace Tileset {
+
+				const char* COLUMNS = "columns";
+				const char* TILE_COUNT = "tilecount";
+				const char* TILE_WIDTH = "tilewidth";
+				const char* TILE_HEIGHT = "tileheight";
+				const char* MARGIN = "margin";
+				const char* SPACING = "spacing";
+				const char* IMAGE_PATH = "image";
+				const char* IMAGE_WIDTH = "imagewidth";
+				const char* IMAGE_HEIGHT = "imageheight";
+				const char* TILE_LIST = "tiles";
+
+			}
+
+		}
+
+		namespace JsonPropertyValue {
+
+			namespace FileTypeValue {
+
+				const char* TILESET = "tileset";
+				const char* MAP = "map";
+
+			}
+
+			namespace CustomPropertyTypeValue {
+
+				const char* BOOLEAN = "bool";
+				const char* COLOR = "color";
+				const char* FLOAT = "float";
+				const char* FILE = "file";
+				const char* INTEGER = "int";
+				const char* OBJECT = "object";
+				const char* STRING = "string";
+
+			}
+
+		}
+
+	}
+
+}

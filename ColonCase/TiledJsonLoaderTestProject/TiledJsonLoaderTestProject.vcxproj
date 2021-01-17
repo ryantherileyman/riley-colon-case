@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{5488acd6-cd6d-4575-b40d-fc0fb97961fc}</ProjectGuid>
-    <RootNamespace>ColonCaseGame</RootNamespace>
+    <ProjectGuid>{1f5b0cb8-a949-4ada-9cf2-05d355ce9afa}</ProjectGuid>
+    <RootNamespace>TiledJsonLoaderTestProject</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -86,15 +86,15 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>SFML_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Riley\DevData\cpp\SFML\SFML-2.5.1\include;D:\Riley\DevData\cpp\jsoncpp\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Riley\DevData\cpp\jsoncpp\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\Riley\DevData\cpp\SFML\SFML-2.5.1\lib;D:\Riley\DevData\cpp\jsoncpp\build\lib\Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-audio-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-main-d.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;freetype.lib;opengl32.lib;jsoncpp.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Riley\DevData\cpp\jsoncpp\build\lib\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>jsoncpp.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -103,17 +103,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>SFML_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Riley\DevData\cpp\SFML\SFML-2.5.1\include;D:\Riley\DevData\cpp\jsoncpp\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\Riley\DevData\cpp\SFML\SFML-2.5.1\lib;D:\Riley\DevData\cpp\jsoncpp\build\lib\Release</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-s.lib;sfml-audio-s.lib;sfml-window-s.lib;sfml-system-s.lib;sfml-main.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;freetype.lib;opengl32.lib;jsoncpp.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -145,33 +142,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\main\colon-case-main.cpp" />
-    <ClCompile Include="src\main\gameplay\r3-colonCase-CompassDirectionUtils.cpp" />
-    <ClCompile Include="src\main\gameplay\r3-colonCase-GameplaySceneController.cpp" />
-    <ClCompile Include="src\main\json\r3-jsoncpp-JsonLoaderUtils.cpp" />
-    <ClCompile Include="src\main\json\r3-jsoncpp-JsonValidationUtils.cpp" />
-    <ClCompile Include="src\main\r3-colonCase-GameClient.cpp" />
-    <ClCompile Include="src\main\sfml-utils\r3-sfml-utils.cpp" />
-    <ClCompile Include="src\main\splash-screen\r3-colonCase-MainMenuUiUtils.cpp" />
-    <ClCompile Include="src\main\splash-screen\r3-colonCase-MainMenu.cpp" />
-    <ClCompile Include="src\main\splash-screen\r3-colonCase-MainMenuFactory.cpp" />
-    <ClCompile Include="src\main\splash-screen\r3-colonCase-SplashSceneController.cpp" />
-    <ClCompile Include="src\main\splash-screen\r3-colonCase-SplashSceneRenderer.cpp" />
-    <ClCompile Include="src\main\tiled\r3-tiled-JsonCustomPropertyLoader.cpp" />
-    <ClCompile Include="src\main\tiled\r3-tiled-JsonLoader.cpp" />
-    <ClCompile Include="src\main\tiled\r3-tiled-JsonTilesetLoader.cpp" />
-    <ClCompile Include="src\main\validation\r3-validation-IntRange.cpp" />
+    <ClInclude Include="..\ColonCaseGame\src\main\json\r3-jsoncpp-utils.hpp" />
+    <ClInclude Include="..\ColonCaseGame\src\main\tiled\r3-tiled-defn.hpp" />
+    <ClInclude Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonLoader.hpp" />
+    <ClInclude Include="..\ColonCaseGame\src\main\validation\r3-validation-utils.hpp" />
+    <ClInclude Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonCustomPropertyLoaderTests.hpp" />
+    <ClInclude Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonTilesetLoaderTests.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\main\gameplay\r3-colonCase-gameplay.hpp" />
-    <ClInclude Include="src\main\json\r3-jsoncpp-utils.hpp" />
-    <ClInclude Include="src\main\r3-colonCase-client.hpp" />
-    <ClInclude Include="src\main\sfml-utils\r3-sfml-utils.hpp" />
-    <ClInclude Include="src\main\splash-screen\r3-colonCase-mainMenu.hpp" />
-    <ClInclude Include="src\main\splash-screen\r3-colonCase-splashScreen.hpp" />
-    <ClInclude Include="src\main\tiled\r3-tiled-defn.hpp" />
-    <ClInclude Include="src\main\tiled\r3-tiled-JsonLoader.hpp" />
-    <ClInclude Include="src\main\validation\r3-validation-utils.hpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\json\r3-jsoncpp-JsonLoaderUtils.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\json\r3-jsoncpp-JsonValidationUtils.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonCustomPropertyLoader.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonLoader.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonTilesetLoader.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\validation\r3-validation-IntRange.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonCustomPropertyLoaderTests.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonLoader-test-main.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonTilesetLoaderTests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
