@@ -81,6 +81,8 @@ namespace r3 {
 
 			LoadCustomPropertyValidationResult validateCustomProperty(const Json::Value& jsonValue);
 
+			std::vector<std::string> localizeCustomPropertyValidationResult(const LoadCustomPropertyValidationResult& validationResult);
+
 			CustomPropertyDefn convertToCustomPropertyDefn(const Json::Value& jsonValue);
 
 		}

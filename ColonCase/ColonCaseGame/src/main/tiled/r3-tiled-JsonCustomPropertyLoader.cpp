@@ -116,6 +116,24 @@ namespace r3 {
 				return result;
 			}
 
+			std::vector<std::string> localizeCustomPropertyValidationResult(const LoadCustomPropertyValidationResult& validationResult) {
+				std::vector<std::string> result;
+
+				if (!validationResult.nameValid) {
+					result.push_back("The \"name\" is invalid.  It must be a non-empty string.");
+				}
+
+				if (!validationResult.typeValid) {
+					result.push_back("The \"type\" is invalid.  It must be one of \"bool\", \"color\", \"float\", \"file\", \"int\", \"object\", or \"string\".");
+				}
+
+				if (!validationResult.valueValid) {
+					result.push_back("The \"value\" is invalid.  It must match the data type specified by the \"type\" property.");
+				}
+
+				return result;
+			}
+
 			CustomPropertyDefn convertToCustomPropertyDefn(const Json::Value& jsonValue) {
 				CustomPropertyDefn result;
 

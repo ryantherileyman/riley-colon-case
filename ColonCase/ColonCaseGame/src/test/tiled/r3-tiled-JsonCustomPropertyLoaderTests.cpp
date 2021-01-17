@@ -106,6 +106,53 @@ namespace r3 {
 				return result;
 			}
 
+			bool testLocalizeCustomPropertyValidationResult_Valid() {
+				JsonCustomPropertyLoader::LoadCustomPropertyValidationResult validationResult;
+
+				std::vector<std::string> errorList = JsonCustomPropertyLoader::localizeCustomPropertyValidationResult(validationResult);
+
+				bool result = errorList.empty();
+				return result;
+			}
+
+			bool testLocalizeCustomPropertyValidationResult_NameInvalid() {
+				JsonCustomPropertyLoader::LoadCustomPropertyValidationResult validationResult;
+				validationResult.nameValid = false;
+
+				std::vector<std::string> errorList = JsonCustomPropertyLoader::localizeCustomPropertyValidationResult(validationResult);
+
+				auto blah = errorList.at(0).find("The \"name\" is invalid");
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"name\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeCustomPropertyValidationResult_TypeInvalid() {
+				JsonCustomPropertyLoader::LoadCustomPropertyValidationResult validationResult;
+				validationResult.typeValid = false;
+
+				std::vector<std::string> errorList = JsonCustomPropertyLoader::localizeCustomPropertyValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"type\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeCustomPropertyValidationResult_ValueInvalid() {
+				JsonCustomPropertyLoader::LoadCustomPropertyValidationResult validationResult;
+				validationResult.valueValid = false;
+
+				std::vector<std::string> errorList = JsonCustomPropertyLoader::localizeCustomPropertyValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"value\" is invalid") != std::string::npos);
+				return result;
+			}
+
 			bool testConvertToCustomPropertyDefn_Boolean() {
 				Json::Value jsonValue = createValidJsonValue();
 				jsonValue[JsonPropertyName::TYPE] = JsonPropertyValue::CustomPropertyTypeValue::BOOLEAN;

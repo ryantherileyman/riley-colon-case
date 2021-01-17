@@ -45,6 +45,11 @@ void runJsonCustomPropertyLoaderTests() {
 	assert(JsonCustomPropertyLoaderTests::testValidateCustomProperty_Value(JsonPropertyValue::CustomPropertyTypeValue::STRING, "anything", true));
 	assert(JsonCustomPropertyLoaderTests::testValidateCustomProperty_Value(JsonPropertyValue::CustomPropertyTypeValue::STRING, 3, false));
 
+	assert(JsonCustomPropertyLoaderTests::testLocalizeCustomPropertyValidationResult_Valid());
+	assert(JsonCustomPropertyLoaderTests::testLocalizeCustomPropertyValidationResult_NameInvalid());
+	assert(JsonCustomPropertyLoaderTests::testLocalizeCustomPropertyValidationResult_TypeInvalid());
+	assert(JsonCustomPropertyLoaderTests::testLocalizeCustomPropertyValidationResult_ValueInvalid());
+
 	assert(JsonCustomPropertyLoaderTests::testConvertToCustomPropertyDefn_Boolean());
 	assert(JsonCustomPropertyLoaderTests::testConvertToCustomPropertyDefn_Color());
 	assert(JsonCustomPropertyLoaderTests::testConvertToCustomPropertyDefn_Float());

@@ -21,6 +21,11 @@ namespace r3 {
 			bool testValidateCustomProperty_MissingValue();
 			bool testValidateCustomProperty_Value(const Json::Value& typeValue, const Json::Value& value, bool expectedValueValid);
 
+			bool testLocalizeCustomPropertyValidationResult_Valid();
+			bool testLocalizeCustomPropertyValidationResult_NameInvalid();
+			bool testLocalizeCustomPropertyValidationResult_TypeInvalid();
+			bool testLocalizeCustomPropertyValidationResult_ValueInvalid();
+
 			bool testConvertToCustomPropertyDefn_Boolean();
 			bool testConvertToCustomPropertyDefn_Color();
 			bool testConvertToCustomPropertyDefn_Float();
