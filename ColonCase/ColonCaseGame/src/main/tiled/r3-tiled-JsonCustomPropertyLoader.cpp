@@ -98,8 +98,8 @@ namespace r3 {
 				return result;
 			}
 
-			LoadCustomPropertyValidationResult validateCustomProperty(const Json::Value& jsonValue) {
-				LoadCustomPropertyValidationResult result;
+			ValidationResult validate(const Json::Value& jsonValue) {
+				ValidationResult result;
 
 				result.rootValid = jsonValue.isObject();
 
@@ -116,7 +116,7 @@ namespace r3 {
 				return result;
 			}
 
-			std::vector<std::string> localizeCustomPropertyValidationResult(const LoadCustomPropertyValidationResult& validationResult) {
+			std::vector<std::string> localizeValidationResult(const ValidationResult& validationResult) {
 				std::vector<std::string> result;
 
 				if (!validationResult.nameValid) {
@@ -134,7 +134,7 @@ namespace r3 {
 				return result;
 			}
 
-			CustomPropertyDefn convertToCustomPropertyDefn(const Json::Value& jsonValue) {
+			CustomPropertyDefn convertToDefn(const Json::Value& jsonValue) {
 				CustomPropertyDefn result;
 
 				result.name = jsonValue[JsonPropertyName::NAME].asString();

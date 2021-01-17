@@ -63,6 +63,12 @@
     <ClCompile Include="src\main\validation\r3-validation-IntRange.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\tiled\r3-tiled-JsonTilesetImageLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\tiled\r3-tiled-JsonTilesetTileLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\splash-screen\r3-colonCase-mainMenu.hpp">

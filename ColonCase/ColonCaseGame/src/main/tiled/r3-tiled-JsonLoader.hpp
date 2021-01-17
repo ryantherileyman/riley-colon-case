@@ -61,9 +61,15 @@ namespace r3 {
 
 		}
 
+		namespace JsonLoaderUtils {
+
+			bool dimensionValueValid(const Json::Value& jsonValue, const char* propertyName);
+
+		}
+
 		namespace JsonCustomPropertyLoader {
 
-			typedef struct Tiled_LoadCustomPropertyValidationResult {
+			typedef struct Tiled_ValidationResult {
 				bool rootValid = true;
 				bool nameValid = true;
 				bool typeValid = true;
@@ -77,19 +83,19 @@ namespace r3 {
 						this->valueValid;
 					return result;
 				}
-			} LoadCustomPropertyValidationResult;
+			} ValidationResult;
 
-			LoadCustomPropertyValidationResult validateCustomProperty(const Json::Value& jsonValue);
+			ValidationResult validate(const Json::Value& jsonValue);
 
-			std::vector<std::string> localizeCustomPropertyValidationResult(const LoadCustomPropertyValidationResult& validationResult);
+			std::vector<std::string> localizeValidationResult(const ValidationResult& validationResult);
 
-			CustomPropertyDefn convertToCustomPropertyDefn(const Json::Value& jsonValue);
+			CustomPropertyDefn convertToDefn(const Json::Value& jsonValue);
 
 		}
 
-		namespace JsonTilesetLoader {
+		namespace JsonTilesetImageLoader {
 
-			typedef struct Tiled_LoadTilesetImageValidationResult {
+			typedef struct Tiled_ValidationResult {
 				bool imagePathValid = true;
 				bool imageWidthValid = true;
 				bool imageHeightValid = true;
@@ -101,13 +107,21 @@ namespace r3 {
 						this->imageHeightValid;
 					return result;
 				}
-			} LoadTilesetImageValidationResult;
+			} ValidationResult;
 
-			typedef struct Tiled_LoadTilesetTileValidationResult {
+			ValidationResult validate(const Json::Value& jsonValue);
+
+			TilesetImageDefn convertToDefn(const Json::Value& jsonValue);
+
+		}
+
+		namespace JsonTilesetTileLoader {
+
+			typedef struct Tiled_ValidationResult {
 				bool rootValid = true;
 				bool idValid = true;
-				LoadTilesetImageValidationResult imageValidationResult;
-				std::vector<JsonCustomPropertyLoader::LoadCustomPropertyValidationResult> propertyValidationResultList;
+				JsonTilesetImageLoader::ValidationResult imageValidationResult;
+				std::vector<JsonCustomPropertyLoader::ValidationResult> propertyValidationResultList;
 
 				bool isValid() {
 					bool propertyListValid = true;
@@ -122,9 +136,18 @@ namespace r3 {
 						propertyListValid;
 					return result;
 				}
-			} LoadTilesetTileValidationResult;
+			} ValidationResult;
 
-			typedef struct Tiled_LoadTilesetValidationResult {
+			ValidationResult validate(const Json::Value& jsonValue);
+
+			TilesetTileDefn convertToDefn(const Json::Value& jsonValue);
+
+		}
+
+		namespace JsonTilesetLoader {
+
+
+			typedef struct Tiled_ValidationResult {
 				bool versionValid = true;
 				bool typeValid = true;
 				bool nameValid = true;
@@ -137,9 +160,9 @@ namespace r3 {
 
 				bool tilesetTypeValid = true;
 
-				LoadTilesetImageValidationResult imageValidationResult;
-				std::vector<LoadTilesetTileValidationResult> tileValidationResultList;
-				std::vector<JsonCustomPropertyLoader::LoadCustomPropertyValidationResult> propertyValidationResultList;
+				JsonTilesetImageLoader::ValidationResult imageValidationResult;
+				std::vector<JsonTilesetTileLoader::ValidationResult> tileValidationResultList;
+				std::vector<JsonCustomPropertyLoader::ValidationResult> propertyValidationResultList;
 
 				bool isValid() {
 					bool tileListValid = true;
@@ -168,19 +191,11 @@ namespace r3 {
 						propertyListValid;
 					return result;
 				}
-			} LoadTilesetValidationResult;
+			} ValidationResult;
 
-			LoadTilesetImageValidationResult validateTilesetImage(const Json::Value& jsonValue);
+			ValidationResult validate(const Json::Value& jsonValue);
 
-			LoadTilesetTileValidationResult validateTilesetTile(const Json::Value& jsonValue);
-
-			LoadTilesetValidationResult validateTileset(const Json::Value& jsonValue);
-
-			TilesetImageDefn convertToTilesetImageDefn(const Json::Value& jsonValue);
-
-			TilesetTileDefn convertToTilesetTileDefn(const Json::Value& jsonValue);
-
-			TilesetDefn convertToTilesetDefn(const Json::Value& jsonValue);
+			TilesetDefn convertToDefn(const Json::Value& jsonValue);
 
 		}
 

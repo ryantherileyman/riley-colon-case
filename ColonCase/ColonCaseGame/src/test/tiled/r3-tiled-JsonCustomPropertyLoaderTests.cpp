@@ -17,19 +17,19 @@ namespace r3 {
 				return result;
 			}
 
-			bool testValidateCustomProperty_Valid() {
+			bool testValidate_Valid() {
 				Json::Value jsonValue = createValidJsonValue();
 
-				JsonCustomPropertyLoader::LoadCustomPropertyValidationResult validationResult = JsonCustomPropertyLoader::validateCustomProperty(jsonValue);
+				JsonCustomPropertyLoader::ValidationResult validationResult = JsonCustomPropertyLoader::validate(jsonValue);
 
 				bool result = validationResult.isValid();
 				return result;
 			}
 
-			bool testValidateCustomProperty_InvalidRoot() {
+			bool testValidate_InvalidRoot() {
 				Json::Value jsonValue = "must be an object";
 
-				JsonCustomPropertyLoader::LoadCustomPropertyValidationResult validationResult = JsonCustomPropertyLoader::validateCustomProperty(jsonValue);
+				JsonCustomPropertyLoader::ValidationResult validationResult = JsonCustomPropertyLoader::validate(jsonValue);
 
 				bool result =
 					!validationResult.rootValid &&
@@ -37,11 +37,11 @@ namespace r3 {
 				return result;
 			}
 
-			bool testValidateCustomProperty_MissingName() {
+			bool testValidate_MissingName() {
 				Json::Value jsonValue = createValidJsonValue();
 				jsonValue.removeMember(JsonPropertyName::NAME);
 
-				JsonCustomPropertyLoader::LoadCustomPropertyValidationResult validationResult = JsonCustomPropertyLoader::validateCustomProperty(jsonValue);
+				JsonCustomPropertyLoader::ValidationResult validationResult = JsonCustomPropertyLoader::validate(jsonValue);
 
 				bool result =
 					!validationResult.nameValid &&
@@ -49,11 +49,11 @@ namespace r3 {
 				return result;
 			}
 
-			bool testValidateCustomProperty_InvalidName() {
+			bool testValidate_InvalidName() {
 				Json::Value jsonValue = createValidJsonValue();
 				jsonValue[JsonPropertyName::NAME] = 3;
 
-				JsonCustomPropertyLoader::LoadCustomPropertyValidationResult validationResult = JsonCustomPropertyLoader::validateCustomProperty(jsonValue);
+				JsonCustomPropertyLoader::ValidationResult validationResult = JsonCustomPropertyLoader::validate(jsonValue);
 
 				bool result =
 					!validationResult.nameValid &&
@@ -61,11 +61,11 @@ namespace r3 {
 				return result;
 			}
 
-			bool testValidateCustomProperty_MissingType() {
+			bool testValidate_MissingType() {
 				Json::Value jsonValue = createValidJsonValue();
 				jsonValue.removeMember(JsonPropertyName::TYPE);
 
-				JsonCustomPropertyLoader::LoadCustomPropertyValidationResult validationResult = JsonCustomPropertyLoader::validateCustomProperty(jsonValue);
+				JsonCustomPropertyLoader::ValidationResult validationResult = JsonCustomPropertyLoader::validate(jsonValue);
 
 				bool result =
 					!validationResult.typeValid &&
@@ -73,21 +73,21 @@ namespace r3 {
 				return result;
 			}
 
-			bool testValidateCustomProperty_Type(const Json::Value& typeValue, bool expectedTypeValid) {
+			bool testValidate_Type(const Json::Value& typeValue, bool expectedTypeValid) {
 				Json::Value jsonValue = createValidJsonValue();
 				jsonValue[JsonPropertyName::TYPE] = typeValue;
 
-				JsonCustomPropertyLoader::LoadCustomPropertyValidationResult validationResult = JsonCustomPropertyLoader::validateCustomProperty(jsonValue);
+				JsonCustomPropertyLoader::ValidationResult validationResult = JsonCustomPropertyLoader::validate(jsonValue);
 
 				bool result = (validationResult.typeValid == expectedTypeValid);
 				return result;
 			}
 
-			bool testValidateCustomProperty_MissingValue() {
+			bool testValidate_MissingValue() {
 				Json::Value jsonValue = createValidJsonValue();
 				jsonValue.removeMember(JsonPropertyName::VALUE);
 
-				JsonCustomPropertyLoader::LoadCustomPropertyValidationResult validationResult = JsonCustomPropertyLoader::validateCustomProperty(jsonValue);
+				JsonCustomPropertyLoader::ValidationResult validationResult = JsonCustomPropertyLoader::validate(jsonValue);
 
 				bool result =
 					!validationResult.valueValid &&
@@ -95,31 +95,31 @@ namespace r3 {
 				return result;
 			}
 
-			bool testValidateCustomProperty_Value(const Json::Value& typeValue, const Json::Value& value, bool expectedValueValid) {
+			bool testValidate_Value(const Json::Value& typeValue, const Json::Value& value, bool expectedValueValid) {
 				Json::Value jsonValue = createValidJsonValue();
 				jsonValue[JsonPropertyName::TYPE] = typeValue;
 				jsonValue[JsonPropertyName::VALUE] = value;
 
-				JsonCustomPropertyLoader::LoadCustomPropertyValidationResult validationResult = JsonCustomPropertyLoader::validateCustomProperty(jsonValue);
+				JsonCustomPropertyLoader::ValidationResult validationResult = JsonCustomPropertyLoader::validate(jsonValue);
 
 				bool result = (validationResult.valueValid == expectedValueValid);
 				return result;
 			}
 
-			bool testLocalizeCustomPropertyValidationResult_Valid() {
-				JsonCustomPropertyLoader::LoadCustomPropertyValidationResult validationResult;
+			bool testLocalizeValidationResult_Valid() {
+				JsonCustomPropertyLoader::ValidationResult validationResult;
 
-				std::vector<std::string> errorList = JsonCustomPropertyLoader::localizeCustomPropertyValidationResult(validationResult);
+				std::vector<std::string> errorList = JsonCustomPropertyLoader::localizeValidationResult(validationResult);
 
 				bool result = errorList.empty();
 				return result;
 			}
 
-			bool testLocalizeCustomPropertyValidationResult_NameInvalid() {
-				JsonCustomPropertyLoader::LoadCustomPropertyValidationResult validationResult;
+			bool testLocalizeValidationResult_NameInvalid() {
+				JsonCustomPropertyLoader::ValidationResult validationResult;
 				validationResult.nameValid = false;
 
-				std::vector<std::string> errorList = JsonCustomPropertyLoader::localizeCustomPropertyValidationResult(validationResult);
+				std::vector<std::string> errorList = JsonCustomPropertyLoader::localizeValidationResult(validationResult);
 
 				auto blah = errorList.at(0).find("The \"name\" is invalid");
 
@@ -129,11 +129,11 @@ namespace r3 {
 				return result;
 			}
 
-			bool testLocalizeCustomPropertyValidationResult_TypeInvalid() {
-				JsonCustomPropertyLoader::LoadCustomPropertyValidationResult validationResult;
+			bool testLocalizeValidationResult_TypeInvalid() {
+				JsonCustomPropertyLoader::ValidationResult validationResult;
 				validationResult.typeValid = false;
 
-				std::vector<std::string> errorList = JsonCustomPropertyLoader::localizeCustomPropertyValidationResult(validationResult);
+				std::vector<std::string> errorList = JsonCustomPropertyLoader::localizeValidationResult(validationResult);
 
 				bool result =
 					(errorList.size() == 1) &&
@@ -141,11 +141,11 @@ namespace r3 {
 				return result;
 			}
 
-			bool testLocalizeCustomPropertyValidationResult_ValueInvalid() {
-				JsonCustomPropertyLoader::LoadCustomPropertyValidationResult validationResult;
+			bool testLocalizeValidationResult_ValueInvalid() {
+				JsonCustomPropertyLoader::ValidationResult validationResult;
 				validationResult.valueValid = false;
 
-				std::vector<std::string> errorList = JsonCustomPropertyLoader::localizeCustomPropertyValidationResult(validationResult);
+				std::vector<std::string> errorList = JsonCustomPropertyLoader::localizeValidationResult(validationResult);
 
 				bool result =
 					(errorList.size() == 1) &&
@@ -153,12 +153,12 @@ namespace r3 {
 				return result;
 			}
 
-			bool testConvertToCustomPropertyDefn_Boolean() {
+			bool testConvertToDefn_Boolean() {
 				Json::Value jsonValue = createValidJsonValue();
 				jsonValue[JsonPropertyName::TYPE] = JsonPropertyValue::CustomPropertyTypeValue::BOOLEAN;
 				jsonValue[JsonPropertyName::VALUE] = true;
 
-				CustomPropertyDefn defn = JsonCustomPropertyLoader::convertToCustomPropertyDefn(jsonValue);
+				CustomPropertyDefn defn = JsonCustomPropertyLoader::convertToDefn(jsonValue);
 
 				bool result =
 					(defn.name.compare("someProperty") == 0) &&
@@ -167,12 +167,12 @@ namespace r3 {
 				return result;
 			}
 
-			bool testConvertToCustomPropertyDefn_Color() {
+			bool testConvertToDefn_Color() {
 				Json::Value jsonValue = createValidJsonValue();
 				jsonValue[JsonPropertyName::TYPE] = JsonPropertyValue::CustomPropertyTypeValue::COLOR;
 				jsonValue[JsonPropertyName::VALUE] = "#ffc06060";
 
-				CustomPropertyDefn defn = JsonCustomPropertyLoader::convertToCustomPropertyDefn(jsonValue);
+				CustomPropertyDefn defn = JsonCustomPropertyLoader::convertToDefn(jsonValue);
 
 				bool result =
 					(defn.name.compare("someProperty") == 0) &&
@@ -181,12 +181,12 @@ namespace r3 {
 				return result;
 			}
 
-			bool testConvertToCustomPropertyDefn_Float() {
+			bool testConvertToDefn_Float() {
 				Json::Value jsonValue = createValidJsonValue();
 				jsonValue[JsonPropertyName::TYPE] = JsonPropertyValue::CustomPropertyTypeValue::FLOAT;
 				jsonValue[JsonPropertyName::VALUE] = 3.6;
 
-				CustomPropertyDefn defn = JsonCustomPropertyLoader::convertToCustomPropertyDefn(jsonValue);
+				CustomPropertyDefn defn = JsonCustomPropertyLoader::convertToDefn(jsonValue);
 
 				bool result =
 					(defn.name.compare("someProperty") == 0) &&
@@ -195,12 +195,12 @@ namespace r3 {
 				return result;
 			}
 
-			bool testConvertToCustomPropertyDefn_File() {
+			bool testConvertToDefn_File() {
 				Json::Value jsonValue = createValidJsonValue();
 				jsonValue[JsonPropertyName::TYPE] = JsonPropertyValue::CustomPropertyTypeValue::FILE;
 				jsonValue[JsonPropertyName::VALUE] = "../path/image.png";
 
-				CustomPropertyDefn defn = JsonCustomPropertyLoader::convertToCustomPropertyDefn(jsonValue);
+				CustomPropertyDefn defn = JsonCustomPropertyLoader::convertToDefn(jsonValue);
 
 				bool result =
 					(defn.name.compare("someProperty") == 0) &&
@@ -209,12 +209,12 @@ namespace r3 {
 				return result;
 			}
 
-			bool testConvertToCustomPropertyDefn_Integer() {
+			bool testConvertToDefn_Integer() {
 				Json::Value jsonValue = createValidJsonValue();
 				jsonValue[JsonPropertyName::TYPE] = JsonPropertyValue::CustomPropertyTypeValue::INTEGER;
 				jsonValue[JsonPropertyName::VALUE] = 3;
 
-				CustomPropertyDefn defn = JsonCustomPropertyLoader::convertToCustomPropertyDefn(jsonValue);
+				CustomPropertyDefn defn = JsonCustomPropertyLoader::convertToDefn(jsonValue);
 
 				bool result =
 					(defn.name.compare("someProperty") == 0) &&
@@ -223,12 +223,12 @@ namespace r3 {
 				return result;
 			}
 
-			bool testConvertToCustomPropertyDefn_Object() {
+			bool testConvertToDefn_Object() {
 				Json::Value jsonValue = createValidJsonValue();
 				jsonValue[JsonPropertyName::TYPE] = JsonPropertyValue::CustomPropertyTypeValue::OBJECT;
 				jsonValue[JsonPropertyName::VALUE] = 3;
 
-				CustomPropertyDefn defn = JsonCustomPropertyLoader::convertToCustomPropertyDefn(jsonValue);
+				CustomPropertyDefn defn = JsonCustomPropertyLoader::convertToDefn(jsonValue);
 
 				bool result =
 					(defn.name.compare("someProperty") == 0) &&
@@ -237,12 +237,12 @@ namespace r3 {
 				return result;
 			}
 
-			bool testConvertToCustomPropertyDefn_String() {
+			bool testConvertToDefn_String() {
 				Json::Value jsonValue = createValidJsonValue();
 				jsonValue[JsonPropertyName::TYPE] = JsonPropertyValue::CustomPropertyTypeValue::STRING;
 				jsonValue[JsonPropertyName::VALUE] = "some value";
 
-				CustomPropertyDefn defn = JsonCustomPropertyLoader::convertToCustomPropertyDefn(jsonValue);
+				CustomPropertyDefn defn = JsonCustomPropertyLoader::convertToDefn(jsonValue);
 
 				bool result =
 					(defn.name.compare("someProperty") == 0) &&

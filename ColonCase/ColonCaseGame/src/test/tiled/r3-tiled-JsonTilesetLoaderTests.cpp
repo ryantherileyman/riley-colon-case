@@ -25,82 +25,6 @@ namespace r3 {
 				return result;
 			}
 
-			bool testValidateTilesetImage_Valid() {
-				Json::Value jsonValue = createValidTilesetImageJsonValue();
-
-				JsonTilesetLoader::LoadTilesetImageValidationResult validationResult = JsonTilesetLoader::validateTilesetImage(jsonValue);
-
-				bool result = validationResult.isValid();
-				return result;
-			}
-
-			bool testValidateTilesetImage_MissingImagePath() {
-				Json::Value jsonValue = createValidTilesetImageJsonValue();
-				jsonValue.removeMember(JsonPropertyName::Tileset::IMAGE_PATH);
-
-				JsonTilesetLoader::LoadTilesetImageValidationResult validationResult = JsonTilesetLoader::validateTilesetImage(jsonValue);
-
-				bool result =
-					!validationResult.imagePathValid &&
-					!validationResult.isValid();
-				return result;
-			}
-
-			bool testValidateTilesetImage_InvalidImagePath() {
-				Json::Value jsonValue = createValidTilesetImageJsonValue();
-				jsonValue[JsonPropertyName::Tileset::IMAGE_PATH] = 5;
-
-				JsonTilesetLoader::LoadTilesetImageValidationResult validationResult = JsonTilesetLoader::validateTilesetImage(jsonValue);
-
-				bool result =
-					!validationResult.imagePathValid &&
-					!validationResult.isValid();
-				return result;
-			}
-
-			bool testValidateTilesetImage_MissingImageWidth() {
-				Json::Value jsonValue = createValidTilesetImageJsonValue();
-				jsonValue.removeMember(JsonPropertyName::Tileset::IMAGE_WIDTH);
-
-				JsonTilesetLoader::LoadTilesetImageValidationResult validationResult = JsonTilesetLoader::validateTilesetImage(jsonValue);
-
-				bool result =
-					!validationResult.imageWidthValid &&
-					!validationResult.isValid();
-				return result;
-			}
-
-			bool testValidateTilesetImage_ImageWidth(const Json::Value& imageWidthValue, bool expectedImageWidthValid) {
-				Json::Value jsonValue = createValidTilesetImageJsonValue();
-				jsonValue[JsonPropertyName::Tileset::IMAGE_WIDTH] = imageWidthValue;
-
-				JsonTilesetLoader::LoadTilesetImageValidationResult validationResult = JsonTilesetLoader::validateTilesetImage(jsonValue);
-
-				bool result = (validationResult.imageWidthValid == expectedImageWidthValid);
-				return result;
-			}
-
-			bool testValidateTilesetImage_MissingImageHeight() {
-				Json::Value jsonValue = createValidTilesetImageJsonValue();
-				jsonValue.removeMember(JsonPropertyName::Tileset::IMAGE_HEIGHT);
-
-				JsonTilesetLoader::LoadTilesetImageValidationResult validationResult = JsonTilesetLoader::validateTilesetImage(jsonValue);
-
-				bool result =
-					!validationResult.imageHeightValid &&
-					!validationResult.isValid();
-				return result;
-			}
-
-			bool testValidateTilesetImage_ImageHeight(const Json::Value& imageHeightValue, bool expectedImageHeightValid) {
-				Json::Value jsonValue = createValidTilesetImageJsonValue();
-				jsonValue[JsonPropertyName::Tileset::IMAGE_HEIGHT] = imageHeightValue;
-
-				JsonTilesetLoader::LoadTilesetImageValidationResult validationResult = JsonTilesetLoader::validateTilesetImage(jsonValue);
-
-				bool result = (validationResult.imageHeightValid == expectedImageHeightValid);
-				return result;
-			}
 
 			Json::Value createValidTilesetTileJsonValue() {
 				Json::Value result;
@@ -108,93 +32,6 @@ namespace r3 {
 				result[JsonPropertyName::Tileset::IMAGE_PATH] = "../path/tileset.png";
 				result[JsonPropertyName::Tileset::IMAGE_WIDTH] = 256;
 				result[JsonPropertyName::Tileset::IMAGE_HEIGHT] = 128;
-				return result;
-			}
-
-			bool testValidateTilesetTile_Valid_NoPropertyList() {
-				Json::Value jsonValue = createValidTilesetTileJsonValue();
-
-				JsonTilesetLoader::LoadTilesetTileValidationResult validationResult = JsonTilesetLoader::validateTilesetTile(jsonValue);
-
-				bool result = validationResult.isValid();
-				return result;
-			}
-
-			bool testValidateTilesetTile_Valid_WithPropertyList() {
-				Json::Value propertyListJsonValue;
-				propertyListJsonValue[0] = createValidCustomPropertyJsonValue();
-
-				Json::Value jsonValue = createValidTilesetTileJsonValue();
-				jsonValue[JsonPropertyName::PROPERTY_LIST] = propertyListJsonValue;
-
-				JsonTilesetLoader::LoadTilesetTileValidationResult validationResult = JsonTilesetLoader::validateTilesetTile(jsonValue);
-
-				bool result = validationResult.isValid();
-				return result;
-			}
-
-			bool testValidateTilesetTile_InvalidRoot() {
-				Json::Value jsonValue = "should be an object";
-
-				JsonTilesetLoader::LoadTilesetTileValidationResult validationResult = JsonTilesetLoader::validateTilesetTile(jsonValue);
-
-				bool result =
-					!validationResult.rootValid &&
-					!validationResult.isValid();
-				return result;
-			}
-
-			bool testValidateTilesetTile_MissingId() {
-				Json::Value jsonValue = createValidTilesetTileJsonValue();
-				jsonValue.removeMember(JsonPropertyName::ID);
-
-				JsonTilesetLoader::LoadTilesetTileValidationResult validationResult = JsonTilesetLoader::validateTilesetTile(jsonValue);
-
-				bool result =
-					!validationResult.idValid &&
-					!validationResult.isValid();
-				return result;
-			}
-
-			bool testValidateTilesetTile_InvalidId() {
-				Json::Value jsonValue = createValidTilesetTileJsonValue();
-				jsonValue[JsonPropertyName::ID] = "no strings allowed";
-
-				JsonTilesetLoader::LoadTilesetTileValidationResult validationResult = JsonTilesetLoader::validateTilesetTile(jsonValue);
-
-				bool result =
-					!validationResult.idValid &&
-					!validationResult.isValid();
-				return result;
-			}
-
-			bool testValidateTilesetTile_InvalidImage() {
-				Json::Value jsonValue = createValidTilesetTileJsonValue();
-				jsonValue.removeMember(JsonPropertyName::Tileset::IMAGE_PATH);
-
-				JsonTilesetLoader::LoadTilesetTileValidationResult validationResult = JsonTilesetLoader::validateTilesetTile(jsonValue);
-
-				bool result =
-					!validationResult.imageValidationResult.isValid() &&
-					!validationResult.isValid();
-				return result;
-			}
-
-			bool testValidateTilesetTile_InvalidPropertyList() {
-				Json::Value propertyJsonValue = createValidCustomPropertyJsonValue();
-				propertyJsonValue.removeMember(JsonPropertyName::NAME);
-
-				Json::Value propertyListJsonValue;
-				propertyListJsonValue[0] = propertyJsonValue;
-
-				Json::Value jsonValue = createValidTilesetTileJsonValue();
-				jsonValue[JsonPropertyName::PROPERTY_LIST] = propertyListJsonValue;
-
-				JsonTilesetLoader::LoadTilesetTileValidationResult validationResult = JsonTilesetLoader::validateTilesetTile(jsonValue);
-
-				bool result =
-					!validationResult.propertyValidationResultList.at(0).isValid() &&
-					!validationResult.isValid();
 				return result;
 			}
 
@@ -234,20 +71,20 @@ namespace r3 {
 				return result;
 			}
 
-			bool testValidateTileset_Valid() {
+			bool testValidate_Valid() {
 				Json::Value jsonValue = createValidMultiImageTilesetJsonValue();
 
-				JsonTilesetLoader::LoadTilesetValidationResult validationResult = JsonTilesetLoader::validateTileset(jsonValue);
+				JsonTilesetLoader::ValidationResult validationResult = JsonTilesetLoader::validate(jsonValue);
 
 				bool result = validationResult.isValid();
 				return result;
 			}
 
-			bool testValidateTileset_MissingVersion() {
+			bool testValidate_MissingVersion() {
 				Json::Value jsonValue = createValidMultiImageTilesetJsonValue();
 				jsonValue.removeMember(JsonPropertyName::VERSION);
 
-				JsonTilesetLoader::LoadTilesetValidationResult validationResult = JsonTilesetLoader::validateTileset(jsonValue);
+				JsonTilesetLoader::ValidationResult validationResult = JsonTilesetLoader::validate(jsonValue);
 
 				bool result =
 					!validationResult.versionValid &&
@@ -255,11 +92,11 @@ namespace r3 {
 				return result;
 			}
 
-			bool testValidateTileset_InvalidVersion() {
+			bool testValidate_InvalidVersion() {
 				Json::Value jsonValue = createValidMultiImageTilesetJsonValue();
 				jsonValue[JsonPropertyName::VERSION] = "should be float";
 
-				JsonTilesetLoader::LoadTilesetValidationResult validationResult = JsonTilesetLoader::validateTileset(jsonValue);
+				JsonTilesetLoader::ValidationResult validationResult = JsonTilesetLoader::validate(jsonValue);
 
 				bool result =
 					!validationResult.versionValid &&
@@ -267,11 +104,11 @@ namespace r3 {
 				return result;
 			}
 
-			bool testValidateTileset_MissingType() {
+			bool testValidate_MissingType() {
 				Json::Value jsonValue = createValidMultiImageTilesetJsonValue();
 				jsonValue.removeMember(JsonPropertyName::TYPE);
 
-				JsonTilesetLoader::LoadTilesetValidationResult validationResult = JsonTilesetLoader::validateTileset(jsonValue);
+				JsonTilesetLoader::ValidationResult validationResult = JsonTilesetLoader::validate(jsonValue);
 
 				bool result =
 					!validationResult.typeValid &&
@@ -279,11 +116,11 @@ namespace r3 {
 				return result;
 			}
 
-			bool testValidateTileset_InvalidType() {
+			bool testValidate_InvalidType() {
 				Json::Value jsonValue = createValidMultiImageTilesetJsonValue();
 				jsonValue[JsonPropertyName::TYPE] = JsonPropertyValue::FileTypeValue::MAP;
 
-				JsonTilesetLoader::LoadTilesetValidationResult validationResult = JsonTilesetLoader::validateTileset(jsonValue);
+				JsonTilesetLoader::ValidationResult validationResult = JsonTilesetLoader::validate(jsonValue);
 
 				bool result =
 					!validationResult.typeValid &&
@@ -291,11 +128,11 @@ namespace r3 {
 				return result;
 			}
 
-			bool testValidateTileset_MissingColumns() {
+			bool testValidate_MissingColumns() {
 				Json::Value jsonValue = createValidMultiImageTilesetJsonValue();
 				jsonValue.removeMember(JsonPropertyName::Tileset::COLUMNS);
 
-				JsonTilesetLoader::LoadTilesetValidationResult validationResult = JsonTilesetLoader::validateTileset(jsonValue);
+				JsonTilesetLoader::ValidationResult validationResult = JsonTilesetLoader::validate(jsonValue);
 
 				bool result =
 					!validationResult.columnsValid &&
@@ -303,21 +140,21 @@ namespace r3 {
 				return result;
 			}
 
-			bool testValidateTileset_Columns(const Json::Value& columnsValue, bool expectedColumnsValid) {
+			bool testValidate_Columns(const Json::Value& columnsValue, bool expectedColumnsValid) {
 				Json::Value jsonValue = createValidMultiImageTilesetJsonValue();
 				jsonValue[JsonPropertyName::Tileset::COLUMNS] = columnsValue;
 
-				JsonTilesetLoader::LoadTilesetValidationResult validationResult = JsonTilesetLoader::validateTileset(jsonValue);
+				JsonTilesetLoader::ValidationResult validationResult = JsonTilesetLoader::validate(jsonValue);
 
 				bool result = (validationResult.columnsValid == expectedColumnsValid);
 				return result;
 			}
 
-			bool testValidateTileset_MissingTileCount() {
+			bool testValidate_MissingTileCount() {
 				Json::Value jsonValue = createValidMultiImageTilesetJsonValue();
 				jsonValue.removeMember(JsonPropertyName::Tileset::TILE_COUNT);
 
-				JsonTilesetLoader::LoadTilesetValidationResult validationResult = JsonTilesetLoader::validateTileset(jsonValue);
+				JsonTilesetLoader::ValidationResult validationResult = JsonTilesetLoader::validate(jsonValue);
 
 				bool result =
 					!validationResult.tileCountValid &&
@@ -325,21 +162,21 @@ namespace r3 {
 				return result;
 			}
 
-			bool testValidateTileset_TileCount(const Json::Value& tileCountValue, bool expectedTileCountValid) {
+			bool testValidate_TileCount(const Json::Value& tileCountValue, bool expectedTileCountValid) {
 				Json::Value jsonValue = createValidMultiImageTilesetJsonValue();
 				jsonValue[JsonPropertyName::Tileset::TILE_COUNT] = tileCountValue;
 
-				JsonTilesetLoader::LoadTilesetValidationResult validationResult = JsonTilesetLoader::validateTileset(jsonValue);
+				JsonTilesetLoader::ValidationResult validationResult = JsonTilesetLoader::validate(jsonValue);
 
 				bool result = (validationResult.tileCountValid == expectedTileCountValid);
 				return result;
 			}
 
-			bool testValidateTileset_MissingTileWidth() {
+			bool testValidate_MissingTileWidth() {
 				Json::Value jsonValue = createValidMultiImageTilesetJsonValue();
 				jsonValue.removeMember(JsonPropertyName::Tileset::TILE_WIDTH);
 
-				JsonTilesetLoader::LoadTilesetValidationResult validationResult = JsonTilesetLoader::validateTileset(jsonValue);
+				JsonTilesetLoader::ValidationResult validationResult = JsonTilesetLoader::validate(jsonValue);
 
 				bool result =
 					!validationResult.tileWidthValid &&
@@ -347,21 +184,21 @@ namespace r3 {
 				return result;
 			}
 
-			bool testValidateTileset_TileWidth(const Json::Value& tileWidthValue, bool expectedTileWidthValid) {
+			bool testValidate_TileWidth(const Json::Value& tileWidthValue, bool expectedTileWidthValid) {
 				Json::Value jsonValue = createValidMultiImageTilesetJsonValue();
 				jsonValue[JsonPropertyName::Tileset::TILE_WIDTH] = tileWidthValue;
 
-				JsonTilesetLoader::LoadTilesetValidationResult validationResult = JsonTilesetLoader::validateTileset(jsonValue);
+				JsonTilesetLoader::ValidationResult validationResult = JsonTilesetLoader::validate(jsonValue);
 
 				bool result = (validationResult.tileWidthValid == expectedTileWidthValid);
 				return result;
 			}
 
-			bool testValidateTileset_MissingTileHeight() {
+			bool testValidate_MissingTileHeight() {
 				Json::Value jsonValue = createValidMultiImageTilesetJsonValue();
 				jsonValue.removeMember(JsonPropertyName::Tileset::TILE_HEIGHT);
 
-				JsonTilesetLoader::LoadTilesetValidationResult validationResult = JsonTilesetLoader::validateTileset(jsonValue);
+				JsonTilesetLoader::ValidationResult validationResult = JsonTilesetLoader::validate(jsonValue);
 
 				bool result =
 					!validationResult.tileHeightValid &&
@@ -369,20 +206,20 @@ namespace r3 {
 				return result;
 			}
 
-			bool testValidateTileset_TileHeight(const Json::Value& tileHeightValue, bool expectedTileHeightValid) {
+			bool testValidate_TileHeight(const Json::Value& tileHeightValue, bool expectedTileHeightValid) {
 				Json::Value jsonValue = createValidMultiImageTilesetJsonValue();
 				jsonValue[JsonPropertyName::Tileset::TILE_HEIGHT] = tileHeightValue;
 
-				JsonTilesetLoader::LoadTilesetValidationResult validationResult = JsonTilesetLoader::validateTileset(jsonValue);
+				JsonTilesetLoader::ValidationResult validationResult = JsonTilesetLoader::validate(jsonValue);
 
 				bool result = (validationResult.tileHeightValid == expectedTileHeightValid);
 				return result;
 			}
 
-			bool testValidateTileset_MissingTilesetType() {
+			bool testValidate_MissingTilesetType() {
 				Json::Value jsonValue = createValidTilesetJsonValue();
 
-				JsonTilesetLoader::LoadTilesetValidationResult validationResult = JsonTilesetLoader::validateTileset(jsonValue);
+				JsonTilesetLoader::ValidationResult validationResult = JsonTilesetLoader::validate(jsonValue);
 
 				bool result =
 					!validationResult.tilesetTypeValid &&
@@ -390,11 +227,11 @@ namespace r3 {
 				return result;
 			}
 
-			bool testValidateTileset_EmptyMultiImageTileList() {
+			bool testValidate_EmptyMultiImageTileList() {
 				Json::Value jsonValue = createValidTilesetJsonValue();
 				jsonValue[JsonPropertyName::Tileset::TILE_LIST] = Json::arrayValue;
 
-				JsonTilesetLoader::LoadTilesetValidationResult validationResult = JsonTilesetLoader::validateTileset(jsonValue);
+				JsonTilesetLoader::ValidationResult validationResult = JsonTilesetLoader::validate(jsonValue);
 
 				bool result =
 					!validationResult.tilesetTypeValid &&
@@ -402,11 +239,11 @@ namespace r3 {
 				return result;
 			}
 
-			bool testValidateTileset_InvalidSingleImage() {
+			bool testValidate_InvalidSingleImage() {
 				Json::Value jsonValue = createValidSingleImageTilesetJsonValue();
 				jsonValue.removeMember(JsonPropertyName::Tileset::IMAGE_WIDTH);
 
-				JsonTilesetLoader::LoadTilesetValidationResult validationResult = JsonTilesetLoader::validateTileset(jsonValue);
+				JsonTilesetLoader::ValidationResult validationResult = JsonTilesetLoader::validate(jsonValue);
 
 				bool result =
 					!validationResult.imageValidationResult.isValid() &&
@@ -414,11 +251,11 @@ namespace r3 {
 				return result;
 			}
 
-			bool testValidateTileset_InvalidMultiImage() {
+			bool testValidate_InvalidMultiImage() {
 				Json::Value jsonValue = createValidMultiImageTilesetJsonValue();
 				jsonValue[JsonPropertyName::Tileset::TILE_LIST][0].removeMember(JsonPropertyName::Tileset::IMAGE_HEIGHT);
 
-				JsonTilesetLoader::LoadTilesetValidationResult validationResult = JsonTilesetLoader::validateTileset(jsonValue);
+				JsonTilesetLoader::ValidationResult validationResult = JsonTilesetLoader::validate(jsonValue);
 
 				bool result =
 					!validationResult.tileValidationResultList.at(0).isValid() &&
@@ -426,7 +263,7 @@ namespace r3 {
 				return result;
 			}
 
-			bool testValidateTileset_InvalidPropertyList() {
+			bool testValidate_InvalidPropertyList() {
 				Json::Value propertyJsonValue = createValidCustomPropertyJsonValue();
 				propertyJsonValue.removeMember(JsonPropertyName::NAME);
 
@@ -436,7 +273,7 @@ namespace r3 {
 				Json::Value jsonValue = createValidSingleImageTilesetJsonValue();
 				jsonValue[JsonPropertyName::PROPERTY_LIST] = propertyListJsonValue;
 
-				JsonTilesetLoader::LoadTilesetValidationResult validationResult = JsonTilesetLoader::validateTileset(jsonValue);
+				JsonTilesetLoader::ValidationResult validationResult = JsonTilesetLoader::validate(jsonValue);
 
 				bool result =
 					!validationResult.propertyValidationResultList.at(0).isValid() &&
@@ -444,54 +281,10 @@ namespace r3 {
 				return result;
 			}
 
-			bool testConvertToTilesetImageDefn() {
-				Json::Value jsonValue = createValidTilesetImageJsonValue();
-
-				TilesetImageDefn defn = JsonTilesetLoader::convertToTilesetImageDefn(jsonValue);
-
-				bool result =
-					(defn.imagePath.compare("../path/tileset.png") == 0) &&
-					(defn.imageWidth == 256) &&
-					(defn.imageHeight == 128);
-				return result;
-			}
-
-			bool testConvertToTilesetTileDefn_EmptyPropertyList() {
-				Json::Value jsonValue = createValidTilesetTileJsonValue();
-
-				TilesetTileDefn defn = JsonTilesetLoader::convertToTilesetTileDefn(jsonValue);
-
-				bool result =
-					(defn.id == 5) &&
-					(defn.imageDefn.imagePath.compare("../path/tileset.png") == 0) &&
-					(defn.imageDefn.imageWidth == 256) &&
-					(defn.imageDefn.imageHeight == 128) &&
-					(defn.propertyDefnList.empty());
-				return result;
-			}
-
-			bool testConvertToTilesetTileDefn_WithPropertyList() {
-				Json::Value propertyListJsonValue;
-				propertyListJsonValue[0] = createValidCustomPropertyJsonValue();
-
-				Json::Value jsonValue = createValidTilesetTileJsonValue();
-				jsonValue[JsonPropertyName::PROPERTY_LIST] = propertyListJsonValue;
-
-				TilesetTileDefn defn = JsonTilesetLoader::convertToTilesetTileDefn(jsonValue);
-
-				bool result =
-					(defn.id == 5) &&
-					(defn.imageDefn.imagePath.compare("../path/tileset.png") == 0) &&
-					(defn.imageDefn.imageWidth == 256) &&
-					(defn.imageDefn.imageHeight == 128) &&
-					(defn.propertyDefnList.at(0).name.compare("someProperty") == 0);
-				return result;
-			}
-
-			bool testConvertToTilesetDefn_SingleImage() {
+			bool testConvertToDefn_SingleImage() {
 				Json::Value jsonValue = createValidSingleImageTilesetJsonValue();
 
-				TilesetDefn defn = JsonTilesetLoader::convertToTilesetDefn(jsonValue);
+				TilesetDefn defn = JsonTilesetLoader::convertToDefn(jsonValue);
 
 				bool result =
 					(lround(defn.version * 10) == 14) &&
@@ -511,14 +304,14 @@ namespace r3 {
 				return result;
 			}
 
-			bool testConvertToTilesetDefn_MultiImage() {
+			bool testConvertToDefn_MultiImage() {
 				Json::Value propertyListJsonValue;
 				propertyListJsonValue[0] = createValidCustomPropertyJsonValue();
 
 				Json::Value jsonValue = createValidMultiImageTilesetJsonValue();
 				jsonValue[JsonPropertyName::PROPERTY_LIST] = propertyListJsonValue;
 
-				TilesetDefn defn = JsonTilesetLoader::convertToTilesetDefn(jsonValue);
+				TilesetDefn defn = JsonTilesetLoader::convertToDefn(jsonValue);
 
 				bool result =
 					(lround(defn.version * 10) == 14l) &&

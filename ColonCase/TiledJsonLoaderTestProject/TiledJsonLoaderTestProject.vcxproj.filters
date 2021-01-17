@@ -62,5 +62,17 @@
     <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonTilesetLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonTilesetImageLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonTilesetTileLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonTilesetImageLoaderTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonTilesetTileLoaderTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

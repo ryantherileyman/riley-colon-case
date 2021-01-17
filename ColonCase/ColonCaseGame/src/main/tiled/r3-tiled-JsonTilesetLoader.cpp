@@ -11,43 +11,6 @@ namespace r3 {
 
 		namespace JsonTilesetLoader {
 
-			bool dimensionValueValid(const Json::Value& jsonValue, const char* propertyName) {
-				bool result =
-					JsonValidationUtils::requiredInt(jsonValue, propertyName) &&
-					JsonValidationUtils::intInRange(jsonValue, propertyName, IntRange::createMin(1));
-				return result;
-			}
-
-			LoadTilesetImageValidationResult validateTilesetImage(const Json::Value& jsonValue) {
-				LoadTilesetImageValidationResult result;
-
-				result.imagePathValid = JsonValidationUtils::requiredString(jsonValue, JsonPropertyName::Tileset::IMAGE_PATH);
-				result.imageWidthValid = dimensionValueValid(jsonValue, JsonPropertyName::Tileset::IMAGE_WIDTH);
-				result.imageHeightValid = dimensionValueValid(jsonValue, JsonPropertyName::Tileset::IMAGE_HEIGHT);
-
-				return result;
-			}
-
-			LoadTilesetTileValidationResult validateTilesetTile(const Json::Value& jsonValue) {
-				LoadTilesetTileValidationResult result;
-
-				result.rootValid = jsonValue.isObject();
-
-				if (result.rootValid) {
-					result.idValid = JsonValidationUtils::requiredInt(jsonValue, JsonPropertyName::ID);
-					result.imageValidationResult = validateTilesetImage(jsonValue);
-
-					if (JsonValidationUtils::optionalArray(jsonValue, JsonPropertyName::PROPERTY_LIST)) {
-						Json::Value propertyListValue = jsonValue[JsonPropertyName::PROPERTY_LIST];
-						for (Json::ArrayIndex index = 0; index < propertyListValue.size(); index++) {
-							result.propertyValidationResultList.push_back(JsonCustomPropertyLoader::validateCustomProperty(propertyListValue[index]));
-						}
-					}
-				}
-
-				return result;
-			}
-
 			bool typeValueValid(const Json::Value& jsonValue) {
 				bool result = JsonValidationUtils::requiredString(jsonValue, JsonPropertyName::TYPE);
 				if (result) {
@@ -88,16 +51,16 @@ namespace r3 {
 				return result;
 			}
 
-			LoadTilesetValidationResult validateTileset(const Json::Value& jsonValue) {
-				LoadTilesetValidationResult result;
+			ValidationResult validate(const Json::Value& jsonValue) {
+				ValidationResult result;
 
 				result.versionValid = JsonValidationUtils::requiredFloat(jsonValue, JsonPropertyName::VERSION);
 				result.typeValid = typeValueValid(jsonValue);
 				result.nameValid = JsonValidationUtils::requiredString(jsonValue, JsonPropertyName::NAME);
 				result.columnsValid = columnsValueValid(jsonValue);
-				result.tileCountValid = dimensionValueValid(jsonValue, JsonPropertyName::Tileset::TILE_COUNT);
-				result.tileWidthValid = dimensionValueValid(jsonValue, JsonPropertyName::Tileset::TILE_WIDTH);
-				result.tileHeightValid = dimensionValueValid(jsonValue, JsonPropertyName::Tileset::TILE_HEIGHT);
+				result.tileCountValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::TILE_COUNT);
+				result.tileWidthValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::TILE_WIDTH);
+				result.tileHeightValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::TILE_HEIGHT);
 
 				TilesetType tilesetType = resolveTilesetType(jsonValue);
 				result.tilesetTypeValid = (tilesetType != TilesetType::UNKNOWN);
@@ -105,14 +68,14 @@ namespace r3 {
 				switch (tilesetType) {
 
 				case TilesetType::IMAGE:
-					result.imageValidationResult.imageWidthValid = dimensionValueValid(jsonValue, JsonPropertyName::Tileset::IMAGE_WIDTH);
-					result.imageValidationResult.imageHeightValid = dimensionValueValid(jsonValue, JsonPropertyName::Tileset::IMAGE_HEIGHT);
+					result.imageValidationResult.imageWidthValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::IMAGE_WIDTH);
+					result.imageValidationResult.imageHeightValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::IMAGE_HEIGHT);
 					break;
 
 				case TilesetType::TILE_LIST:
 					Json::Value tileListValue = jsonValue[JsonPropertyName::Tileset::TILE_LIST];
 					for (Json::ArrayIndex index = 0; index < tileListValue.size(); index++) {
-						result.tileValidationResultList.push_back(validateTilesetTile(tileListValue[index]));
+						result.tileValidationResultList.push_back(JsonTilesetTileLoader::validate(tileListValue[index]));
 					}
 					break;
 				}
@@ -120,40 +83,14 @@ namespace r3 {
 				if (JsonValidationUtils::optionalArray(jsonValue, JsonPropertyName::PROPERTY_LIST)) {
 					Json::Value propertyListValue = jsonValue[JsonPropertyName::PROPERTY_LIST];
 					for (Json::ArrayIndex index = 0; index < propertyListValue.size(); index++) {
-						result.propertyValidationResultList.push_back(JsonCustomPropertyLoader::validateCustomProperty(propertyListValue[index]));
+						result.propertyValidationResultList.push_back(JsonCustomPropertyLoader::validate(propertyListValue[index]));
 					}
 				}
 
 				return result;
 			}
 
-			TilesetImageDefn convertToTilesetImageDefn(const Json::Value& jsonValue) {
-				TilesetImageDefn result;
-
-				result.imagePath = jsonValue[JsonPropertyName::Tileset::IMAGE_PATH].asString();
-				result.imageWidth = jsonValue[JsonPropertyName::Tileset::IMAGE_WIDTH].asInt();
-				result.imageHeight = jsonValue[JsonPropertyName::Tileset::IMAGE_HEIGHT].asInt();
-
-				return result;
-			}
-
-			TilesetTileDefn convertToTilesetTileDefn(const Json::Value& jsonValue) {
-				TilesetTileDefn result;
-
-				result.id = jsonValue[JsonPropertyName::ID].asInt();
-				result.imageDefn = convertToTilesetImageDefn(jsonValue);
-
-				if (JsonValidationUtils::optionalArray(jsonValue, JsonPropertyName::PROPERTY_LIST)) {
-					Json::Value propertyListValue = jsonValue[JsonPropertyName::PROPERTY_LIST];
-					for (Json::ArrayIndex index = 0; index < propertyListValue.size(); index++) {
-						result.propertyDefnList.push_back(JsonCustomPropertyLoader::convertToCustomPropertyDefn(propertyListValue[index]));
-					}
-				}
-
-				return result;
-			}
-
-			TilesetDefn convertToTilesetDefn(const Json::Value& jsonValue) {
+			TilesetDefn convertToDefn(const Json::Value& jsonValue) {
 				TilesetDefn result;
 
 				result.version = jsonValue[JsonPropertyName::VERSION].asFloat();
@@ -169,14 +106,14 @@ namespace r3 {
 				switch (result.type) {
 
 				case TilesetType::IMAGE:
-					result.imageDefn = convertToTilesetImageDefn(jsonValue);
+					result.imageDefn = JsonTilesetImageLoader::convertToDefn(jsonValue);
 					break;
 
 				case TilesetType::TILE_LIST:
 					if (JsonValidationUtils::optionalArray(jsonValue, JsonPropertyName::Tileset::TILE_LIST)) {
 						Json::Value tileListValue = jsonValue[JsonPropertyName::Tileset::TILE_LIST];
 						for (Json::ArrayIndex index = 0; index < tileListValue.size(); index++) {
-							result.tileDefnList.push_back(convertToTilesetTileDefn(tileListValue[index]));
+							result.tileDefnList.push_back(JsonTilesetTileLoader::convertToDefn(tileListValue[index]));
 						}
 					}
 					break;
@@ -186,7 +123,7 @@ namespace r3 {
 				if (JsonValidationUtils::optionalArray(jsonValue, JsonPropertyName::PROPERTY_LIST)) {
 					Json::Value propertyListValue = jsonValue[JsonPropertyName::PROPERTY_LIST];
 					for (Json::ArrayIndex index = 0; index < propertyListValue.size(); index++) {
-						result.propertyDefnList.push_back(JsonCustomPropertyLoader::convertToCustomPropertyDefn(propertyListValue[index]));
+						result.propertyDefnList.push_back(JsonCustomPropertyLoader::convertToDefn(propertyListValue[index]));
 					}
 				}
 
