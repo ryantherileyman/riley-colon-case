@@ -160,6 +160,10 @@ void runJsonTilesetLoaderTests() {
 
 	assert(JsonTilesetLoaderTests::testConvertToDefn_SingleImage());
 	assert(JsonTilesetLoaderTests::testConvertToDefn_MultiImage());
+
+	assert(JsonTilesetLoaderTests::testLoadFromJsonFile_InvalidJson());
+	assert(JsonTilesetLoaderTests::testLoadFromJsonFile_InvalidTileset());
+	assert(JsonTilesetLoaderTests::testLoadFromJsonFile_ValidTileset());
 }
 
 int main() {

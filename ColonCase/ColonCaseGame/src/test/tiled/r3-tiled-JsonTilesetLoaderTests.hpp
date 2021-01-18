@@ -101,6 +101,10 @@ namespace r3 {
 			bool testConvertToDefn_SingleImage();
 			bool testConvertToDefn_MultiImage();
 
+			bool testLoadFromJsonFile_InvalidJson();
+			bool testLoadFromJsonFile_InvalidTileset();
+			bool testLoadFromJsonFile_ValidTileset();
+
 		}
 
 	}

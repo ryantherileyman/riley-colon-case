@@ -154,7 +154,6 @@ namespace r3 {
 
 		namespace JsonTilesetLoader {
 
-
 			typedef struct Tiled_ValidationResult {
 				bool versionValid = true;
 				bool typeValid = true;
@@ -206,6 +205,13 @@ namespace r3 {
 			std::vector<std::string> localizeValidationResult(const ValidationResult& validationResult);
 
 			TilesetDefn convertToDefn(const Json::Value& jsonValue);
+
+			typedef struct Tiled_LoadTilesetResult {
+				std::vector<std::string> errorList;
+				TilesetDefn tilesetDefn;
+			} LoadTilesetResult;
+
+			LoadTilesetResult loadFromJsonFile(const char* filePath);
 
 		}
 

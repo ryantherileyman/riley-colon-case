@@ -1,0 +1,19 @@
+{
+  "version": 1.4,
+  "type": "tileset",
+  "name": "Ground",
+  "columns": 0,
+  "tilecount": 1,
+  "tilewidth": 128,
+  "tileheight": 128,
+  "margin": 1,
+  "spacing": 0,
+  "tiles": [
+    {
+      "id": 1,
+      "image": "texture.png",
+      "imagewidth": 128,
+      "imageheight": 128
+    }
+  ]
+}

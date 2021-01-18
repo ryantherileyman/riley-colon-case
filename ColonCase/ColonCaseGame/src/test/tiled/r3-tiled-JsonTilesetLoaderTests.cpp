@@ -504,6 +504,33 @@ namespace r3 {
 				return result;
 			}
 
+			bool testLoadFromJsonFile_InvalidJson() {
+				JsonTilesetLoader::LoadTilesetResult loadTilesetResult = JsonTilesetLoader::loadFromJsonFile("resources/invalid_json.json");
+
+				bool result =
+					(loadTilesetResult.errorList.size() == 1) &&
+					(loadTilesetResult.errorList.at(0).find("Missing '}' or object member name") != std::string::npos);
+				return result;
+			}
+
+			bool testLoadFromJsonFile_InvalidTileset() {
+				JsonTilesetLoader::LoadTilesetResult loadTilesetResult = JsonTilesetLoader::loadFromJsonFile("resources/invalid_tileset.json");
+
+				bool result =
+					(loadTilesetResult.errorList.size() == 1) &&
+					(loadTilesetResult.errorList.at(0).find("The \"name\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLoadFromJsonFile_ValidTileset() {
+				JsonTilesetLoader::LoadTilesetResult loadTilesetResult = JsonTilesetLoader::loadFromJsonFile("resources/valid_tileset.json");
+
+				bool result =
+					(loadTilesetResult.errorList.empty()) &&
+					(loadTilesetResult.tilesetDefn.name.compare("Ground") == 0);
+				return result;
+			}
+
 		}
 
 	}

@@ -199,6 +199,24 @@ namespace r3 {
 				return result;
 			}
 
+			LoadTilesetResult loadFromJsonFile(const char* filePath) {
+				LoadTilesetResult result;
+
+				r3::JsonLoaderUtils::LoadJsonDataResult loadJsonDataResult = r3::JsonLoaderUtils::loadFromJsonFile(filePath);
+				if (!loadJsonDataResult.parseErrorString.empty()) {
+					result.errorList.push_back(loadJsonDataResult.parseErrorString);
+				} else {
+					ValidationResult validationResult = validate(loadJsonDataResult.jsonValue);
+					if (!validationResult.isValid()) {
+						result.errorList = localizeValidationResult(validationResult);
+					} else {
+						result.tilesetDefn = convertToDefn(loadJsonDataResult.jsonValue);
+					}
+				}
+
+				return result;
+			}
+
 		}
 
 	}
