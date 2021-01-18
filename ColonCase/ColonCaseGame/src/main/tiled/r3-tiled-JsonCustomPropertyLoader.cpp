@@ -116,6 +116,14 @@ namespace r3 {
 				return result;
 			}
 
+			std::string localizePropertyListError(int index) {
+				char resultStr[128];
+				sprintf_s(resultStr, "Entry %d within the \"properties\" array is invalid.  Individual error messages follow...", index);
+
+				std::string result(resultStr);
+				return result;
+			}
+
 			std::vector<std::string> localizeValidationResult(const ValidationResult& validationResult) {
 				std::vector<std::string> result;
 

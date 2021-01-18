@@ -112,6 +112,55 @@ namespace r3 {
 				return result;
 			}
 
+			bool testLocalizeValidationResult_Valid() {
+				JsonTilesetTileLoader::ValidationResult validationResult;
+
+				std::vector<std::string> errorList = JsonTilesetTileLoader::localizeValidationResult(validationResult);
+
+				bool result = errorList.empty();
+				return result;
+			}
+
+			bool testLocalizeValidationResult_IdInvalid() {
+				JsonTilesetTileLoader::ValidationResult validationResult;
+				validationResult.idValid = false;
+
+				std::vector<std::string> errorList = JsonTilesetTileLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"id\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_ImageInvalid() {
+				JsonTilesetTileLoader::ValidationResult validationResult;
+				validationResult.imageValidationResult.imageHeightValid = false;
+
+				std::vector<std::string> errorList = JsonTilesetTileLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"imageheight\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_PropertyInvalid() {
+				JsonCustomPropertyLoader::ValidationResult propertyValidationResult;
+				propertyValidationResult.valueValid = false;
+
+				JsonTilesetTileLoader::ValidationResult validationResult;
+				validationResult.propertyValidationResultList.push_back(propertyValidationResult);
+
+				std::vector<std::string> errorList = JsonTilesetTileLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 2) &&
+					(errorList.at(0).find("Entry 1 within the \"properties\" array is invalid") != std::string::npos) &&
+					(errorList.at(1).find("The \"value\" is invalid") != std::string::npos);
+				return result;
+			}
+
 			bool testConvertToDefn_EmptyPropertyList() {
 				Json::Value jsonValue = createValidTilesetTileJsonValue();
 

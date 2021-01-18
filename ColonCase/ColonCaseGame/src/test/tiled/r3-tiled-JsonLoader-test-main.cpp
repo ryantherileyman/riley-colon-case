@@ -75,6 +75,11 @@ void runJsonTilesetImageLoaderTests() {
 	assert(JsonTilesetImageLoaderTests::testValidate_ImageHeight(0, false));
 	assert(JsonTilesetImageLoaderTests::testValidate_ImageHeight(true, false));
 
+	assert(JsonTilesetImageLoaderTests::testLocalizeValidationResult_Valid());
+	assert(JsonTilesetImageLoaderTests::testLocalizeValidationResult_ImagePathInvalid());
+	assert(JsonTilesetImageLoaderTests::testLocalizeValidationResult_ImageWidthInvalid());
+	assert(JsonTilesetImageLoaderTests::testLocalizeValidationResult_ImageHeightInvalid());
+
 	assert(JsonTilesetImageLoaderTests::testConvertToDefn());
 }
 
@@ -90,6 +95,11 @@ void runJsonTilesetTileLoaderTests() {
 	assert(JsonTilesetTileLoaderTests::testValidate_InvalidImage());
 
 	assert(JsonTilesetTileLoaderTests::testValidate_InvalidPropertyList());
+
+	assert(JsonTilesetTileLoaderTests::testLocalizeValidationResult_Valid());
+	assert(JsonTilesetTileLoaderTests::testLocalizeValidationResult_IdInvalid());
+	assert(JsonTilesetTileLoaderTests::testLocalizeValidationResult_ImageInvalid());
+	assert(JsonTilesetTileLoaderTests::testLocalizeValidationResult_PropertyInvalid());
 
 	assert(JsonTilesetTileLoaderTests::testConvertToDefn_EmptyPropertyList());
 	assert(JsonTilesetTileLoaderTests::testConvertToDefn_WithPropertyList());
@@ -132,6 +142,21 @@ void runJsonTilesetLoaderTests() {
 	assert(JsonTilesetLoaderTests::testValidate_InvalidMultiImage());
 
 	assert(JsonTilesetLoaderTests::testValidate_InvalidPropertyList());
+
+	assert(JsonTilesetLoaderTests::testLocalizeValidationResult_Valid());
+	assert(JsonTilesetLoaderTests::testLocalizeValidationResult_VersionInvalid());
+	assert(JsonTilesetLoaderTests::testLocalizeValidationResult_TypeInvalid());
+	assert(JsonTilesetLoaderTests::testLocalizeValidationResult_NameInvalid());
+	assert(JsonTilesetLoaderTests::testLocalizeValidationResult_ColumnsInvalid());
+	assert(JsonTilesetLoaderTests::testLocalizeValidationResult_TileCountInvalid());
+	assert(JsonTilesetLoaderTests::testLocalizeValidationResult_TileWidthInvalid());
+	assert(JsonTilesetLoaderTests::testLocalizeValidationResult_TileHeightInvalid());
+	assert(JsonTilesetLoaderTests::testLocalizeValidationResult_MarginInvalid());
+	assert(JsonTilesetLoaderTests::testLocalizeValidationResult_SpacingInvalid());
+	assert(JsonTilesetLoaderTests::testLocalizeValidationResult_TilesetTypeInvalid());
+	assert(JsonTilesetLoaderTests::testLocalizeValidationResult_ImageInvalid());
+	assert(JsonTilesetLoaderTests::testLocalizeValidationResult_TileInvalid());
+	assert(JsonTilesetLoaderTests::testLocalizeValidationResult_PropertyInvalid());
 
 	assert(JsonTilesetLoaderTests::testConvertToDefn_SingleImage());
 	assert(JsonTilesetLoaderTests::testConvertToDefn_MultiImage());

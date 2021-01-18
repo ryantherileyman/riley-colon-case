@@ -87,6 +87,8 @@ namespace r3 {
 
 			ValidationResult validate(const Json::Value& jsonValue);
 
+			std::string localizePropertyListError(int index);
+
 			std::vector<std::string> localizeValidationResult(const ValidationResult& validationResult);
 
 			CustomPropertyDefn convertToDefn(const Json::Value& jsonValue);
@@ -110,6 +112,8 @@ namespace r3 {
 			} ValidationResult;
 
 			ValidationResult validate(const Json::Value& jsonValue);
+
+			std::vector<std::string> localizeValidationResult(const ValidationResult& validationResult);
 
 			TilesetImageDefn convertToDefn(const Json::Value& jsonValue);
 
@@ -139,6 +143,10 @@ namespace r3 {
 			} ValidationResult;
 
 			ValidationResult validate(const Json::Value& jsonValue);
+
+			std::string localizeTileListError(int index);
+
+			std::vector<std::string> localizeValidationResult(const ValidationResult& validationResult);
 
 			TilesetTileDefn convertToDefn(const Json::Value& jsonValue);
 
@@ -194,6 +202,8 @@ namespace r3 {
 			} ValidationResult;
 
 			ValidationResult validate(const Json::Value& jsonValue);
+
+			std::vector<std::string> localizeValidationResult(const ValidationResult& validationResult);
 
 			TilesetDefn convertToDefn(const Json::Value& jsonValue);
 

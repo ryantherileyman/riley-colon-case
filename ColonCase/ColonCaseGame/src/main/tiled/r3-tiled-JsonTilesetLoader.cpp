@@ -90,6 +90,75 @@ namespace r3 {
 				return result;
 			}
 
+			std::vector<std::string> localizeValidationResult(const ValidationResult& validationResult) {
+				std::vector<std::string> result;
+
+				if (!validationResult.versionValid) {
+					result.push_back("The \"version\" is invalid.  It must be a valid JSON file format version number.");
+				}
+
+				if (!validationResult.typeValid) {
+					result.push_back("The \"type\" is invalid.  It must be \"tileset\".");
+				}
+
+				if (!validationResult.nameValid) {
+					result.push_back("The \"name\" is invalid.  It must be a string.");
+				}
+
+				if (!validationResult.columnsValid ) {
+					result.push_back("The \"columns\" is invalid.  It must be an integer of 0 or greater.");
+				}
+
+				if (!validationResult.tileCountValid) {
+					result.push_back("The \"tilecount\" is invalid.  It must be an integer of 1 or greater.");
+				}
+
+				if (!validationResult.tileWidthValid) {
+					result.push_back("The \"tilewidth\" is invalid.  It must be an integer of 1 or greater.");
+				}
+
+				if (!validationResult.tileHeightValid) {
+					result.push_back("The \"tileheight\" is invalid.  It must be an integer of 1 or greater.");
+				}
+
+				if (!validationResult.marginValid) {
+					result.push_back("The \"margin\" is invalid.  It must be an integer of 0 or greater.");
+				}
+
+				if (!validationResult.spacingValid) {
+					result.push_back("The \"spacing\" is invalid.  It must be an integer of 0 or greater.");
+				}
+
+				if (!validationResult.tilesetTypeValid) {
+					result.push_back("The tileset must contain either an \"image\" string referencing an image file (Based on Tileset Image), or a \"tiles\" array referencing multiple image files (Collection of Images).");
+				}
+
+				std::vector<std::string> imageValidationResult = JsonTilesetImageLoader::localizeValidationResult(validationResult.imageValidationResult);
+				result.insert(std::end(result), std::begin(imageValidationResult), std::end(imageValidationResult));
+
+				for (size_t index = 0; index < validationResult.tileValidationResultList.size(); index++) {
+					auto& currTileValidationResult = validationResult.tileValidationResultList[index];
+					std::vector<std::string> currErrorList = JsonTilesetTileLoader::localizeValidationResult(currTileValidationResult);
+
+					if (!currErrorList.empty()) {
+						result.push_back(JsonTilesetTileLoader::localizeTileListError(index + 1));
+						result.insert(std::end(result), std::begin(currErrorList), std::end(currErrorList));
+					}
+				}
+
+				for (size_t index = 0; index < validationResult.propertyValidationResultList.size(); index++) {
+					auto& currPropertyValidationResult = validationResult.propertyValidationResultList[index];
+					std::vector<std::string> currErrorList = JsonCustomPropertyLoader::localizeValidationResult(currPropertyValidationResult);
+
+					if (!currErrorList.empty()) {
+						result.push_back(JsonCustomPropertyLoader::localizePropertyListError(index + 1));
+						result.insert(std::end(result), std::begin(currErrorList), std::end(currErrorList));
+					}
+				}
+
+				return result;
+			}
+
 			TilesetDefn convertToDefn(const Json::Value& jsonValue) {
 				TilesetDefn result;
 

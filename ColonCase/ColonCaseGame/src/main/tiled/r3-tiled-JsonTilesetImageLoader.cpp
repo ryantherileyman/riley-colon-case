@@ -18,6 +18,24 @@ namespace r3 {
 				return result;
 			}
 
+			std::vector<std::string> localizeValidationResult(const ValidationResult& validationResult) {
+				std::vector<std::string> result;
+
+				if (!validationResult.imagePathValid) {
+					result.push_back("The \"image\" is invalid.  It must be a path to a valid image file.");
+				}
+
+				if (!validationResult.imageWidthValid) {
+					result.push_back("The \"imagewidth\" is invalid.  It must be an integer greater than 0.");
+				}
+
+				if (!validationResult.imageHeightValid) {
+					result.push_back("The \"imageheight\" is invalid.  It must be an integer greater than 0.");
+				}
+
+				return result;
+			}
+
 			TilesetImageDefn convertToDefn(const Json::Value& jsonValue) {
 				TilesetImageDefn result;
 

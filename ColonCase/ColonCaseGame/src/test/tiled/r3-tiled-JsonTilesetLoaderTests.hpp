@@ -19,6 +19,11 @@ namespace r3 {
 			bool testValidate_MissingImageHeight();
 			bool testValidate_ImageHeight(const Json::Value& imageHeightValue, bool expectedImageHeightValid);
 
+			bool testLocalizeValidationResult_Valid();
+			bool testLocalizeValidationResult_ImagePathInvalid();
+			bool testLocalizeValidationResult_ImageWidthInvalid();
+			bool testLocalizeValidationResult_ImageHeightInvalid();
+
 			bool testConvertToDefn();
 
 		}
@@ -36,6 +41,11 @@ namespace r3 {
 			bool testValidate_InvalidImage();
 
 			bool testValidate_InvalidPropertyList();
+
+			bool testLocalizeValidationResult_Valid();
+			bool testLocalizeValidationResult_IdInvalid();
+			bool testLocalizeValidationResult_ImageInvalid();
+			bool testLocalizeValidationResult_PropertyInvalid();
 
 			bool testConvertToDefn_EmptyPropertyList();
 			bool testConvertToDefn_WithPropertyList();
@@ -72,6 +82,21 @@ namespace r3 {
 			bool testValidate_InvalidMultiImage();
 
 			bool testValidate_InvalidPropertyList();
+
+			bool testLocalizeValidationResult_Valid();
+			bool testLocalizeValidationResult_VersionInvalid();
+			bool testLocalizeValidationResult_TypeInvalid();
+			bool testLocalizeValidationResult_NameInvalid();
+			bool testLocalizeValidationResult_ColumnsInvalid();
+			bool testLocalizeValidationResult_TileCountInvalid();
+			bool testLocalizeValidationResult_TileWidthInvalid();
+			bool testLocalizeValidationResult_TileHeightInvalid();
+			bool testLocalizeValidationResult_MarginInvalid();
+			bool testLocalizeValidationResult_SpacingInvalid();
+			bool testLocalizeValidationResult_TilesetTypeInvalid();
+			bool testLocalizeValidationResult_ImageInvalid();
+			bool testLocalizeValidationResult_TileInvalid();
+			bool testLocalizeValidationResult_PropertyInvalid();
 
 			bool testConvertToDefn_SingleImage();
 			bool testConvertToDefn_MultiImage();

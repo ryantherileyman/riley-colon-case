@@ -121,8 +121,6 @@ namespace r3 {
 
 				std::vector<std::string> errorList = JsonCustomPropertyLoader::localizeValidationResult(validationResult);
 
-				auto blah = errorList.at(0).find("The \"name\" is invalid");
-
 				bool result =
 					(errorList.size() == 1) &&
 					(errorList.at(0).find("The \"name\" is invalid") != std::string::npos);

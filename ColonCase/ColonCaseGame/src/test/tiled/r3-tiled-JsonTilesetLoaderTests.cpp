@@ -281,6 +281,181 @@ namespace r3 {
 				return result;
 			}
 
+			bool testLocalizeValidationResult_Valid() {
+				JsonTilesetLoader::ValidationResult validationResult;
+
+				std::vector<std::string> errorList = JsonTilesetLoader::localizeValidationResult(validationResult);
+
+				bool result = errorList.empty();
+				return result;
+			}
+
+			bool testLocalizeValidationResult_VersionInvalid() {
+				JsonTilesetLoader::ValidationResult validationResult;
+				validationResult.versionValid = false;
+
+				std::vector<std::string> errorList = JsonTilesetLoader::localizeValidationResult(validationResult);
+				
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"version\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_TypeInvalid() {
+				JsonTilesetLoader::ValidationResult validationResult;
+				validationResult.typeValid = false;
+
+				std::vector<std::string> errorList = JsonTilesetLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"type\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_NameInvalid() {
+				JsonTilesetLoader::ValidationResult validationResult;
+				validationResult.nameValid = false;
+
+				std::vector<std::string> errorList = JsonTilesetLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"name\" is invalid") != std::string::npos);
+				return result;
+
+			}
+
+			bool testLocalizeValidationResult_ColumnsInvalid() {
+				JsonTilesetLoader::ValidationResult validationResult;
+				validationResult.columnsValid = false;
+
+				std::vector<std::string> errorList = JsonTilesetLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"columns\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_TileCountInvalid() {
+				JsonTilesetLoader::ValidationResult validationResult;
+				validationResult.tileCountValid = false;
+
+				std::vector<std::string> errorList = JsonTilesetLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"tilecount\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_TileWidthInvalid() {
+				JsonTilesetLoader::ValidationResult validationResult;
+				validationResult.tileWidthValid = false;
+
+				std::vector<std::string> errorList = JsonTilesetLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"tilewidth\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_TileHeightInvalid() {
+				JsonTilesetLoader::ValidationResult validationResult;
+				validationResult.tileHeightValid = false;
+
+				std::vector<std::string> errorList = JsonTilesetLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"tileheight\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_MarginInvalid() {
+				JsonTilesetLoader::ValidationResult validationResult;
+				validationResult.marginValid = false;
+
+				std::vector<std::string> errorList = JsonTilesetLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"margin\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_SpacingInvalid() {
+				JsonTilesetLoader::ValidationResult validationResult;
+				validationResult.spacingValid = false;
+
+				std::vector<std::string> errorList = JsonTilesetLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"spacing\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_TilesetTypeInvalid() {
+				JsonTilesetLoader::ValidationResult validationResult;
+				validationResult.tilesetTypeValid = false;
+
+				std::vector<std::string> errorList = JsonTilesetLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The tileset must contain either") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_ImageInvalid() {
+				JsonTilesetLoader::ValidationResult validationResult;
+				validationResult.imageValidationResult.imageWidthValid = false;
+
+				std::vector<std::string> errorList = JsonTilesetLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"imagewidth\" is invalid") != std::string::npos);
+				return result;
+
+			}
+
+			bool testLocalizeValidationResult_TileInvalid() {
+				JsonTilesetTileLoader::ValidationResult tileValidationResult;
+				tileValidationResult.idValid = false;
+
+				JsonTilesetLoader::ValidationResult validationResult;
+				validationResult.tileValidationResultList.push_back(tileValidationResult);
+
+				std::vector<std::string> errorList = JsonTilesetLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 2) &&
+					(errorList.at(0).find("Entry 1 within the \"tiles\" array is invalid") != std::string::npos) &&
+					(errorList.at(1).find("The \"id\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_PropertyInvalid() {
+				JsonCustomPropertyLoader::ValidationResult propertyValidationResult;
+				propertyValidationResult.typeValid = false;
+
+				JsonTilesetLoader::ValidationResult validationResult;
+				validationResult.propertyValidationResultList.push_back(propertyValidationResult);
+
+				std::vector<std::string> errorList = JsonTilesetLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 2) &&
+					(errorList.at(0).find("Entry 1 within the \"properties\" array is invalid") != std::string::npos) &&
+					(errorList.at(1).find("The \"type\" is invalid") != std::string::npos);
+				return result;
+			}
+
 			bool testConvertToDefn_SingleImage() {
 				Json::Value jsonValue = createValidSingleImageTilesetJsonValue();
 

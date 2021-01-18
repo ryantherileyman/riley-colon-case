@@ -28,6 +28,37 @@ namespace r3 {
 				return result;
 			}
 
+			std::string localizeTileListError(int index) {
+				char resultStr[128];
+				sprintf_s(resultStr, "Entry %d within the \"tiles\" array is invalid.  Individual error messages follow...", index);
+
+				std::string result(resultStr);
+				return result;
+			}
+
+			std::vector<std::string> localizeValidationResult(const ValidationResult& validationResult) {
+				std::vector<std::string> result;
+
+				if (!validationResult.idValid) {
+					result.push_back("The \"id\" is invalid.  It must be an integer of 0 or higher.");
+				}
+
+				std::vector<std::string> imageValidationResult = JsonTilesetImageLoader::localizeValidationResult(validationResult.imageValidationResult);
+				result.insert(std::end(result), std::begin(imageValidationResult), std::end(imageValidationResult));
+
+				for (size_t index = 0; index < validationResult.propertyValidationResultList.size(); index++) {
+					auto& currPropertyValidationResult = validationResult.propertyValidationResultList[index];
+					std::vector<std::string> currErrorList = JsonCustomPropertyLoader::localizeValidationResult(currPropertyValidationResult);
+
+					if (!currErrorList.empty()) {
+						result.push_back(JsonCustomPropertyLoader::localizePropertyListError(index + 1));
+						result.insert(std::end(result), std::begin(currErrorList), std::end(currErrorList));
+					}
+				}
+
+				return result;
+			}
+
 			TilesetTileDefn convertToDefn(const Json::Value& jsonValue) {
 				TilesetTileDefn result;
 

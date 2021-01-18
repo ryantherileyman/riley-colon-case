@@ -93,6 +93,51 @@ namespace r3 {
 				return result;
 			}
 
+			bool testLocalizeValidationResult_Valid() {
+				JsonTilesetImageLoader::ValidationResult validationResult;
+
+				std::vector<std::string> errorList = JsonTilesetImageLoader::localizeValidationResult(validationResult);
+
+				bool result = errorList.empty();
+				return result;
+			}
+
+			bool testLocalizeValidationResult_ImagePathInvalid() {
+				JsonTilesetImageLoader::ValidationResult validationResult;
+				validationResult.imagePathValid = false;
+
+				std::vector<std::string> errorList = JsonTilesetImageLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"image\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_ImageWidthInvalid() {
+				JsonTilesetImageLoader::ValidationResult validationResult;
+				validationResult.imageWidthValid = false;
+
+				std::vector<std::string> errorList = JsonTilesetImageLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"imagewidth\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_ImageHeightInvalid() {
+				JsonTilesetImageLoader::ValidationResult validationResult;
+				validationResult.imageHeightValid = false;
+
+				std::vector<std::string> errorList = JsonTilesetImageLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"imageheight\" is invalid") != std::string::npos);
+				return result;
+			}
+
 			bool testConvertToDefn() {
 				Json::Value jsonValue = createValidTilesetImageJsonValue();
 
