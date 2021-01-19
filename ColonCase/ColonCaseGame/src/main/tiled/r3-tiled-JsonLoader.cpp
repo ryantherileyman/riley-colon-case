@@ -35,6 +35,24 @@ namespace r3 {
 
 			}
 
+			namespace Map {
+
+				const char* ORIENTATION = "orientation";
+				const char* INFINITE = "infinite";
+				const char* LAYER_LIST = "layers";
+
+				const char* DATA = "data";
+				const char* OBJECT_LIST = "objects";
+				const char* TILESET_LIST = "tilesets";
+
+				const char* POINT_FLAG = "point";
+				const char* ELLIPSE_FLAG = "ellipse";
+				const char* ROTATION = "rotation";
+				const char* POLYLINE = "polyline";
+				const char* POLYGON = "polygon";
+
+			}
+
 		}
 
 		namespace JsonPropertyValue {

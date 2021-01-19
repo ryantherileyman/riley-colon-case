@@ -4,6 +4,7 @@
 #include "../../main/tiled/r3-tiled-JsonLoader.hpp"
 #include "r3-tiled-JsonCustomPropertyLoaderTests.hpp"
 #include "r3-tiled-JsonTilesetLoaderTests.hpp"
+#include "r3-tiled-JsonMapLoaderTests.hpp"
 
 using namespace r3::tiled;
 
@@ -166,12 +167,38 @@ void runJsonTilesetLoaderTests() {
 	assert(JsonTilesetLoaderTests::testLoadFromJsonFile_ValidTileset());
 }
 
+void runJsonMapLayerObjectPointLoaderTests() {
+	assert(JsonMapLayerObjectPointLoaderTests::testValidate_Valid());
+
+	assert(JsonMapLayerObjectPointLoaderTests::testValidate_InvalidRoot());
+
+	assert(JsonMapLayerObjectPointLoaderTests::testValidate_MissingX());
+	assert(JsonMapLayerObjectPointLoaderTests::testValidate_X(10, true));
+	assert(JsonMapLayerObjectPointLoaderTests::testValidate_X(10.5, true));
+	assert(JsonMapLayerObjectPointLoaderTests::testValidate_X("no strings allowed", false));
+
+	assert(JsonMapLayerObjectPointLoaderTests::testValidate_MissingY());
+	assert(JsonMapLayerObjectPointLoaderTests::testValidate_Y(20, true));
+	assert(JsonMapLayerObjectPointLoaderTests::testValidate_Y(20.5, true));
+	assert(JsonMapLayerObjectPointLoaderTests::testValidate_Y("uh", false));
+
+	assert(JsonMapLayerObjectPointLoaderTests::testLocalizePointListError());
+
+	assert(JsonMapLayerObjectPointLoaderTests::testLocalizeValidationResult_Valid());
+	assert(JsonMapLayerObjectPointLoaderTests::testLocalizeValidationResult_XInvalid());
+	assert(JsonMapLayerObjectPointLoaderTests::testLocalizeValidationResult_YInvalid());
+
+	assert(JsonMapLayerObjectPointLoaderTests::testConvertToDefn());
+}
+
 int main() {
 	runJsonCustomPropertyLoaderTests();
 
 	runJsonTilesetImageLoaderTests();
 	runJsonTilesetTileLoaderTests();
 	runJsonTilesetLoaderTests();
+
+	runJsonMapLayerObjectPointLoaderTests();
 
 	printf("All tests passed!\n");
 	return 0;

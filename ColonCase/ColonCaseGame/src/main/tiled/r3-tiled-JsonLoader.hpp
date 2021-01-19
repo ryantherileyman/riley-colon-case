@@ -36,6 +36,24 @@ namespace r3 {
 
 			}
 
+			namespace Map {
+
+				extern const char* ORIENTATION;
+				extern const char* INFINITE;
+				extern const char* LAYER_LIST;
+
+				extern const char* DATA;
+				extern const char* OBJECT_LIST;
+				extern const char* TILESET_LIST;
+
+				extern const char* POINT_FLAG;
+				extern const char* ELLIPSE_FLAG;
+				extern const char* ROTATION;
+				extern const char* POLYLINE;
+				extern const char* POLYGON;
+
+			}
+
 		}
 
 		namespace JsonPropertyValue {
@@ -212,6 +230,32 @@ namespace r3 {
 			} LoadTilesetResult;
 
 			LoadTilesetResult loadFromJsonFile(const char* filePath);
+
+		}
+
+		namespace JsonMapLayerObjectPointLoader {
+
+			typedef struct Tiled_ValidationResult {
+				bool rootValid = true;
+				bool xValid = true;
+				bool yValid = true;
+
+				bool isValid() {
+					bool result =
+						rootValid &&
+						xValid &&
+						yValid;
+					return result;
+				}
+			} ValidationResult;
+
+			ValidationResult validate(const Json::Value& jsonValue);
+
+			std::string localizePointListError(int index, const char* listPropertyName);
+
+			std::vector<std::string> localizeValidationResult(const ValidationResult& validationResult);
+
+			MapLayerObjectPointDefn convertToDefn(const Json::Value& jsonValue);
 
 		}
 

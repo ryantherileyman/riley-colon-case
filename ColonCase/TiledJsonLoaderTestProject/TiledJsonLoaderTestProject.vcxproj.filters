@@ -33,6 +33,9 @@
     <ClInclude Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonTilesetLoaderTests.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonMapLoaderTests.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonCustomPropertyLoaderTests.cpp">
@@ -72,6 +75,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonTilesetTileLoaderTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonMapLayerObjectPointLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonMapLayerObjectPointLoaderTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
