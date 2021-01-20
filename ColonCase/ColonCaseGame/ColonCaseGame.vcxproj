@@ -159,10 +159,12 @@
     <ClCompile Include="src\main\splash-screen\r3-colonCase-SplashSceneRenderer.cpp" />
     <ClCompile Include="src\main\tiled\r3-tiled-JsonCustomPropertyLoader.cpp" />
     <ClCompile Include="src\main\tiled\r3-tiled-JsonLoader.cpp" />
+    <ClCompile Include="src\main\tiled\r3-tiled-JsonMapLayerObjectLoader.cpp" />
     <ClCompile Include="src\main\tiled\r3-tiled-JsonMapLayerObjectPointLoader.cpp" />
     <ClCompile Include="src\main\tiled\r3-tiled-JsonTilesetImageLoader.cpp" />
     <ClCompile Include="src\main\tiled\r3-tiled-JsonTilesetLoader.cpp" />
     <ClCompile Include="src\main\tiled\r3-tiled-JsonTilesetTileLoader.cpp" />
+    <ClCompile Include="src\main\tiled\r3-tiled-MapLayerObjectTypeUtils.cpp" />
     <ClCompile Include="src\main\validation\r3-validation-IntRange.cpp" />
   </ItemGroup>
   <ItemGroup>

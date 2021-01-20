@@ -191,6 +191,94 @@ void runJsonMapLayerObjectPointLoaderTests() {
 	assert(JsonMapLayerObjectPointLoaderTests::testConvertToDefn());
 }
 
+void runJsonMapLayerObjectLoaderTests() {
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Valid_Rectangle());
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Valid_Point());
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Valid_Ellipse());
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Valid_Polyline());
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Valid_Polygon());
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Valid_Tile());
+
+	assert(JsonMapLayerObjectLoaderTests::testValidate_InvalidRoot());
+
+	assert(JsonMapLayerObjectLoaderTests::testValidate_MissingId());
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Id(1, true));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Id(0, false));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Id("wut", false));
+
+	assert(JsonMapLayerObjectLoaderTests::testValidate_MissingX());
+	assert(JsonMapLayerObjectLoaderTests::testValidate_X(1, true));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_X(1.5, true));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_X("nope", false));
+
+	assert(JsonMapLayerObjectLoaderTests::testValidate_MissingY());
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Y(-1, true));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Y(-1.5, true));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Y("um", false));
+
+	assert(JsonMapLayerObjectLoaderTests::testValidate_MissingRotation());
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Rotation(50, true));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Rotation(50.5, true));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Rotation("not a chance", false));
+
+	assert(JsonMapLayerObjectLoaderTests::testValidate_MissingWidth());
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Width(false, 1.5, true));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Width(true, 0, true));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Width(false, 0, false));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Width(false, -2, false));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Width(false, "ugh", false));
+
+	assert(JsonMapLayerObjectLoaderTests::testValidate_MissingHeight());
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Height(false, 100.5, true));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Height(true, 0, true));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Height(false, 0, false));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Height(false, -1, false));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Height(false, "no way", false));
+
+	assert(JsonMapLayerObjectLoaderTests::testValidate_InvalidObjectType_Point());
+	assert(JsonMapLayerObjectLoaderTests::testValidate_InvalidObjectType_Ellipse());
+	assert(JsonMapLayerObjectLoaderTests::testValidate_InvalidObjectType_Polyline());
+	assert(JsonMapLayerObjectLoaderTests::testValidate_InvalidObjectType_Polygon());
+	assert(JsonMapLayerObjectLoaderTests::testValidate_InvalidObjectType_Tile());
+
+	assert(JsonMapLayerObjectLoaderTests::testValidate_TileGid(1, true));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_TileGid(0, false));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_TileGid("nuh uh", false));
+
+	assert(JsonMapLayerObjectLoaderTests::testValidate_InvalidPolylinePointList());
+	assert(JsonMapLayerObjectLoaderTests::testValidate_InvalidPolygonPointList());
+
+	assert(JsonMapLayerObjectLoaderTests::testValidate_MissingName());
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Name("The Thing", true));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Name("", true));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Name(1, false));
+
+	assert(JsonMapLayerObjectLoaderTests::testValidate_MissingType());
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Type("Goblin", true));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Type("", true));
+	assert(JsonMapLayerObjectLoaderTests::testValidate_Type(2, false));
+
+	assert(JsonMapLayerObjectLoaderTests::testValidate_InvalidPropertyList());
+
+	assert(JsonMapLayerObjectLoaderTests::testLocalizeObjectListError());
+
+	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_Valid());
+	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_IdInvalid());
+	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_XInvalid());
+	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_YInvalid());
+	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_RotationInvalid());
+	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_WidthInvalid());
+	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_HeightInvalid());
+	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_ObjectTypeInvalid());
+	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_TileGidInvalid());
+	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_PointListInvalid());
+	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_NameInvalid());
+	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_TypeInvalid());
+	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_PropertyListInvalid());
+
+	assert(JsonMapLayerObjectLoaderTests::testConvertToDefn());
+}
+
 int main() {
 	runJsonCustomPropertyLoaderTests();
 
@@ -199,6 +287,7 @@ int main() {
 	runJsonTilesetLoaderTests();
 
 	runJsonMapLayerObjectPointLoaderTests();
+	runJsonMapLayerObjectLoaderTests();
 
 	printf("All tests passed!\n");
 	return 0;

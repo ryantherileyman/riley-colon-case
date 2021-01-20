@@ -83,5 +83,14 @@
     <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonMapLayerObjectPointLoaderTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonMapLayerObjectLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonMapLayerObjectLoaderTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-MapLayerObjectTypeUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

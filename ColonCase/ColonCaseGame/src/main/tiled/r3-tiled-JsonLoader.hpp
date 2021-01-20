@@ -51,6 +51,7 @@ namespace r3 {
 				extern const char* ROTATION;
 				extern const char* POLYLINE;
 				extern const char* POLYGON;
+				extern const char* TILE_GID;
 
 			}
 
@@ -256,6 +257,62 @@ namespace r3 {
 			std::vector<std::string> localizeValidationResult(const ValidationResult& validationResult);
 
 			MapLayerObjectPointDefn convertToDefn(const Json::Value& jsonValue);
+
+		}
+
+		namespace JsonMapLayerObjectLoader {
+
+			typedef struct Tiled_ValidationResult {
+				bool rootValid = true;
+				bool idValid = true;
+				bool xValid = true;
+				bool yValid = true;
+				bool rotationDegreesValid = true;
+				bool widthValid = true;
+				bool heightValid = true;
+				bool objectTypeValid = true;
+				bool tileGidValid = true;
+				std::vector<JsonMapLayerObjectPointLoader::ValidationResult> pointValidationResultList;
+				bool nameValid = true;
+				bool typeValid = true;
+				std::vector<JsonCustomPropertyLoader::ValidationResult> propertyValidationResultList;
+
+				bool isValid() {
+					bool pointListValid = true;
+					for (auto& currPointValidationResult : pointValidationResultList) {
+						pointListValid = pointListValid && currPointValidationResult.isValid();
+					}
+
+					bool propertyListValid = true;
+					for (auto& currPropertyValidationResult : propertyValidationResultList) {
+						propertyListValid = propertyListValid && currPropertyValidationResult.isValid();
+					}
+
+					bool result =
+						rootValid &&
+						idValid &&
+						xValid &&
+						yValid &&
+						rotationDegreesValid &&
+						widthValid &&
+						heightValid &&
+						objectTypeValid &&
+						tileGidValid &&
+						pointListValid &&
+						nameValid &&
+						typeValid &&
+						propertyListValid;
+					return result;
+				}
+			} ValidationResult;
+
+			ValidationResult validate(const Json::Value& jsonValue);
+
+			std::string localizeObjectListError(int index);
+
+			std::vector<std::string> localizeValidationResult(const ValidationResult& validationResult);
+
+			MapLayerObjectDefn convertToDefn(const Json::Value& jsonValue);
 
 		}
 

@@ -50,6 +50,7 @@ namespace r3 {
 				const char* ROTATION = "rotation";
 				const char* POLYLINE = "polyline";
 				const char* POLYGON = "polygon";
+				const char* TILE_GID = "gid";
 
 			}
 

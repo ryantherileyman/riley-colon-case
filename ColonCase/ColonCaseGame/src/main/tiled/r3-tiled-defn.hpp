@@ -86,6 +86,12 @@ namespace r3 {
 			TEXT,
 		} MapLayerObjectType;
 
+		namespace MapLayerObjectTypeUtils {
+
+			bool expectsDimensions(MapLayerObjectType objectType);
+
+		}
+
 		typedef struct Tiled_MapLayerObjectPointDefn {
 			double x = 0.0;
 			double y = 0.0;
@@ -95,8 +101,8 @@ namespace r3 {
 			int id = 0;
 			MapLayerObjectPointDefn position;
 			double rotationDegrees = 0.0;
-			int width = 0;
-			int height = 0;
+			double width = 0;
+			double height = 0;
 			MapLayerObjectType objectType = MapLayerObjectType::UNKNOWN;
 			int tileGid = 0;
 			std::vector<MapLayerObjectPointDefn> pointDefnList;
