@@ -119,9 +119,10 @@ namespace r3 {
 			}
 
 			std::string localizeObjectListError(int index) {
-				// TODO
+				char resultStr[128];
+				sprintf_s(resultStr, "Entry %d within the \"objects\" array is invalid.  Individual error messages follow...", index);
 
-				std::string result;
+				std::string result(resultStr);
 				return result;
 			}
 

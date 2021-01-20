@@ -444,7 +444,10 @@ namespace r3 {
 			}
 
 			bool testLocalizeObjectListError() {
-				return false; // TODO
+				std::string error = JsonMapLayerObjectLoader::localizeObjectListError(4);
+
+				bool result = (error.find("Entry 4 within the \"objects\" array is invalid") != std::string::npos);
+				return result;
 			}
 
 			bool testLocalizeValidationResult_Valid() {
