@@ -8,6 +8,14 @@ namespace r3 {
 
 		namespace JsonMapLayerObjectLoaderTests {
 
+			Json::Value createValidCustomPropertyJsonValue() {
+				Json::Value result;
+				result[JsonPropertyName::NAME] = "someProperty";
+				result[JsonPropertyName::TYPE] = JsonPropertyValue::CustomPropertyTypeValue::STRING;
+				result[JsonPropertyName::VALUE] = "a value";
+				return result;
+			}
+
 			Json::Value createValidMapLayerObjectPointJsonValue(double x, double y) {
 				Json::Value result;
 				result[JsonPropertyName::X] = x;
@@ -350,31 +358,89 @@ namespace r3 {
 			}
 
 			bool testValidate_InvalidPolylinePointList() {
-				return false; // TODO
+				Json::Value jsonValue = createValidMapLayerPolylineJsonValue();
+				jsonValue[JsonPropertyName::Map::POLYLINE][0][JsonPropertyName::X] = "whoa";
+
+				JsonMapLayerObjectLoader::ValidationResult validationResult = JsonMapLayerObjectLoader::validate(jsonValue);
+
+				bool result =
+					!validationResult.pointValidationResultList.at(0).isValid() &&
+					!validationResult.isValid();
+				return result;
 			}
 
 			bool testValidate_InvalidPolygonPointList() {
-				return false; // TODO
+				Json::Value jsonValue = createValidMapLayerPolygonJsonValue();
+				jsonValue[JsonPropertyName::Map::POLYGON][1][JsonPropertyName::Y] = "hmm";
+
+				JsonMapLayerObjectLoader::ValidationResult validationResult = JsonMapLayerObjectLoader::validate(jsonValue);
+
+				bool result =
+					!validationResult.pointValidationResultList.at(1).isValid() &&
+					!validationResult.isValid();
+				return result;
 			}
 
 			bool testValidate_MissingName() {
-				return false; // TODO
+				Json::Value jsonValue = createValidMapLayerObjectJsonValue();
+				jsonValue.removeMember(JsonPropertyName::NAME);
+
+				JsonMapLayerObjectLoader::ValidationResult validationResult = JsonMapLayerObjectLoader::validate(jsonValue);
+
+				bool result =
+					!validationResult.nameValid &&
+					!validationResult.isValid();
+				return result;
 			}
 
 			bool testValidate_Name(const Json::Value& nameValue, bool expectedNameValid) {
-				return false; // TODO
+				Json::Value jsonValue = createValidMapLayerObjectJsonValue();
+				jsonValue[JsonPropertyName::NAME] = nameValue;
+
+				JsonMapLayerObjectLoader::ValidationResult validationResult = JsonMapLayerObjectLoader::validate(jsonValue);
+
+				bool result = (validationResult.nameValid == expectedNameValid);
+				return result;
 			}
 
 			bool testValidate_MissingType() {
-				return false; // TODO
+				Json::Value jsonValue = createValidMapLayerObjectJsonValue();
+				jsonValue.removeMember(JsonPropertyName::TYPE);
+
+				JsonMapLayerObjectLoader::ValidationResult validationResult = JsonMapLayerObjectLoader::validate(jsonValue);
+
+				bool result =
+					!validationResult.typeValid &&
+					!validationResult.isValid();
+				return result;
 			}
 
 			bool testValidate_Type(const Json::Value& typeValue, bool expectedTypeValid) {
-				return false; // TODO
+				Json::Value jsonValue = createValidMapLayerObjectJsonValue();
+				jsonValue[JsonPropertyName::TYPE] = typeValue;
+
+				JsonMapLayerObjectLoader::ValidationResult validationResult = JsonMapLayerObjectLoader::validate(jsonValue);
+
+				bool result = (validationResult.typeValid == expectedTypeValid);
+				return result;
 			}
 
 			bool testValidate_InvalidPropertyList() {
-				return false; // TODO
+				Json::Value propertyJsonValue = createValidCustomPropertyJsonValue();
+				propertyJsonValue.removeMember(JsonPropertyName::NAME);
+
+				Json::Value propertyListJsonValue = Json::arrayValue;
+				propertyListJsonValue.append(propertyJsonValue);
+
+				Json::Value jsonValue = createValidMapLayerObjectJsonValue();
+				jsonValue[JsonPropertyName::PROPERTY_LIST] = propertyListJsonValue;
+
+				JsonMapLayerObjectLoader::ValidationResult validationResult = JsonMapLayerObjectLoader::validate(jsonValue);
+
+				bool result =
+					!validationResult.propertyValidationResultList.at(0).isValid() &&
+					!validationResult.isValid();
+				return result;
 			}
 
 			bool testLocalizeObjectListError() {
