@@ -102,6 +102,42 @@ namespace r3 {
 
 		}
 
+		namespace JsonMapLayerLoaderTests {
+
+			bool testValidate_Valid_Tile();
+			bool testValidate_Valid_Object();
+			bool testValidate_Valid_Group();
+
+			bool testValidate_InvalidRoot();
+
+			bool testValidate_MissingId();
+			bool testValidate_Id(const Json::Value& idValue, bool expectedIdValid);
+			
+			bool testValidate_MissingType();
+			bool testValidate_Type(const Json::Value& typeValue, bool expectedTypeValid);
+
+			bool testValidate_MissingName();
+			bool testValidate_Name(const Json::Value& nameValue, bool expectedNameValid);
+
+			bool testValidate_MissingWidth();
+			bool testValidate_Width(const Json::Value& widthValue, bool expectedWidthValid);
+
+			bool testValidate_MissingHeight();
+			bool testValidate_Height(const Json::Value& heightValue, bool expectedHeightValid);
+
+			bool testValidate_MissingData();
+			bool testValidate_InvalidData_NotArray(const Json::Value& jsonValue);
+			bool testValidate_InvalidData_Size();
+			bool testValidate_InvalidData_CellType();
+
+			bool testValidate_InvalidObjectList();
+
+			bool testValidate_InvalidLayerList();
+
+			bool testValidate_InvalidPropertyList();
+
+		}
+
 	}
 
 }

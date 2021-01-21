@@ -155,6 +155,7 @@
     <ClCompile Include="..\ColonCaseGame\src\main\json\r3-jsoncpp-JsonValidationUtils.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonCustomPropertyLoader.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonLoader.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonMapLayerLoader.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonMapLayerObjectLoader.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonMapLayerObjectPointLoader.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonTilesetImageLoader.cpp" />
@@ -164,6 +165,7 @@
     <ClCompile Include="..\ColonCaseGame\src\main\validation\r3-validation-IntRange.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonCustomPropertyLoaderTests.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonLoader-test-main.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonMapLayerLoaderTests.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonMapLayerObjectLoaderTests.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonMapLayerObjectPointLoaderTests.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonTilesetImageLoaderTests.cpp" />

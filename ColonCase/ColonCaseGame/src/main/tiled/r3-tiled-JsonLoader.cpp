@@ -77,6 +77,14 @@ namespace r3 {
 
 			}
 
+			namespace MapLayerTypeValue {
+
+				const char* TILE = "tilelayer";
+				const char* OBJECT = "objectgroup";
+				const char* GROUP = "group";
+
+			}
+
 		}
 
 		namespace JsonLoaderUtils {

@@ -92,5 +92,11 @@
     <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-MapLayerObjectTypeUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonMapLayerLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonMapLayerLoaderTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

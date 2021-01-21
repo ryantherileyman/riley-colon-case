@@ -285,6 +285,52 @@ void runJsonMapLayerObjectLoaderTests() {
 	assert(JsonMapLayerObjectLoaderTests::testConvertToDefn_Tile());
 }
 
+void runJsonMapLayerLoaderTests() {
+	assert(JsonMapLayerLoaderTests::testValidate_Valid_Tile());
+	assert(JsonMapLayerLoaderTests::testValidate_Valid_Object());
+	assert(JsonMapLayerLoaderTests::testValidate_Valid_Group());
+
+	assert(JsonMapLayerLoaderTests::testValidate_InvalidRoot());
+
+	assert(JsonMapLayerLoaderTests::testValidate_MissingId());
+	assert(JsonMapLayerLoaderTests::testValidate_Id(1, true));
+	assert(JsonMapLayerLoaderTests::testValidate_Id(0, false));
+	assert(JsonMapLayerLoaderTests::testValidate_Id("no", false));
+
+	assert(JsonMapLayerLoaderTests::testValidate_MissingType());
+	assert(JsonMapLayerLoaderTests::testValidate_Type(JsonPropertyValue::MapLayerTypeValue::TILE, true));
+	assert(JsonMapLayerLoaderTests::testValidate_Type(JsonPropertyValue::MapLayerTypeValue::OBJECT, true));
+	assert(JsonMapLayerLoaderTests::testValidate_Type(JsonPropertyValue::MapLayerTypeValue::GROUP, true));
+	assert(JsonMapLayerLoaderTests::testValidate_Type("idontknowyou", false));
+	assert(JsonMapLayerLoaderTests::testValidate_Type(5, false));
+
+	assert(JsonMapLayerLoaderTests::testValidate_MissingName());
+	assert(JsonMapLayerLoaderTests::testValidate_Name("Ground", true));
+	assert(JsonMapLayerLoaderTests::testValidate_Name(42, false));
+
+	assert(JsonMapLayerLoaderTests::testValidate_MissingWidth());
+	assert(JsonMapLayerLoaderTests::testValidate_Width(1, true));
+	assert(JsonMapLayerLoaderTests::testValidate_Width(0, false));
+	assert(JsonMapLayerLoaderTests::testValidate_Width("5", false));
+
+	assert(JsonMapLayerLoaderTests::testValidate_MissingHeight());
+	assert(JsonMapLayerLoaderTests::testValidate_Height(1, true));
+	assert(JsonMapLayerLoaderTests::testValidate_Height(0, false));
+	assert(JsonMapLayerLoaderTests::testValidate_Height("1", false));
+
+	assert(JsonMapLayerLoaderTests::testValidate_MissingData());
+	assert(JsonMapLayerLoaderTests::testValidate_InvalidData_NotArray(1));
+	assert(JsonMapLayerLoaderTests::testValidate_InvalidData_NotArray("huh"));
+	assert(JsonMapLayerLoaderTests::testValidate_InvalidData_Size());
+	assert(JsonMapLayerLoaderTests::testValidate_InvalidData_CellType());
+
+	assert(JsonMapLayerLoaderTests::testValidate_InvalidObjectList());
+
+	assert(JsonMapLayerLoaderTests::testValidate_InvalidLayerList());
+
+	assert(JsonMapLayerLoaderTests::testValidate_InvalidPropertyList());
+}
+
 int main() {
 	runJsonCustomPropertyLoaderTests();
 
@@ -294,6 +340,7 @@ int main() {
 
 	runJsonMapLayerObjectPointLoaderTests();
 	runJsonMapLayerObjectLoaderTests();
+	runJsonMapLayerLoaderTests();
 
 	printf("All tests passed!\n");
 	return 0;

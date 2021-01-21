@@ -78,6 +78,14 @@ namespace r3 {
 
 			}
 
+			namespace MapLayerTypeValue {
+
+				extern const char* TILE;
+				extern const char* OBJECT;
+				extern const char* GROUP;
+
+			}
+
 		}
 
 		namespace JsonLoaderUtils {
@@ -314,6 +322,62 @@ namespace r3 {
 			std::vector<std::string> localizeValidationResult(const ValidationResult& validationResult);
 
 			MapLayerObjectDefn convertToDefn(const Json::Value& jsonValue);
+
+		}
+
+		namespace JsonMapLayerLoader {
+
+			typedef struct Tiled_ValidationResult {
+				bool rootValid = true;
+				bool idValid = true;
+				bool typeValid = true;
+				MapLayerType layerType = MapLayerType::UNKNOWN;
+				bool nameValid = true;
+				bool widthValid = true;
+				bool heightValid = true;
+				bool dataValid = true;
+				std::vector<JsonMapLayerObjectLoader::ValidationResult> objectValidationResultList;
+				std::vector<struct Tiled_ValidationResult> layerValidationResultList;
+				std::vector<JsonCustomPropertyLoader::ValidationResult> propertyValidationResultList;
+
+				bool isValid() {
+					bool objectListValid = true;
+					for (auto& currObjectValidationResult : objectValidationResultList) {
+						objectListValid = objectListValid && currObjectValidationResult.isValid();
+					}
+
+					bool layerListValid = true;
+					for (auto& currLayerValidationResult : layerValidationResultList) {
+						layerListValid = layerListValid && currLayerValidationResult.isValid();
+					}
+
+					bool propertyListValid = true;
+					for (auto& currPropertyValidationResult : propertyValidationResultList) {
+						propertyListValid = propertyListValid && currPropertyValidationResult.isValid();
+					}
+
+					bool result =
+						rootValid &&
+						idValid &&
+						typeValid &&
+						nameValid &&
+						widthValid &&
+						heightValid &&
+						dataValid &&
+						objectListValid &&
+						layerListValid &&
+						propertyListValid;
+					return result;
+				}
+			} ValidationResult;
+
+			ValidationResult validate(const Json::Value& jsonValue);
+
+			std::string localizeObjectListError(int index);
+
+			std::vector<std::string> localizeValidationResult(const ValidationResult& validationResult);
+
+			MapLayerDefn convertToDefn(const Json::Value& jsonValue);
 
 		}
 
