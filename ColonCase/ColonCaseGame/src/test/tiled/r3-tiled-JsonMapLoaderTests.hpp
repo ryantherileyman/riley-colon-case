@@ -126,7 +126,7 @@ namespace r3 {
 			bool testValidate_Height(const Json::Value& heightValue, bool expectedHeightValid);
 
 			bool testValidate_MissingData();
-			bool testValidate_InvalidData_NotArray(const Json::Value& jsonValue);
+			bool testValidate_InvalidData_NotArray(const Json::Value& dataValue);
 			bool testValidate_InvalidData_Size();
 			bool testValidate_InvalidData_CellType();
 

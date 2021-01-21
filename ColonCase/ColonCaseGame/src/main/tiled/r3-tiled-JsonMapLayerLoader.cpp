@@ -32,6 +32,25 @@ namespace r3 {
 				return result;
 			}
 
+			bool dataValid(const Json::Value& jsonValue, int expectedDataSize) {
+				bool result = JsonValidationUtils::requiredArray(jsonValue, JsonPropertyName::Map::DATA);
+
+				if (result && (expectedDataSize > 0)) {
+					result = result && (jsonValue[JsonPropertyName::Map::DATA].size() == expectedDataSize);
+				}
+
+				if (result) {
+					Json::Value dataJsonValue = jsonValue[JsonPropertyName::Map::DATA];
+					for (Json::ArrayIndex index = 0; index < dataJsonValue.size(); index++) {
+						result = result &&
+							dataJsonValue[index].isInt() &&
+							(dataJsonValue[index].asInt() >= 0);
+					}
+				}
+
+				return result;
+			}
+
 			ValidationResult validate(const Json::Value& jsonValue) {
 				ValidationResult result;
 
@@ -46,9 +65,35 @@ namespace r3 {
 					}
 
 					result.nameValid = JsonValidationUtils::requiredString(jsonValue, JsonPropertyName::NAME);
-				}
+					result.widthValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::WIDTH);
+					result.heightValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::HEIGHT);
 
-				// TODO
+					if (result.layerType == MapLayerType::TILE) {
+						int expectedDataSize = 0;
+						if (result.widthValid && result.heightValid) {
+							expectedDataSize = jsonValue[JsonPropertyName::WIDTH].asInt() * jsonValue[JsonPropertyName::HEIGHT].asInt();
+						}
+
+						result.dataValid = dataValid(jsonValue, expectedDataSize);
+					}
+					else if (result.layerType == MapLayerType::OBJECT) {
+						const Json::Value& objectListJsonValue = jsonValue[JsonPropertyName::Map::OBJECT_LIST];
+						for (Json::ArrayIndex index = 0; index < objectListJsonValue.size(); index++) {
+							result.objectValidationResultList.push_back(JsonMapLayerObjectLoader::validate(objectListJsonValue[index]));
+						}
+					}
+					else if (result.layerType == MapLayerType::GROUP) {
+						const Json::Value& layerListJsonValue = jsonValue[JsonPropertyName::Map::LAYER_LIST];
+						for (Json::ArrayIndex index = 0; index < layerListJsonValue.size(); index++) {
+							result.layerValidationResultList.push_back(JsonMapLayerLoader::validate(layerListJsonValue[index]));
+						}
+					}
+
+					const Json::Value& propertyListJsonValue = jsonValue[JsonPropertyName::PROPERTY_LIST];
+					for (Json::ArrayIndex index = 0; index < propertyListJsonValue.size(); index++) {
+						result.propertyValidationResultList.push_back(JsonCustomPropertyLoader::validate(propertyListJsonValue[index]));
+					}
+				}
 
 				return result;
 			}

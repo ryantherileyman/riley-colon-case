@@ -8,6 +8,14 @@ namespace r3 {
 
 		namespace JsonMapLayerLoaderTests {
 
+			Json::Value createValidCustomPropertyJsonValue() {
+				Json::Value result;
+				result[JsonPropertyName::NAME] = "someProperty";
+				result[JsonPropertyName::TYPE] = JsonPropertyValue::CustomPropertyTypeValue::STRING;
+				result[JsonPropertyName::VALUE] = "a value";
+				return result;
+			}
+
 			Json::Value createCommonMapLayerJsonValue() {
 				Json::Value result;
 				result[JsonPropertyName::ID] = 3;
@@ -183,47 +191,137 @@ namespace r3 {
 			}
 
 			bool testValidate_MissingWidth() {
-				return false; // TODO
+				Json::Value jsonValue = createValidTileMapLayerJsonValue();
+				jsonValue.removeMember(JsonPropertyName::WIDTH);
+
+				JsonMapLayerLoader::ValidationResult validationResult = JsonMapLayerLoader::validate(jsonValue);
+
+				bool result =
+					!validationResult.widthValid &&
+					!validationResult.isValid();
+				return result;
 			}
 
 			bool testValidate_Width(const Json::Value& widthValue, bool expectedWidthValid) {
-				return false; // TODO
+				Json::Value jsonValue = createValidTileMapLayerJsonValue();
+				jsonValue[JsonPropertyName::WIDTH] = widthValue;
+
+				JsonMapLayerLoader::ValidationResult validationResult = JsonMapLayerLoader::validate(jsonValue);
+
+				bool result = (validationResult.widthValid == expectedWidthValid);
+				return result;
 			}
 
 			bool testValidate_MissingHeight() {
-				return false; // TODO
+				Json::Value jsonValue = createValidTileMapLayerJsonValue();
+				jsonValue.removeMember(JsonPropertyName::HEIGHT);
+
+				JsonMapLayerLoader::ValidationResult validationResult = JsonMapLayerLoader::validate(jsonValue);
+
+				bool result =
+					!validationResult.heightValid &&
+					!validationResult.isValid();
+				return result;
 			}
 
 			bool testValidate_Height(const Json::Value& heightValue, bool expectedHeightValid) {
-				return false; // TODO
+				Json::Value jsonValue = createValidTileMapLayerJsonValue();
+				jsonValue[JsonPropertyName::HEIGHT] = heightValue;
+
+				JsonMapLayerLoader::ValidationResult validationResult = JsonMapLayerLoader::validate(jsonValue);
+
+				bool result = (validationResult.heightValid == expectedHeightValid);
+				return result;
 			}
 
 			bool testValidate_MissingData() {
-				return false; // TODO
+				Json::Value jsonValue = createValidTileMapLayerJsonValue();
+				jsonValue.removeMember(JsonPropertyName::Map::DATA);
+
+				JsonMapLayerLoader::ValidationResult validationResult = JsonMapLayerLoader::validate(jsonValue);
+
+				bool result =
+					!validationResult.dataValid &&
+					!validationResult.isValid();
+				return result;
 			}
 
-			bool testValidate_InvalidData_NotArray(const Json::Value& jsonValue) {
-				return false; // TODO
+			bool testValidate_InvalidData_NotArray(const Json::Value& dataValue) {
+				Json::Value jsonValue = createValidTileMapLayerJsonValue();
+				jsonValue[JsonPropertyName::Map::DATA] = dataValue;
+
+				JsonMapLayerLoader::ValidationResult validationResult = JsonMapLayerLoader::validate(jsonValue);
+
+				bool result =
+					!validationResult.dataValid &&
+					!validationResult.isValid();
+				return result;
 			}
 
 			bool testValidate_InvalidData_Size() {
-				return false; // TODO
+				Json::Value jsonValue = createValidTileMapLayerJsonValue();
+				jsonValue[JsonPropertyName::Map::DATA].append(15);
+
+				JsonMapLayerLoader::ValidationResult validationResult = JsonMapLayerLoader::validate(jsonValue);
+
+				bool result =
+					!validationResult.dataValid &&
+					!validationResult.isValid();
+				return result;
 			}
 
 			bool testValidate_InvalidData_CellType() {
-				return false; // TODO
+				Json::Value jsonValue = createValidTileMapLayerJsonValue();
+				jsonValue[JsonPropertyName::Map::DATA][9] = "not an int";
+
+				JsonMapLayerLoader::ValidationResult validationResult = JsonMapLayerLoader::validate(jsonValue);
+
+				bool result =
+					!validationResult.dataValid &&
+					!validationResult.isValid();
+				return result;
 			}
 
 			bool testValidate_InvalidObjectList() {
-				return false; // TODO
+				Json::Value jsonValue = createValidObjectMapLayerJsonValue();
+				jsonValue[JsonPropertyName::Map::OBJECT_LIST][0][JsonPropertyName::Map::ROTATION] = "turn me away";
+
+				JsonMapLayerLoader::ValidationResult validationResult = JsonMapLayerLoader::validate(jsonValue);
+
+				bool result =
+					!validationResult.objectValidationResultList.at(0).isValid() &&
+					!validationResult.isValid();
+				return result;
 			}
 
 			bool testValidate_InvalidLayerList() {
-				return false; // TODO
+				Json::Value jsonValue = createValidGroupMapLayerJsonValue();
+				jsonValue[JsonPropertyName::Map::LAYER_LIST][0][JsonPropertyName::ID] = "no!";
+
+				JsonMapLayerLoader::ValidationResult validationResult = JsonMapLayerLoader::validate(jsonValue);
+
+				bool result =
+					!validationResult.layerValidationResultList.at(0).isValid() &&
+					!validationResult.isValid();
+				return result;
 			}
 
 			bool testValidate_InvalidPropertyList() {
-				return false; // TODO
+				Json::Value propertyJsonValue = createCommonMapLayerJsonValue();
+				propertyJsonValue.removeMember(JsonPropertyName::NAME);
+
+				Json::Value propertyListJsonValue = Json::arrayValue;
+				propertyListJsonValue.append(propertyJsonValue);
+
+				Json::Value jsonValue = createValidTileMapLayerJsonValue();
+				jsonValue[JsonPropertyName::PROPERTY_LIST] = propertyListJsonValue;
+
+				JsonMapLayerLoader::ValidationResult validationResult = JsonMapLayerLoader::validate(jsonValue);
+
+				bool result =
+					!validationResult.propertyValidationResultList.at(0).isValid() &&
+					!validationResult.isValid();
+				return result;
 			}
 
 		}
