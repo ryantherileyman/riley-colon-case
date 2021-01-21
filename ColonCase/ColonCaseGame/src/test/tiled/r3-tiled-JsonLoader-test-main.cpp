@@ -271,12 +271,18 @@ void runJsonMapLayerObjectLoaderTests() {
 	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_HeightInvalid());
 	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_ObjectTypeInvalid());
 	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_TileGidInvalid());
-	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_PointListInvalid());
+	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_PointListInvalid_Polyline());
+	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_PointListInvalid_Polygon());
 	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_NameInvalid());
 	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_TypeInvalid());
 	assert(JsonMapLayerObjectLoaderTests::testLocalizeValidationResult_PropertyListInvalid());
 
-	assert(JsonMapLayerObjectLoaderTests::testConvertToDefn());
+	assert(JsonMapLayerObjectLoaderTests::testConvertToDefn_Rectangle());
+	assert(JsonMapLayerObjectLoaderTests::testConvertToDefn_Point());
+	assert(JsonMapLayerObjectLoaderTests::testConvertToDefn_Ellipse());
+	assert(JsonMapLayerObjectLoaderTests::testConvertToDefn_Polyline());
+	assert(JsonMapLayerObjectLoaderTests::testConvertToDefn_Polygon());
+	assert(JsonMapLayerObjectLoaderTests::testConvertToDefn_Tile());
 }
 
 int main() {

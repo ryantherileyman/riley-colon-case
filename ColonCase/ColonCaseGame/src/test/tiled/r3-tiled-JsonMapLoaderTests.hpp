@@ -87,12 +87,18 @@ namespace r3 {
 			bool testLocalizeValidationResult_HeightInvalid();
 			bool testLocalizeValidationResult_ObjectTypeInvalid();
 			bool testLocalizeValidationResult_TileGidInvalid();
-			bool testLocalizeValidationResult_PointListInvalid();
+			bool testLocalizeValidationResult_PointListInvalid_Polyline();
+			bool testLocalizeValidationResult_PointListInvalid_Polygon();
 			bool testLocalizeValidationResult_NameInvalid();
 			bool testLocalizeValidationResult_TypeInvalid();
 			bool testLocalizeValidationResult_PropertyListInvalid();
 
-			bool testConvertToDefn();
+			bool testConvertToDefn_Rectangle();
+			bool testConvertToDefn_Point();
+			bool testConvertToDefn_Ellipse();
+			bool testConvertToDefn_Polyline();
+			bool testConvertToDefn_Polygon();
+			bool testConvertToDefn_Tile();
 
 		}
 

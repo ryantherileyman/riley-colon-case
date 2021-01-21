@@ -89,7 +89,9 @@ namespace r3 {
 
 				JsonMapLayerObjectLoader::ValidationResult validationResult = JsonMapLayerObjectLoader::validate(jsonValue);
 
-				bool result = validationResult.isValid();
+				bool result =
+					(validationResult.objectType == MapLayerObjectType::RECTANGLE) &&
+					validationResult.isValid();
 				return result;
 			}
 
@@ -98,7 +100,9 @@ namespace r3 {
 
 				JsonMapLayerObjectLoader::ValidationResult validationResult = JsonMapLayerObjectLoader::validate(jsonValue);
 
-				bool result = validationResult.isValid();
+				bool result =
+					(validationResult.objectType == MapLayerObjectType::POINT) &&
+					validationResult.isValid();
 				return result;
 			}
 
@@ -107,7 +111,9 @@ namespace r3 {
 
 				JsonMapLayerObjectLoader::ValidationResult validationResult = JsonMapLayerObjectLoader::validate(jsonValue);
 
-				bool result = validationResult.isValid();
+				bool result =
+					(validationResult.objectType == MapLayerObjectType::ELLIPSE) &&
+					validationResult.isValid();
 				return result;
 			}
 
@@ -116,7 +122,9 @@ namespace r3 {
 
 				JsonMapLayerObjectLoader::ValidationResult validationResult = JsonMapLayerObjectLoader::validate(jsonValue);
 
-				bool result = validationResult.isValid();
+				bool result =
+					(validationResult.objectType == MapLayerObjectType::POLYLINE) &&
+					validationResult.isValid();
 				return result;
 			}
 
@@ -125,7 +133,9 @@ namespace r3 {
 
 				JsonMapLayerObjectLoader::ValidationResult validationResult = JsonMapLayerObjectLoader::validate(jsonValue);
 
-				bool result = validationResult.isValid();
+				bool result =
+					(validationResult.objectType == MapLayerObjectType::POLYGON) &&
+					validationResult.isValid();
 				return result;
 			}
 
@@ -134,7 +144,9 @@ namespace r3 {
 
 				JsonMapLayerObjectLoader::ValidationResult validationResult = JsonMapLayerObjectLoader::validate(jsonValue);
 
-				bool result = validationResult.isValid();
+				bool result =
+					(validationResult.objectType == MapLayerObjectType::TILE) &&
+					validationResult.isValid();
 				return result;
 			}
 
@@ -451,59 +463,269 @@ namespace r3 {
 			}
 
 			bool testLocalizeValidationResult_Valid() {
-				return false; // TODO
+				JsonMapLayerObjectLoader::ValidationResult validationResult;
+
+				std::vector<std::string> errorList = JsonMapLayerObjectLoader::localizeValidationResult(validationResult);
+
+				bool result = errorList.empty();
+				return result;
 			}
 
 			bool testLocalizeValidationResult_IdInvalid() {
-				return false; // TODO
+				JsonMapLayerObjectLoader::ValidationResult validationResult;
+				validationResult.idValid = false;
+
+				std::vector<std::string> errorList = JsonMapLayerObjectLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"id\" is invalid") != std::string::npos);
+				return result;
 			}
 
 			bool testLocalizeValidationResult_XInvalid() {
-				return false; // TODO
+				JsonMapLayerObjectLoader::ValidationResult validationResult;
+				validationResult.xValid = false;
+
+				std::vector<std::string> errorList = JsonMapLayerObjectLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"x\" value is invalid") != std::string::npos);
+				return result;
 			}
 
 			bool testLocalizeValidationResult_YInvalid() {
-				return false; // TODO
+				JsonMapLayerObjectLoader::ValidationResult validationResult;
+				validationResult.yValid = false;
+
+				std::vector<std::string> errorList = JsonMapLayerObjectLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"y\" value is invalid") != std::string::npos);
+				return result;
 			}
 
 			bool testLocalizeValidationResult_RotationInvalid() {
-				return false; // TODO
+				JsonMapLayerObjectLoader::ValidationResult validationResult;
+				validationResult.rotationDegreesValid = false;
+
+				std::vector<std::string> errorList = JsonMapLayerObjectLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"rotation\" value is invalid") != std::string::npos);
+				return result;
 			}
 
 			bool testLocalizeValidationResult_WidthInvalid() {
-				return false; // TODO
+				JsonMapLayerObjectLoader::ValidationResult validationResult;
+				validationResult.widthValid = false;
+
+				std::vector<std::string> errorList = JsonMapLayerObjectLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"width\" is invalid") != std::string::npos);
+				return result;
 			}
 
 			bool testLocalizeValidationResult_HeightInvalid() {
-				return false; // TODO
+				JsonMapLayerObjectLoader::ValidationResult validationResult;
+				validationResult.heightValid = false;
+
+				std::vector<std::string> errorList = JsonMapLayerObjectLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"height\" is invalid") != std::string::npos);
+				return result;
 			}
 
 			bool testLocalizeValidationResult_ObjectTypeInvalid() {
-				return false; // TODO
+				JsonMapLayerObjectLoader::ValidationResult validationResult;
+				validationResult.objectTypeValid = false;
+
+				std::vector<std::string> errorList = JsonMapLayerObjectLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The type of object could not be determined") != std::string::npos);
+				return result;
 			}
 
 			bool testLocalizeValidationResult_TileGidInvalid() {
-				return false; // TODO
+				JsonMapLayerObjectLoader::ValidationResult validationResult;
+				validationResult.tileGidValid = false;
+
+				std::vector<std::string> errorList = JsonMapLayerObjectLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"gid\" value is invalid") != std::string::npos);
+				return result;
 			}
 
-			bool testLocalizeValidationResult_PointListInvalid() {
-				return false; // TODO
+			bool testLocalizeValidationResult_PointListInvalid_Polyline() {
+				JsonMapLayerObjectPointLoader::ValidationResult pointValidationResult;
+				pointValidationResult.xValid = false;
+				
+				JsonMapLayerObjectLoader::ValidationResult validationResult;
+				validationResult.objectType = MapLayerObjectType::POLYLINE;
+				validationResult.pointValidationResultList.push_back(pointValidationResult);
+
+				std::vector<std::string> errorList = JsonMapLayerObjectLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 2) &&
+					(errorList.at(0).find("Entry 1 within the \"polyline\" array is invalid") != std::string::npos) &&
+					(errorList.at(1).find("The \"x\" value is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_PointListInvalid_Polygon() {
+				JsonMapLayerObjectPointLoader::ValidationResult pointValidationResult;
+				pointValidationResult.yValid = false;
+
+				JsonMapLayerObjectLoader::ValidationResult validationResult;
+				validationResult.objectType = MapLayerObjectType::POLYGON;
+				validationResult.pointValidationResultList.push_back(pointValidationResult);
+
+				std::vector<std::string> errorList = JsonMapLayerObjectLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 2) &&
+					(errorList.at(0).find("Entry 1 within the \"polygon\" array is invalid") != std::string::npos) &&
+					(errorList.at(1).find("The \"y\" value is invalid") != std::string::npos);
+				return result;
 			}
 
 			bool testLocalizeValidationResult_NameInvalid() {
-				return false; // TODO
+				JsonMapLayerObjectLoader::ValidationResult validationResult;
+				validationResult.nameValid = false;
+
+				std::vector<std::string> errorList = JsonMapLayerObjectLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"name\" is invalid") != std::string::npos);
+				return result;
 			}
 
 			bool testLocalizeValidationResult_TypeInvalid() {
-				return false; // TODO
+				JsonMapLayerObjectLoader::ValidationResult validationResult;
+				validationResult.typeValid = false;
+
+				std::vector<std::string> errorList = JsonMapLayerObjectLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"type\" is invalid") != std::string::npos);
+				return result;
 			}
 
 			bool testLocalizeValidationResult_PropertyListInvalid() {
-				return false; // TODO
+				JsonCustomPropertyLoader::ValidationResult propertyValidationResult;
+				propertyValidationResult.valueValid = false;
+				
+				JsonMapLayerObjectLoader::ValidationResult validationResult;
+				validationResult.propertyValidationResultList.push_back(propertyValidationResult);
+
+				std::vector<std::string> errorList = JsonMapLayerObjectLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 2) &&
+					(errorList.at(0).find("Entry 1 within the \"properties\" array is invalid") != std::string::npos) &&
+					(errorList.at(1).find("The \"value\" is invalid") != std::string::npos);
+				return result;
 			}
 
-			bool testConvertToDefn() {
-				return false; // TODO
+			bool testConvertToDefn_Common(const Json::Value& jsonValue, const MapLayerObjectDefn& defn) {
+				bool result =
+					(defn.id == 1) &&
+					(defn.position.x == jsonValue[JsonPropertyName::X].asDouble()) &&
+					(defn.position.y == jsonValue[JsonPropertyName::Y].asDouble()) &&
+					(defn.rotationDegrees == jsonValue[JsonPropertyName::Map::ROTATION].asDouble()) &&
+					(defn.width == jsonValue[JsonPropertyName::WIDTH].asDouble()) &&
+					(defn.height == jsonValue[JsonPropertyName::HEIGHT].asDouble()) &&
+					(defn.name.compare("An Object") == 0) &&
+					(defn.type.compare("Blob") == 0);
+				return result;
+			}
+
+			bool testConvertToDefn_PointList(const Json::Value& pointListJsonValue, const MapLayerObjectDefn& defn) {
+				bool result = (defn.pointDefnList.size() == pointListJsonValue.size());
+				return result;
+			}
+
+			bool testConvertToDefn_Rectangle() {
+				Json::Value jsonValue = createValidMapLayerObjectJsonValue();
+
+				MapLayerObjectDefn defn = JsonMapLayerObjectLoader::convertToDefn(jsonValue);
+
+				bool result =
+					testConvertToDefn_Common(jsonValue, defn) &&
+					(defn.objectType == MapLayerObjectType::RECTANGLE);
+				return result;
+			}
+
+			bool testConvertToDefn_Point() {
+				Json::Value jsonValue = createValidMapLayerPointJsonValue();
+
+				MapLayerObjectDefn defn = JsonMapLayerObjectLoader::convertToDefn(jsonValue);
+
+				bool result =
+					testConvertToDefn_Common(jsonValue, defn) &&
+					(defn.objectType == MapLayerObjectType::POINT);
+				return result;
+			}
+
+			bool testConvertToDefn_Ellipse() {
+				Json::Value jsonValue = createValidMapLayerEllipseJsonValue();
+
+				MapLayerObjectDefn defn = JsonMapLayerObjectLoader::convertToDefn(jsonValue);
+
+				bool result =
+					testConvertToDefn_Common(jsonValue, defn) &&
+					(defn.objectType == MapLayerObjectType::ELLIPSE);
+				return result;
+			}
+
+			bool testConvertToDefn_Polyline() {
+				Json::Value jsonValue = createValidMapLayerPolylineJsonValue();
+
+				MapLayerObjectDefn defn = JsonMapLayerObjectLoader::convertToDefn(jsonValue);
+
+				bool result =
+					testConvertToDefn_Common(jsonValue, defn) &&
+					(defn.objectType == MapLayerObjectType::POLYLINE) &&
+					testConvertToDefn_PointList(jsonValue[JsonPropertyName::Map::POLYLINE], defn);
+				return result;
+			}
+
+			bool testConvertToDefn_Polygon() {
+				Json::Value jsonValue = createValidMapLayerPolygonJsonValue();
+
+				MapLayerObjectDefn defn = JsonMapLayerObjectLoader::convertToDefn(jsonValue);
+
+				bool result =
+					testConvertToDefn_Common(jsonValue, defn) &&
+					(defn.objectType == MapLayerObjectType::POLYGON) &&
+					testConvertToDefn_PointList(jsonValue[JsonPropertyName::Map::POLYGON], defn);
+				return result;
+			}
+
+			bool testConvertToDefn_Tile() {
+				Json::Value jsonValue = createValidMapLayerTileJsonValue();
+
+				MapLayerObjectDefn defn = JsonMapLayerObjectLoader::convertToDefn(jsonValue);
+
+				bool result =
+					testConvertToDefn_Common(jsonValue, defn) &&
+					(defn.objectType == MapLayerObjectType::TILE) &&
+					(defn.tileGid == 5);
+				return result;
 			}
 
 		}

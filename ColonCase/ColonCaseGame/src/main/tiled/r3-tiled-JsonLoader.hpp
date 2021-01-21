@@ -264,6 +264,7 @@ namespace r3 {
 
 			typedef struct Tiled_ValidationResult {
 				bool rootValid = true;
+				MapLayerObjectType objectType = MapLayerObjectType::UNKNOWN;
 				bool idValid = true;
 				bool xValid = true;
 				bool yValid = true;
