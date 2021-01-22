@@ -52,6 +52,9 @@ namespace r3 {
 				const char* POLYGON = "polygon";
 				const char* TILE_GID = "gid";
 
+				const char* FIRST_GID = "firstgid";
+				const char* SOURCE_PATH = "source";
+
 			}
 
 		}

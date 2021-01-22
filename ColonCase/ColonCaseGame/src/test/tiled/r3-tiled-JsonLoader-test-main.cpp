@@ -348,6 +348,21 @@ void runJsonMapLayerLoaderTests() {
 	assert(JsonMapLayerLoaderTests::testConvertToDefn_Group());
 }
 
+void runJsonMapTilesetLoaderTests() {
+	assert(JsonMapTilesetLoaderTests::testValidate_Valid());
+
+	assert(JsonMapTilesetLoaderTests::testValidate_InvalidRoot());
+
+	assert(JsonMapTilesetLoaderTests::testValidate_MissingFirstGid());
+	assert(JsonMapTilesetLoaderTests::testValidate_FirstGid(1, true));
+	assert(JsonMapTilesetLoaderTests::testValidate_FirstGid(0, false));
+	assert(JsonMapTilesetLoaderTests::testValidate_FirstGid("nope", false));
+
+	assert(JsonMapTilesetLoaderTests::testValidate_MissingSourcePath());
+	assert(JsonMapTilesetLoaderTests::testValidate_SourcePath("tileset.json", true));
+	assert(JsonMapTilesetLoaderTests::testValidate_SourcePath(1, false));
+}
+
 int main() {
 	runJsonCustomPropertyLoaderTests();
 
@@ -358,6 +373,7 @@ int main() {
 	runJsonMapLayerObjectPointLoaderTests();
 	runJsonMapLayerObjectLoaderTests();
 	runJsonMapLayerLoaderTests();
+	runJsonMapTilesetLoaderTests();
 
 	printf("All tests passed!\n");
 	return 0;

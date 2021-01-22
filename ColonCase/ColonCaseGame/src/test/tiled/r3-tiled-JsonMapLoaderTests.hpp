@@ -155,6 +155,28 @@ namespace r3 {
 
 		}
 
+		namespace JsonMapTilesetLoaderTests {
+
+			bool testValidate_Valid();
+
+			bool testValidate_InvalidRoot();
+
+			bool testValidate_MissingFirstGid();
+			bool testValidate_FirstGid(const Json::Value& firstGidValue, bool expectedFirstGidValid);
+
+			bool testValidate_MissingSourcePath();
+			bool testValidate_SourcePath(const Json::Value& sourcePathValue, bool expectedSourcePathValid);
+
+			bool testLocalizeTilesetListError();
+
+			bool testLocalizeValidationResult_Valid();
+			bool testLocalizeValidationResult_FirstGidInvalid();
+			bool testLocalizeValidationResult_SourcePathInvalid();
+
+			bool testConvertToDefn();
+
+		}
+
 	}
 
 }

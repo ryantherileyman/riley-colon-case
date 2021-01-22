@@ -53,6 +53,9 @@ namespace r3 {
 				extern const char* POLYGON;
 				extern const char* TILE_GID;
 
+				extern const char* FIRST_GID;
+				extern const char* SOURCE_PATH;
+
 			}
 
 		}
@@ -381,6 +384,32 @@ namespace r3 {
 
 		}
 
+		namespace JsonMapTilesetLoader {
+
+			typedef struct Tiled_ValidationResult {
+				bool rootValid = true;
+				bool firstGidValid = true;
+				bool sourcePathValid = true;
+
+				bool isValid() {
+					bool result =
+						rootValid &&
+						firstGidValid &&
+						sourcePathValid;
+					return result;
+				}
+			} ValidationResult;
+
+			ValidationResult validate(const Json::Value& jsonValue);
+
+			std::string localizeTilesetListError(int index);
+
+			std::vector<std::string> localizeValidationResult(const ValidationResult& validationResult);
+
+			MapTilesetDefn convertToDefn(const Json::Value& jsonValue);
+
+		}
+		
 	}
 
 }
