@@ -463,6 +463,51 @@ namespace r3 {
 				return result;
 			}
 
+			bool testConvertToDefn_Common(const Json::Value& jsonValue, const MapLayerDefn& defn) {
+				bool result =
+					(defn.id == 3) &&
+					(defn.name.compare("My Layer") == 0) &&
+					(defn.width == 5) &&
+					(defn.height == 2);
+				return result;
+			}
+
+			bool testConvertToDefn_Tile() {
+				Json::Value jsonValue = createValidTileMapLayerJsonValue();
+
+				MapLayerDefn defn = JsonMapLayerLoader::convertToDefn(jsonValue);
+
+				bool result =
+					testConvertToDefn_Common(jsonValue, defn) &&
+					(defn.type == MapLayerType::TILE) &&
+					(defn.data.size() == 10);
+				return result;
+			}
+
+			bool testConvertToDefn_Object() {
+				Json::Value jsonValue = createValidObjectMapLayerJsonValue();
+
+				MapLayerDefn defn = JsonMapLayerLoader::convertToDefn(jsonValue);
+
+				bool result =
+					testConvertToDefn_Common(jsonValue, defn) &&
+					(defn.type == MapLayerType::OBJECT) &&
+					(defn.objectDefnList.size() == 1);
+				return result;
+			}
+
+			bool testConvertToDefn_Group() {
+				Json::Value jsonValue = createValidGroupMapLayerJsonValue();
+
+				MapLayerDefn defn = JsonMapLayerLoader::convertToDefn(jsonValue);
+
+				bool result =
+					testConvertToDefn_Common(jsonValue, defn) &&
+					(defn.type == MapLayerType::GROUP) &&
+					(defn.layerDefnList.size() == 2);
+				return result;
+			}
+
 		}
 
 	}

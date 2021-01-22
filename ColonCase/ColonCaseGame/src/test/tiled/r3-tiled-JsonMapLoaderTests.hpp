@@ -149,6 +149,10 @@ namespace r3 {
 			bool testLocalizeValidationResult_LayerListInvalid();
 			bool testLocalizeValidationResult_PropertyListInvalid();
 
+			bool testConvertToDefn_Tile();
+			bool testConvertToDefn_Object();
+			bool testConvertToDefn_Group();
+
 		}
 
 	}

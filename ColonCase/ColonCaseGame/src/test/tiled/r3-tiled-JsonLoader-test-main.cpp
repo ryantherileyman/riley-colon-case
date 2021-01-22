@@ -342,6 +342,10 @@ void runJsonMapLayerLoaderTests() {
 	assert(JsonMapLayerLoaderTests::testLocalizeValidationResult_ObjectListInvalid());
 	assert(JsonMapLayerLoaderTests::testLocalizeValidationResult_LayerListInvalid());
 	assert(JsonMapLayerLoaderTests::testLocalizeValidationResult_PropertyListInvalid());
+
+	assert(JsonMapLayerLoaderTests::testConvertToDefn_Tile());
+	assert(JsonMapLayerLoaderTests::testConvertToDefn_Object());
+	assert(JsonMapLayerLoaderTests::testConvertToDefn_Group());
 }
 
 int main() {

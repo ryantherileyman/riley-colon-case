@@ -169,7 +169,35 @@ namespace r3 {
 			MapLayerDefn convertToDefn(const Json::Value& jsonValue) {
 				MapLayerDefn result;
 
-				// TODO
+				result.id = jsonValue[JsonPropertyName::ID].asInt();
+				result.type = convertToMapLayerType(jsonValue[JsonPropertyName::TYPE]);
+				result.name = jsonValue[JsonPropertyName::NAME].asString();
+				result.width = jsonValue[JsonPropertyName::WIDTH].asInt();
+				result.height = jsonValue[JsonPropertyName::HEIGHT].asInt();
+
+				if (result.type == MapLayerType::TILE) {
+					const Json::Value& dataListJsonValue = jsonValue[JsonPropertyName::Map::DATA];
+					for (Json::ArrayIndex index = 0; index < dataListJsonValue.size(); index++) {
+						result.data.push_back(dataListJsonValue[index].asInt());
+					}
+				}
+				else if (result.type == MapLayerType::OBJECT) {
+					const Json::Value& objectListJsonValue = jsonValue[JsonPropertyName::Map::OBJECT_LIST];
+					for (Json::ArrayIndex index = 0; index < objectListJsonValue.size(); index++) {
+						result.objectDefnList.push_back(JsonMapLayerObjectLoader::convertToDefn(objectListJsonValue[index]));
+					}
+				}
+				else if (result.type == MapLayerType::GROUP) {
+					const Json::Value& groupListJsonValue = jsonValue[JsonPropertyName::Map::LAYER_LIST];
+					for (Json::ArrayIndex index = 0; index < groupListJsonValue.size(); index++) {
+						result.layerDefnList.push_back(JsonMapLayerLoader::convertToDefn(groupListJsonValue[index]));
+					}
+				}
+
+				const Json::Value& propertyListJsonValue = jsonValue[JsonPropertyName::PROPERTY_LIST];
+				for (Json::ArrayIndex index = 0; index < propertyListJsonValue.size(); index++) {
+					result.propertyDefnList.push_back(JsonCustomPropertyLoader::convertToDefn(propertyListJsonValue[index]));
+				}
 
 				return result;
 			}
