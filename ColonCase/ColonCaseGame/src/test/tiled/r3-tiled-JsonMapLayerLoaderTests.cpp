@@ -324,6 +324,145 @@ namespace r3 {
 				return result;
 			}
 
+			bool testLocalizeObjectListError() {
+				std::string error = JsonMapLayerLoader::localizeObjectListError(3);
+
+				bool result = (error.find("Entry 3 within the \"layers\" array is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_Valid() {
+				JsonMapLayerLoader::ValidationResult validationResult;
+
+				std::vector<std::string> errorList = JsonMapLayerLoader::localizeValidationResult(validationResult);
+
+				bool result = errorList.empty();
+				return result;
+			}
+
+			bool testLocalizeValidationResult_IdInvalid() {
+				JsonMapLayerLoader::ValidationResult validationResult;
+				validationResult.idValid = false;
+
+				std::vector<std::string> errorList = JsonMapLayerLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"id\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_TypeInvalid() {
+				JsonMapLayerLoader::ValidationResult validationResult;
+				validationResult.typeValid = false;
+
+				std::vector<std::string> errorList = JsonMapLayerLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"type\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_NameInvalid() {
+				JsonMapLayerLoader::ValidationResult validationResult;
+				validationResult.nameValid = false;
+
+				std::vector<std::string> errorList = JsonMapLayerLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"name\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_WidthInvalid() {
+				JsonMapLayerLoader::ValidationResult validationResult;
+				validationResult.widthValid = false;
+
+				std::vector<std::string> errorList = JsonMapLayerLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"width\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_HeightInvalid() {
+				JsonMapLayerLoader::ValidationResult validationResult;
+				validationResult.heightValid = false;
+
+				std::vector<std::string> errorList = JsonMapLayerLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"height\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_DataInvalid() {
+				JsonMapLayerLoader::ValidationResult validationResult;
+				validationResult.dataValid = false;
+
+				std::vector<std::string> errorList = JsonMapLayerLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_ObjectListInvalid() {
+				JsonMapLayerObjectLoader::ValidationResult objectValidationResult;
+				objectValidationResult.idValid = false;
+
+				JsonMapLayerLoader::ValidationResult validationResult;
+				validationResult.layerType = MapLayerType::OBJECT;
+				validationResult.objectValidationResultList.push_back(objectValidationResult);
+
+				std::vector<std::string> errorList = JsonMapLayerLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 2) &&
+					(errorList.at(0).find("Entry 1 within the \"objects\" array is invalid") != std::string::npos) &&
+					(errorList.at(1).find("The \"id\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_LayerListInvalid() {
+				JsonMapLayerLoader::ValidationResult layerValidationResult;
+				layerValidationResult.typeValid = false;
+
+				JsonMapLayerLoader::ValidationResult validationResult;
+				validationResult.layerType = MapLayerType::GROUP;
+				validationResult.layerValidationResultList.push_back(layerValidationResult);
+
+				std::vector<std::string> errorList = JsonMapLayerLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 2) &&
+					(errorList.at(0).find("Entry 1 within the \"layers\" array is invalid") != std::string::npos) &&
+					(errorList.at(1).find("The \"type\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLocalizeValidationResult_PropertyListInvalid() {
+				JsonCustomPropertyLoader::ValidationResult propertyValidationResult;
+				propertyValidationResult.nameValid = false;
+
+				JsonMapLayerLoader::ValidationResult validationResult;
+				validationResult.layerType = MapLayerType::TILE;
+				validationResult.propertyValidationResultList.push_back(propertyValidationResult);
+
+				std::vector<std::string> errorList = JsonMapLayerLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 2) &&
+					(errorList.at(0).find("Entry 1 within the \"properties\" array is invalid") != std::string::npos) &&
+					(errorList.at(1).find("The \"name\" is invalid") != std::string::npos);
+				return result;
+			}
+
 		}
 
 	}

@@ -136,6 +136,19 @@ namespace r3 {
 
 			bool testValidate_InvalidPropertyList();
 
+			bool testLocalizeObjectListError();
+
+			bool testLocalizeValidationResult_Valid();
+			bool testLocalizeValidationResult_IdInvalid();
+			bool testLocalizeValidationResult_TypeInvalid();
+			bool testLocalizeValidationResult_NameInvalid();
+			bool testLocalizeValidationResult_WidthInvalid();
+			bool testLocalizeValidationResult_HeightInvalid();
+			bool testLocalizeValidationResult_DataInvalid();
+			bool testLocalizeValidationResult_ObjectListInvalid();
+			bool testLocalizeValidationResult_LayerListInvalid();
+			bool testLocalizeValidationResult_PropertyListInvalid();
+
 		}
 
 	}
