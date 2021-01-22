@@ -361,6 +361,14 @@ void runJsonMapTilesetLoaderTests() {
 	assert(JsonMapTilesetLoaderTests::testValidate_MissingSourcePath());
 	assert(JsonMapTilesetLoaderTests::testValidate_SourcePath("tileset.json", true));
 	assert(JsonMapTilesetLoaderTests::testValidate_SourcePath(1, false));
+
+	assert(JsonMapTilesetLoaderTests::testLocalizeTilesetListError());
+
+	assert(JsonMapTilesetLoaderTests::testLocalizeValidationResult_Valid());
+	assert(JsonMapTilesetLoaderTests::testLocalizeValidationResult_FirstGidInvalid());
+	assert(JsonMapTilesetLoaderTests::testLocalizeValidationResult_SourcePathInvalid());
+
+	assert(JsonMapTilesetLoaderTests::testConvertToDefn());
 }
 
 int main() {
