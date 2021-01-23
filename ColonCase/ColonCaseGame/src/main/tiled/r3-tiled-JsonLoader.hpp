@@ -100,7 +100,7 @@ namespace r3 {
 
 		}
 
-		namespace JsonLoaderUtils {
+		namespace JsonTiledValidationUtils {
 
 			bool dimensionValueValid(const Json::Value& jsonValue, const char* propertyName);
 

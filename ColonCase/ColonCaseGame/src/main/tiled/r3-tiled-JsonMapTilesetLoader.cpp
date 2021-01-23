@@ -14,7 +14,7 @@ namespace r3 {
 				result.rootValid = jsonValue.isObject();
 
 				if (result.rootValid) {
-					result.firstGidValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::Map::FIRST_GID);
+					result.firstGidValid = JsonTiledValidationUtils::dimensionValueValid(jsonValue, JsonPropertyName::Map::FIRST_GID);
 					result.sourcePathValid = JsonValidationUtils::requiredString(jsonValue, JsonPropertyName::Map::SOURCE_PATH);
 				}
 

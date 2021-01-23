@@ -66,7 +66,7 @@ namespace r3 {
 				if (result.rootValid) {
 					result.objectType = resolveObjectType(jsonValue);
 
-					result.idValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::ID);
+					result.idValid = JsonTiledValidationUtils::dimensionValueValid(jsonValue, JsonPropertyName::ID);
 					result.xValid = JsonValidationUtils::requiredFloat(jsonValue, JsonPropertyName::X);
 					result.yValid = JsonValidationUtils::requiredFloat(jsonValue, JsonPropertyName::Y);
 					result.rotationDegreesValid = JsonValidationUtils::requiredFloat(jsonValue, JsonPropertyName::Map::ROTATION);
@@ -98,7 +98,7 @@ namespace r3 {
 					}
 					else if (result.objectType == MapLayerObjectType::TILE) {
 						result.objectTypeValid = JsonValidationUtils::requiredInt(jsonValue, JsonPropertyName::Map::TILE_GID);
-						result.tileGidValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::Map::TILE_GID);
+						result.tileGidValid = JsonTiledValidationUtils::dimensionValueValid(jsonValue, JsonPropertyName::Map::TILE_GID);
 					}
 					else if (result.objectType == MapLayerObjectType::UNKNOWN) {
 						result.objectTypeValid = false;

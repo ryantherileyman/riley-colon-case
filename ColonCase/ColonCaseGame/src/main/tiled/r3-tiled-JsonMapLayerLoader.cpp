@@ -57,7 +57,7 @@ namespace r3 {
 				result.rootValid = jsonValue.isObject();
 
 				if (result.rootValid) {
-					result.idValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::ID);
+					result.idValid = JsonTiledValidationUtils::dimensionValueValid(jsonValue, JsonPropertyName::ID);
 
 					result.typeValid = mapLayerTypeValid(jsonValue);
 					if (result.typeValid) {
@@ -67,8 +67,8 @@ namespace r3 {
 					result.nameValid = JsonValidationUtils::requiredString(jsonValue, JsonPropertyName::NAME);
 
 					if (result.layerType == MapLayerType::TILE) {
-						result.widthValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::WIDTH);
-						result.heightValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::HEIGHT);
+						result.widthValid = JsonTiledValidationUtils::dimensionValueValid(jsonValue, JsonPropertyName::WIDTH);
+						result.heightValid = JsonTiledValidationUtils::dimensionValueValid(jsonValue, JsonPropertyName::HEIGHT);
 
 						int expectedDataSize = 0;
 						if (result.widthValid && result.heightValid) {

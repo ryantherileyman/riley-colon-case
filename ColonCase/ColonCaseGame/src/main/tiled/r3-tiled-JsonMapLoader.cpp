@@ -41,10 +41,10 @@ namespace r3 {
 				result.versionValid = JsonValidationUtils::requiredFloat(jsonValue, JsonPropertyName::VERSION);
 				result.orientationValid = mapOrientationTypeValid(jsonValue);
 				result.infiniteValid = JsonValidationUtils::requiredBool(jsonValue, JsonPropertyName::Map::INFINITE);
-				result.widthValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::WIDTH);
-				result.heightValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::HEIGHT);
-				result.tileWidthValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::TILE_WIDTH);
-				result.tileHeightValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::TILE_HEIGHT);
+				result.widthValid = JsonTiledValidationUtils::dimensionValueValid(jsonValue, JsonPropertyName::WIDTH);
+				result.heightValid = JsonTiledValidationUtils::dimensionValueValid(jsonValue, JsonPropertyName::HEIGHT);
+				result.tileWidthValid = JsonTiledValidationUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::TILE_WIDTH);
+				result.tileHeightValid = JsonTiledValidationUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::TILE_HEIGHT);
 
 				if (JsonValidationUtils::optionalArray(jsonValue, JsonPropertyName::Map::TILESET_LIST)) {
 					Json::Value tilesetListJsonValue = jsonValue[JsonPropertyName::Map::TILESET_LIST];

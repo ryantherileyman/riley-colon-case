@@ -58,9 +58,9 @@ namespace r3 {
 				result.typeValid = typeValueValid(jsonValue);
 				result.nameValid = JsonValidationUtils::requiredString(jsonValue, JsonPropertyName::NAME);
 				result.columnsValid = columnsValueValid(jsonValue);
-				result.tileCountValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::TILE_COUNT);
-				result.tileWidthValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::TILE_WIDTH);
-				result.tileHeightValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::TILE_HEIGHT);
+				result.tileCountValid = JsonTiledValidationUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::TILE_COUNT);
+				result.tileWidthValid = JsonTiledValidationUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::TILE_WIDTH);
+				result.tileHeightValid = JsonTiledValidationUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::TILE_HEIGHT);
 
 				TilesetType tilesetType = resolveTilesetType(jsonValue);
 				result.tilesetTypeValid = (tilesetType != TilesetType::UNKNOWN);
@@ -68,8 +68,8 @@ namespace r3 {
 				switch (tilesetType) {
 
 				case TilesetType::IMAGE:
-					result.imageValidationResult.imageWidthValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::IMAGE_WIDTH);
-					result.imageValidationResult.imageHeightValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::IMAGE_HEIGHT);
+					result.imageValidationResult.imageWidthValid = JsonTiledValidationUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::IMAGE_WIDTH);
+					result.imageValidationResult.imageHeightValid = JsonTiledValidationUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::IMAGE_HEIGHT);
 					break;
 
 				case TilesetType::TILE_LIST:
