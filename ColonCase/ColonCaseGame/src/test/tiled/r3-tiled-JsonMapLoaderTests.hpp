@@ -177,6 +177,39 @@ namespace r3 {
 
 		}
 
+		namespace JsonMapLoaderTests {
+
+			bool testValidate_Valid();
+
+			bool testValidate_MissingVersion();
+			bool testValidate_Version(const Json::Value& versionJsonValue, bool expectedVersionValid);
+
+			bool testValidate_MissingOrientation();
+			bool testValidate_Orientation(const Json::Value& orientationJsonValue, bool expectedOrientationValid);
+
+			bool testValidate_MissingInfinite();
+			bool testValidate_Infinite(const Json::Value& infiniteJsonValue, bool expectedInfiniteValid);
+
+			bool testValidate_MissingWidth();
+			bool testValidate_Width(const Json::Value& widthJsonValue, bool expectedWidthValid);
+
+			bool testValidate_MissingHeight();
+			bool testValidate_Height(const Json::Value& heightJsonValue, bool expectedHeightValid);
+
+			bool testValidate_MissingTileWidth();
+			bool testValidate_TileWidth(const Json::Value& tileWidthJsonValue, bool expectedTileWidthValid);
+
+			bool testValidate_MissingTileHeight();
+			bool testValidate_TileHeight(const Json::Value& tileHeightJsonValue, bool expectedTileHeightValid);
+
+			bool testValidate_InvalidTilesetList();
+
+			bool testValidate_InvalidLayerList();
+
+			bool testValidate_InvalidPropertyList();
+
+		}
+
 	}
 
 }

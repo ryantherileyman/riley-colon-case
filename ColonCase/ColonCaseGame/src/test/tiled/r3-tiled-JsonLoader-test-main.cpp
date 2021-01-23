@@ -371,6 +371,53 @@ void runJsonMapTilesetLoaderTests() {
 	assert(JsonMapTilesetLoaderTests::testConvertToDefn());
 }
 
+void runJsonMapLoaderTests() {
+	assert(JsonMapLoaderTests::testValidate_Valid());
+
+	assert(JsonMapLoaderTests::testValidate_MissingVersion());
+	assert(JsonMapLoaderTests::testValidate_Version(1.4, true));
+	assert(JsonMapLoaderTests::testValidate_Version("1.4", false));
+
+	assert(JsonMapLoaderTests::testValidate_MissingOrientation());
+	assert(JsonMapLoaderTests::testValidate_Orientation(JsonPropertyValue::MapOrientationValue::ORTHOGONAL, true));
+	assert(JsonMapLoaderTests::testValidate_Orientation(JsonPropertyValue::MapOrientationValue::ISOMETRIC, true));
+	assert(JsonMapLoaderTests::testValidate_Orientation(JsonPropertyValue::MapOrientationValue::STAGGERED, true));
+	assert(JsonMapLoaderTests::testValidate_Orientation(JsonPropertyValue::MapOrientationValue::HEXAGONAL, true));
+	assert(JsonMapLoaderTests::testValidate_Orientation("nowhere", false));
+	assert(JsonMapLoaderTests::testValidate_Orientation(1, false));
+
+	assert(JsonMapLoaderTests::testValidate_MissingInfinite());
+	assert(JsonMapLoaderTests::testValidate_Infinite(true, true));
+	assert(JsonMapLoaderTests::testValidate_Infinite(false, true));
+	assert(JsonMapLoaderTests::testValidate_Infinite(1, false));
+
+	assert(JsonMapLoaderTests::testValidate_MissingWidth());
+	assert(JsonMapLoaderTests::testValidate_Width(1, true));
+	assert(JsonMapLoaderTests::testValidate_Width(0, false));
+	assert(JsonMapLoaderTests::testValidate_Width("10", false));
+
+	assert(JsonMapLoaderTests::testValidate_MissingHeight());
+	assert(JsonMapLoaderTests::testValidate_Height(1, true));
+	assert(JsonMapLoaderTests::testValidate_Height(0, false));
+	assert(JsonMapLoaderTests::testValidate_Height("5", false));
+
+	assert(JsonMapLoaderTests::testValidate_MissingTileWidth());
+	assert(JsonMapLoaderTests::testValidate_TileWidth(1, true));
+	assert(JsonMapLoaderTests::testValidate_TileWidth(0, false));
+	assert(JsonMapLoaderTests::testValidate_TileWidth("3", false));
+
+	assert(JsonMapLoaderTests::testValidate_MissingTileHeight());
+	assert(JsonMapLoaderTests::testValidate_TileHeight(1, true));
+	assert(JsonMapLoaderTests::testValidate_TileHeight(0, false));
+	assert(JsonMapLoaderTests::testValidate_TileHeight("2", false));
+
+	assert(JsonMapLoaderTests::testValidate_InvalidTilesetList());
+
+	assert(JsonMapLoaderTests::testValidate_InvalidLayerList());
+
+	assert(JsonMapLoaderTests::testValidate_InvalidPropertyList());
+}
+
 int main() {
 	runJsonCustomPropertyLoaderTests();
 
@@ -382,6 +429,7 @@ int main() {
 	runJsonMapLayerObjectLoaderTests();
 	runJsonMapLayerLoaderTests();
 	runJsonMapTilesetLoaderTests();
+	runJsonMapLoaderTests();
 
 	printf("All tests passed!\n");
 	return 0;

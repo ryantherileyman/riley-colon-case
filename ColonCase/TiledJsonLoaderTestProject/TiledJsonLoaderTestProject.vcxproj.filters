@@ -104,5 +104,11 @@
     <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonMapTilesetLoaderTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonMapLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonMapLoaderTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

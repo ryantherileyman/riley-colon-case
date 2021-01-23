@@ -88,6 +88,15 @@ namespace r3 {
 
 			}
 
+			namespace MapOrientationValue {
+
+				const char* ORTHOGONAL = "orthogonal";
+				const char* ISOMETRIC = "isometric";
+				const char* STAGGERED = "staggered";
+				const char* HEXAGONAL = "hexagonal";
+
+			}
+
 		}
 
 		namespace JsonLoaderUtils {
