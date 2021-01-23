@@ -220,6 +220,8 @@ namespace r3 {
 			bool testLocalizeValidationResult_LayerListInvalid();
 			bool testLocalizeValidationResult_PropertyListInvalid();
 
+			bool testConvertToDefn();
+
 		}
 
 	}

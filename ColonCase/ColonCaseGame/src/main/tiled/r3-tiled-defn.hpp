@@ -129,7 +129,7 @@ namespace r3 {
 		} MapTilesetDefn;
 
 		typedef struct Tiled_MapDefn {
-			std::string version;
+			double version = 0.0;
 			MapOrientationType orientation = MapOrientationType::UNKNOWN;
 			bool infinite = false;
 			int width = 0;

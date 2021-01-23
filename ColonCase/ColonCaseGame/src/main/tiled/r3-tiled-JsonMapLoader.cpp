@@ -137,7 +137,34 @@ namespace r3 {
 			MapDefn convertToDefn(const Json::Value& jsonValue) {
 				MapDefn result;
 
-				// TODO
+				result.version = jsonValue[JsonPropertyName::VERSION].asDouble();
+				result.orientation = convertToMapOrientationType(jsonValue[JsonPropertyName::Map::ORIENTATION]);
+				result.infinite = jsonValue[JsonPropertyName::Map::INFINITE].asBool();
+				result.width = jsonValue[JsonPropertyName::WIDTH].asInt();
+				result.height = jsonValue[JsonPropertyName::HEIGHT].asInt();
+				result.tileWidth = jsonValue[JsonPropertyName::Tileset::TILE_WIDTH].asInt();
+				result.tileHeight = jsonValue[JsonPropertyName::Tileset::TILE_HEIGHT].asInt();
+
+				if (JsonValidationUtils::optionalArray(jsonValue, JsonPropertyName::Map::TILESET_LIST)) {
+					Json::Value tilesetListJsonValue = jsonValue[JsonPropertyName::Map::TILESET_LIST];
+					for (Json::ArrayIndex index = 0; index < tilesetListJsonValue.size(); index++) {
+						result.tilesetDefnList.push_back(JsonMapTilesetLoader::convertToDefn(tilesetListJsonValue[index]));
+					}
+				}
+
+				if (JsonValidationUtils::optionalArray(jsonValue, JsonPropertyName::Map::LAYER_LIST)) {
+					Json::Value layerListJsonValue = jsonValue[JsonPropertyName::Map::LAYER_LIST];
+					for (Json::ArrayIndex index = 0; index < layerListJsonValue.size(); index++) {
+						result.layerDefnList.push_back(JsonMapLayerLoader::convertToDefn(layerListJsonValue[index]));
+					}
+				}
+
+				if (JsonValidationUtils::optionalArray(jsonValue, JsonPropertyName::PROPERTY_LIST)) {
+					Json::Value propertyListJsonValue = jsonValue[JsonPropertyName::PROPERTY_LIST];
+					for (Json::ArrayIndex index = 0; index < propertyListJsonValue.size(); index++) {
+						result.propertyDefnList.push_back(JsonCustomPropertyLoader::convertToDefn(propertyListJsonValue[index]));
+					}
+				}
 
 				return result;
 			}

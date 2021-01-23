@@ -1,4 +1,5 @@
 
+#include <cmath>
 #include "r3-tiled-JsonMapLoaderTests.hpp"
 #include "../../main/tiled/r3-tiled-JsonLoader.hpp"
 
@@ -406,6 +407,24 @@ namespace r3 {
 					(errorList.size() == 2) &&
 					(errorList.at(0).find("Entry 1 within the \"properties\" array is invalid") != std::string::npos) &&
 					(errorList.at(1).find("The \"name\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testConvertToDefn() {
+				Json::Value jsonValue = createValidMapJsonValue();
+
+				MapDefn defn = JsonMapLoader::convertToDefn(jsonValue);
+
+				bool result =
+					(lround(defn.version * 10) == 14l) &&
+					(defn.orientation == MapOrientationType::ORTHOGONAL) &&
+					(defn.infinite == false) &&
+					(defn.width == 5) &&
+					(defn.height = 2) &&
+					(defn.tileWidth == 128) &&
+					(defn.tileHeight == 128) &&
+					(defn.tilesetDefnList.at(0).sourcePath.compare("tilesets/characters.json") == 0) &&
+					(defn.layerDefnList.at(0).name.compare("Spawns") == 0);
 				return result;
 			}
 
