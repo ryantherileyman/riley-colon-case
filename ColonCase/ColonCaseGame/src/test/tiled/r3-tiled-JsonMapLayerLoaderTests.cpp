@@ -93,6 +93,8 @@ namespace r3 {
 
 			bool testValidate_Valid_Object() {
 				Json::Value jsonValue = createValidObjectMapLayerJsonValue();
+				jsonValue.removeMember(JsonPropertyName::WIDTH);
+				jsonValue.removeMember(JsonPropertyName::HEIGHT);
 
 				JsonMapLayerLoader::ValidationResult validationResult = JsonMapLayerLoader::validate(jsonValue);
 
@@ -104,6 +106,8 @@ namespace r3 {
 
 			bool testValidate_Valid_Group() {
 				Json::Value jsonValue = createValidGroupMapLayerJsonValue();
+				jsonValue.removeMember(JsonPropertyName::WIDTH);
+				jsonValue.removeMember(JsonPropertyName::HEIGHT);
 
 				JsonMapLayerLoader::ValidationResult validationResult = JsonMapLayerLoader::validate(jsonValue);
 
