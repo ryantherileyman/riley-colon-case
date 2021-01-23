@@ -1,0 +1,33 @@
+{
+  "version": 1.4,
+  "infinite": false,
+  "width": 5,
+  "height": 3,
+  "tilewidth": 128,
+  "tileheight": 128,
+  "tilesets": [
+    {
+      "firstgid": 1,
+      "source": "valid_tileset.json"
+    }
+  ],
+  "layers": [
+    {
+      "id": 1,
+      "type": "objectgroup",
+      "name": "Collisions",
+      "objects": [
+        {
+          "id": 2,
+          "x": 25,
+          "y": 35,
+          "rotation": 0,
+          "width": 10,
+          "height": 15,
+          "name": "",
+          "type": ""
+        }
+      ]
+    }
+  ]
+}

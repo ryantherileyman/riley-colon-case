@@ -420,11 +420,38 @@ namespace r3 {
 					(defn.orientation == MapOrientationType::ORTHOGONAL) &&
 					(defn.infinite == false) &&
 					(defn.width == 5) &&
-					(defn.height = 2) &&
+					(defn.height == 2) &&
 					(defn.tileWidth == 128) &&
 					(defn.tileHeight == 128) &&
 					(defn.tilesetDefnList.at(0).sourcePath.compare("tilesets/characters.json") == 0) &&
 					(defn.layerDefnList.at(0).name.compare("Spawns") == 0);
+				return result;
+			}
+
+			bool testLoadFromJsonFile_InvalidJson() {
+				JsonMapLoader::LoadMapResult loadMapResult = JsonMapLoader::loadFromFile("resources/invalid_json.json");
+
+				bool result =
+					(loadMapResult.errorList.size() == 1) &&
+					(loadMapResult.errorList.at(0).find("Missing '}' or object member name") != std::string::npos);
+				return result;
+			}
+
+			bool testLoadFromJsonFile_InvalidMap() {
+				JsonMapLoader::LoadMapResult loadMapResult = JsonMapLoader::loadFromFile("resources/invalid_map.json");
+
+				bool result =
+					(loadMapResult.errorList.size() == 1) &&
+					(loadMapResult.errorList.at(0).find("The \"orientation\" is invalid") != std::string::npos);
+				return result;
+			}
+
+			bool testLoadFromJsonFile_ValidMap() {
+				JsonMapLoader::LoadMapResult loadMapResult = JsonMapLoader::loadFromFile("resources/valid_map.json");
+
+				bool result =
+					(loadMapResult.errorList.empty()) &&
+					(loadMapResult.mapDefn.orientation == MapOrientationType::ORTHOGONAL);
 				return result;
 			}
 

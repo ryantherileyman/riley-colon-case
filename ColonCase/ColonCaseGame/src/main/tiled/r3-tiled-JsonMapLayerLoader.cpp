@@ -65,10 +65,11 @@ namespace r3 {
 					}
 
 					result.nameValid = JsonValidationUtils::requiredString(jsonValue, JsonPropertyName::NAME);
-					result.widthValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::WIDTH);
-					result.heightValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::HEIGHT);
 
 					if (result.layerType == MapLayerType::TILE) {
+						result.widthValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::WIDTH);
+						result.heightValid = JsonLoaderUtils::dimensionValueValid(jsonValue, JsonPropertyName::HEIGHT);
+
 						int expectedDataSize = 0;
 						if (result.widthValid && result.heightValid) {
 							expectedDataSize = jsonValue[JsonPropertyName::WIDTH].asInt() * jsonValue[JsonPropertyName::HEIGHT].asInt();

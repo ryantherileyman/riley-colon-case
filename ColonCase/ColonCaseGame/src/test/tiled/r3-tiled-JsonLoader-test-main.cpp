@@ -430,6 +430,10 @@ void runJsonMapLoaderTests() {
 	assert(JsonMapLoaderTests::testLocalizeValidationResult_PropertyListInvalid());
 
 	assert(JsonMapLoaderTests::testConvertToDefn());
+
+	assert(JsonMapLoaderTests::testLoadFromJsonFile_InvalidJson());
+	assert(JsonMapLoaderTests::testLoadFromJsonFile_InvalidMap());
+	assert(JsonMapLoaderTests::testLoadFromJsonFile_ValidMap());
 }
 
 int main() {

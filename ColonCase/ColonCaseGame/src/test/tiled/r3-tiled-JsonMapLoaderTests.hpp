@@ -222,6 +222,10 @@ namespace r3 {
 
 			bool testConvertToDefn();
 
+			bool testLoadFromJsonFile_InvalidJson();
+			bool testLoadFromJsonFile_InvalidMap();
+			bool testLoadFromJsonFile_ValidMap();
+
 		}
 
 	}

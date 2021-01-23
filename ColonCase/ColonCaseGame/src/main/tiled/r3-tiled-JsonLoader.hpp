@@ -470,6 +470,13 @@ namespace r3 {
 
 			MapDefn convertToDefn(const Json::Value& jsonValue);
 
+			typedef struct Tiled_LoadMapResult {
+				std::vector<std::string> errorList;
+				MapDefn mapDefn;
+			} LoadMapResult;
+
+			LoadMapResult loadFromFile(const char* filePath);
+
 		}
 		
 	}
