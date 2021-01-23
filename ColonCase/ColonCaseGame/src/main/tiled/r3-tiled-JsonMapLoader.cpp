@@ -73,7 +73,63 @@ namespace r3 {
 			std::vector<std::string> localizeValidationResult(const ValidationResult& validationResult) {
 				std::vector<std::string> result;
 
-				// TODO
+				if (!validationResult.versionValid) {
+					result.push_back("The \"version\" is invalid.  It must be a valid JSON file format version number.");
+				}
+
+				if (!validationResult.orientationValid) {
+					result.push_back("The \"orientation\" is invalid.  It must be one of \"orthogonal\", \"isometric\", \"staggered\", or \"hexagonal\".");
+				}
+
+				if (!validationResult.infiniteValid) {
+					result.push_back("The \"infinite\" is invalid.  It must be true or false.");
+				}
+
+				if (!validationResult.widthValid) {
+					result.push_back("The \"width\" is invalid.  It must be an integer greater than 0.");
+				}
+
+				if (!validationResult.heightValid) {
+					result.push_back("The \"height\" is invalid.  It must be an integer greater than 0.");
+				}
+
+				if (!validationResult.tileWidthValid) {
+					result.push_back("The \"tilewidth\" is invalid.  It must be an integer greater than 0.");
+				}
+
+				if (!validationResult.tileHeightValid) {
+					result.push_back("The \"tileheight\" is invalid.  It must be an integer greater than 0.");
+				}
+
+				for (size_t index = 0; index < validationResult.tilesetValidationResultList.size(); index++) {
+					const auto& currTilesetValidationResult = validationResult.tilesetValidationResultList[index];
+					std::vector<std::string> currErrorList = JsonMapTilesetLoader::localizeValidationResult(currTilesetValidationResult);
+
+					if (!currErrorList.empty()) {
+						result.push_back(JsonMapTilesetLoader::localizeTilesetListError(index + 1));
+						result.insert(std::end(result), std::begin(currErrorList), std::end(currErrorList));
+					}
+				}
+
+				for (size_t index = 0; index < validationResult.layerValidationResultList.size(); index++) {
+					const auto& currLayerValidationResult = validationResult.layerValidationResultList[index];
+					std::vector<std::string> currErrorList = JsonMapLayerLoader::localizeValidationResult(currLayerValidationResult);
+
+					if (!currErrorList.empty()) {
+						result.push_back(JsonMapLayerLoader::localizeObjectListError(index + 1));
+						result.insert(std::end(result), std::begin(currErrorList), std::end(currErrorList));
+					}
+				}
+
+				for (size_t index = 0; index < validationResult.propertyValidationResultList.size(); index++) {
+					const auto& currPropertyValidationResult = validationResult.propertyValidationResultList[index];
+					std::vector<std::string> currErrorList = JsonCustomPropertyLoader::localizeValidationResult(currPropertyValidationResult);
+
+					if (!currErrorList.empty()) {
+						result.push_back(JsonCustomPropertyLoader::localizePropertyListError(index + 1));
+						result.insert(std::end(result), std::begin(currErrorList), std::end(currErrorList));
+					}
+				}
 
 				return result;
 			}

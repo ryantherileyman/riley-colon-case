@@ -208,6 +208,18 @@ namespace r3 {
 
 			bool testValidate_InvalidPropertyList();
 
+			bool testLocalizeValidationResult_Valid();
+			bool testLocalizeValidationResult_VersionInvalid();
+			bool testLocalizeValidationResult_OrientationInvalid();
+			bool testLocalizeValidationResult_InfiniteInvalid();
+			bool testLocalizeValidationResult_WidthInvalid();
+			bool testLocalizeValidationResult_HeightInvalid();
+			bool testLocalizeValidationResult_TileWidthInvalid();
+			bool testLocalizeValidationResult_TileHeightInvalid();
+			bool testLocalizeValidationResult_TilesetListInvalid();
+			bool testLocalizeValidationResult_LayerListInvalid();
+			bool testLocalizeValidationResult_PropertyListInvalid();
+
 		}
 
 	}

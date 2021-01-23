@@ -416,6 +416,18 @@ void runJsonMapLoaderTests() {
 	assert(JsonMapLoaderTests::testValidate_InvalidLayerList());
 
 	assert(JsonMapLoaderTests::testValidate_InvalidPropertyList());
+
+	assert(JsonMapLoaderTests::testLocalizeValidationResult_Valid());
+	assert(JsonMapLoaderTests::testLocalizeValidationResult_VersionInvalid());
+	assert(JsonMapLoaderTests::testLocalizeValidationResult_OrientationInvalid());
+	assert(JsonMapLoaderTests::testLocalizeValidationResult_InfiniteInvalid());
+	assert(JsonMapLoaderTests::testLocalizeValidationResult_WidthInvalid());
+	assert(JsonMapLoaderTests::testLocalizeValidationResult_HeightInvalid());
+	assert(JsonMapLoaderTests::testLocalizeValidationResult_TileWidthInvalid());
+	assert(JsonMapLoaderTests::testLocalizeValidationResult_TileHeightInvalid());
+	assert(JsonMapLoaderTests::testLocalizeValidationResult_TilesetListInvalid());
+	assert(JsonMapLoaderTests::testLocalizeValidationResult_LayerListInvalid());
+	assert(JsonMapLoaderTests::testLocalizeValidationResult_PropertyListInvalid());
 }
 
 int main() {
