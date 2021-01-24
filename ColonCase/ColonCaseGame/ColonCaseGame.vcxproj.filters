@@ -116,5 +116,8 @@
     <ClInclude Include="src\main\validation\r3-validation-utils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\main\level-data\r3-colonCase-levelDefn.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -173,6 +173,7 @@
   <ItemGroup>
     <ClInclude Include="src\main\gameplay\r3-colonCase-gameplay.hpp" />
     <ClInclude Include="src\main\json\r3-jsoncpp-utils.hpp" />
+    <ClInclude Include="src\main\level-data\r3-colonCase-levelDefn.hpp" />
     <ClInclude Include="src\main\r3-colonCase-client.hpp" />
     <ClInclude Include="src\main\sfml-utils\r3-sfml-utils.hpp" />
     <ClInclude Include="src\main\splash-screen\r3-colonCase-mainMenu.hpp" />
