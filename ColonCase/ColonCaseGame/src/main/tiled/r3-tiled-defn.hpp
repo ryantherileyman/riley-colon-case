@@ -27,6 +27,20 @@ namespace r3 {
 			std::string stringValue;
 		} CustomPropertyDefn;
 
+		namespace CustomPropertyDefnUtils {
+
+			const CustomPropertyDefn& find(const std::vector<CustomPropertyDefn>& propertyDefnList, const std::string& propertyName);
+
+			bool contains(const std::vector<CustomPropertyDefn>& propertyDefnList, const std::string& propertyName);
+			bool containsOfType(const std::vector<CustomPropertyDefn>& propertyDefnList, const std::string& propertyName, CustomPropertyType type);
+
+			bool getBoolValue(const std::vector<CustomPropertyDefn>& propertyDefnList, const std::string& propertyName);
+			int getIntValue(const std::vector<CustomPropertyDefn>& propertyDefnList, const std::string& propertyName);
+			double getDecimalValue(const std::vector<CustomPropertyDefn>& propertyDefnList, const std::string& propertyName);
+			const std::string& getStringValue(const std::vector<CustomPropertyDefn>& propertyDefnList, const std::string& propertyName);
+
+		}
+
 		typedef struct Tiled_TilesetImageDefn {
 			std::string imagePath;
 			int imageWidth = 0;

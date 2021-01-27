@@ -87,6 +87,15 @@
     <ClCompile Include="src\main\tiled\r3-tiled-JsonMapLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\level-data\r3-colonCase-JsonGameMapLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\level-data\r3-colonCase-GameLoaderUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\tiled\r3-tiled-CustomPropertyDefnUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\splash-screen\r3-colonCase-mainMenu.hpp">
@@ -117,6 +126,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\main\level-data\r3-colonCase-levelDefn.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\level-data\r3-colonCase-JsonGameLoader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

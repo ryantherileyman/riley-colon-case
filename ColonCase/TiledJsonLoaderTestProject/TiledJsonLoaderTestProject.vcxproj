@@ -89,6 +89,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>D:\Riley\DevData\cpp\jsoncpp\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,6 +147,7 @@
     <ClInclude Include="..\ColonCaseGame\src\main\tiled\r3-tiled-defn.hpp" />
     <ClInclude Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonLoader.hpp" />
     <ClInclude Include="..\ColonCaseGame\src\main\validation\r3-validation-utils.hpp" />
+    <ClInclude Include="..\ColonCaseGame\src\test\tiled\r3-tiled-CustomPropertyDefnUtilsTests.hpp" />
     <ClInclude Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonCustomPropertyLoaderTests.hpp" />
     <ClInclude Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonMapLoaderTests.hpp" />
     <ClInclude Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonTilesetLoaderTests.hpp" />
@@ -153,6 +155,7 @@
   <ItemGroup>
     <ClCompile Include="..\ColonCaseGame\src\main\json\r3-jsoncpp-JsonLoaderUtils.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\main\json\r3-jsoncpp-JsonValidationUtils.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-CustomPropertyDefnUtils.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonCustomPropertyLoader.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonLoader.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonMapLayerLoader.cpp" />
@@ -165,6 +168,7 @@
     <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonTilesetTileLoader.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-MapLayerObjectTypeUtils.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\main\validation\r3-validation-IntRange.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-CustomPropertyDefnUtilsTests.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonCustomPropertyLoaderTests.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonLoader-test-main.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\test\tiled\r3-tiled-JsonMapLayerLoaderTests.cpp" />

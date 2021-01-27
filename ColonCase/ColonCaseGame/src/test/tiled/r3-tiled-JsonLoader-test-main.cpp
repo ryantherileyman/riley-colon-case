@@ -2,11 +2,43 @@
 #include <assert.h>
 #include <stdio.h>
 #include "../../main/tiled/r3-tiled-JsonLoader.hpp"
+#include "r3-tiled-CustomPropertyDefnUtilsTests.hpp"
 #include "r3-tiled-JsonCustomPropertyLoaderTests.hpp"
 #include "r3-tiled-JsonTilesetLoaderTests.hpp"
 #include "r3-tiled-JsonMapLoaderTests.hpp"
 
 using namespace r3::tiled;
+
+void runCustomPropertyDefnUtilsTests() {
+	assert(CustomPropertyDefnUtilsTests::testFind_Success());
+	assert(CustomPropertyDefnUtilsTests::testFind_Failure());
+
+	assert(CustomPropertyDefnUtilsTests::testContains_Exists());
+	assert(CustomPropertyDefnUtilsTests::testContains_Missing());
+
+	assert(CustomPropertyDefnUtilsTests::testContainsOfType_TypeMatches());
+	assert(CustomPropertyDefnUtilsTests::testContainsOfType_TypeMismatch());
+	assert(CustomPropertyDefnUtilsTests::testContainsOfType_Missing());
+
+	assert(CustomPropertyDefnUtilsTests::testGetBoolValue_TypeMatches());
+	assert(CustomPropertyDefnUtilsTests::testGetBoolValue_TypeMismatch());
+	assert(CustomPropertyDefnUtilsTests::testGetBoolValue_Missing());
+
+	assert(CustomPropertyDefnUtilsTests::testGetIntValue_TypeMatches_Int());
+	assert(CustomPropertyDefnUtilsTests::testGetIntValue_TypeMatches_Object());
+	assert(CustomPropertyDefnUtilsTests::testGetIntValue_TypeMismatch());
+	assert(CustomPropertyDefnUtilsTests::testGetIntValue_Missing());
+
+	assert(CustomPropertyDefnUtilsTests::testGetDecimalValue_TypeMatches());
+	assert(CustomPropertyDefnUtilsTests::testGetDecimalValue_TypeMismatch());
+	assert(CustomPropertyDefnUtilsTests::testGetDecimalValue_Missing());
+
+	assert(CustomPropertyDefnUtilsTests::testGetStringValue_TypeMatches_String());
+	assert(CustomPropertyDefnUtilsTests::testGetStringValue_TypeMatches_Color());
+	assert(CustomPropertyDefnUtilsTests::testGetStringValue_TypeMatches_File());
+	assert(CustomPropertyDefnUtilsTests::testGetStringValue_TypeMismatch());
+	assert(CustomPropertyDefnUtilsTests::testGetStringValue_Missing());
+}
 
 void runJsonCustomPropertyLoaderTests() {
 	assert(JsonCustomPropertyLoaderTests::testValidate_Valid());
@@ -437,6 +469,7 @@ void runJsonMapLoaderTests() {
 }
 
 int main() {
+	runCustomPropertyDefnUtilsTests();
 	runJsonCustomPropertyLoaderTests();
 
 	runJsonTilesetImageLoaderTests();
