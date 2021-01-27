@@ -1,6 +1,4 @@
 
-#include <algorithm>
-#include <iterator>
 #include <stdexcept>
 #include "r3-colonCase-JsonGameLoader.hpp"
 #include "../tiled/r3-tiled-defn.hpp"
@@ -60,7 +58,7 @@ namespace r3 {
 				}
 
 				if (result.layerType == GameMapLayerType::TILE) {
-					std::copy(std::begin(source.data), std::end(source.data), std::back_inserter(result.tileIdList));
+					result.tileIdList.insert(std::end(result.tileIdList), std::begin(source.data), std::end(source.data));
 				}
 
 				if (result.layerType == GameMapLayerType::SPRITE) {
@@ -71,109 +69,6 @@ namespace r3 {
 						}
 					}
 				}
-
-				return result;
-			}
-
-			class TiledMapLoader {
-
-			private:
-				const char* campaignFolder;
-				const char* mapFilePath;
-				LoadTiledMapResult result;
-
-			public:
-				TiledMapLoader(const char* campaignFolder, const char* filePath) {
-					this->campaignFolder = campaignFolder;
-					this->mapFilePath = filePath;
-				}
-
-				LoadTiledMapResult load() {
-					if (GameLoaderUtils::isValidPath(this->campaignFolder, this->mapFilePath)) {
-						this->loadMap();
-					}
-					else {
-						this->result.errorList.push_back(GameLoaderUtils::localizeInvalidPathError(this->campaignFolder, this->mapFilePath));
-					}
-
-					return result;
-				}
-
-			private:
-
-				void loadMap() {
-					std::string fullFilePath = GameLoaderUtils::buildFullPath(this->campaignFolder, this->mapFilePath);
-					tiled::JsonMapLoader::LoadMapResult loadMapResult = tiled::JsonMapLoader::loadFromFile(fullFilePath.c_str());
-
-					if (loadMapResult.errorList.empty()) {
-						this->result.mapDefn = loadMapResult.mapDefn;
-
-						this->loadTilesetList(loadMapResult.mapDefn.tilesetDefnList);
-					}
-					else {
-						this->result.errorList.insert(std::end(this->result.errorList), std::begin(loadMapResult.errorList), std::end(loadMapResult.errorList));
-					}
-				}
-
-				void loadTilesetList(const std::vector<tiled::MapTilesetDefn>& mapTilesetDefnList) {
-					for (const auto& currTilesetDefn : mapTilesetDefnList) {
-						this->loadTilesetIfValid(currTilesetDefn);
-					}
-				}
-
-				void loadTilesetIfValid(const tiled::MapTilesetDefn& mapTilesetDefn) {
-					std::string tilesetRelativePath = GameLoaderUtils::resolveRelativeFilePath(this->mapFilePath, mapTilesetDefn.sourcePath.c_str());
-					if (GameLoaderUtils::isValidPath(this->campaignFolder, tilesetRelativePath.c_str())) {
-						this->loadTileset(mapTilesetDefn, tilesetRelativePath);
-					}
-					else {
-						this->result.errorList.push_back(GameLoaderUtils::localizeInvalidPathError(this->campaignFolder, tilesetRelativePath.c_str()));
-					}
-				}
-
-				void loadTileset(const tiled::MapTilesetDefn& mapTilesetDefn, const std::string& tilesetRelativePath) {
-					std::string tilesetFullPath = GameLoaderUtils::buildFullPath(campaignFolder, tilesetRelativePath.c_str());
-
-					tiled::JsonTilesetLoader::LoadTilesetResult loadTilesetResult = tiled::JsonTilesetLoader::loadFromJsonFile(tilesetFullPath.c_str());
-
-					if (loadTilesetResult.errorList.empty()) {
-						this->result.tilesetDefnMap[mapTilesetDefn.sourcePath] = loadTilesetResult.tilesetDefn;
-
-						auto& tilesetDefn = this->result.tilesetDefnMap[mapTilesetDefn.sourcePath];
-						for (auto& currTileDefn : tilesetDefn.tileDefnList) {
-							currTileDefn.id += mapTilesetDefn.firstGid;
-						}
-					}
-					else {
-						this->result.errorList.insert(std::end(this->result.errorList), std::begin(loadTilesetResult.errorList), std::end(loadTilesetResult.errorList));
-					}
-				}
-
-			};
-
-			LoadTiledMapResult loadFromFile(const char* campaignFolder, const char* filePath) {
-				TiledMapLoader loader(campaignFolder, filePath);
-				LoadTiledMapResult result = loader.load();
-				return result;
-			}
-
-			std::unordered_map<int, GameTileImageDefn> buildGameTileImageDefnMap(const tiled::MapDefn& source) {
-				std::unordered_map<int, GameTileImageDefn> result;
-
-				for (auto& currTilesetDefn : source.tilesetDefnList) {
-					
-				}
-
-				return result;
-			}
-
-			GameMapDefn convertTiledMapDefn(const tiled::MapDefn& source) {
-				GameMapDefn result;
-
-				result.size.x = source.width;
-				result.size.y = source.height;
-
-
 
 				return result;
 			}
