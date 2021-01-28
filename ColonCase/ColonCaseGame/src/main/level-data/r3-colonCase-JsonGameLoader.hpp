@@ -31,24 +31,18 @@ namespace r3 {
 
 		namespace JsonGameMapLoader {
 
+			std::vector<GameTileImageDefn> convertToTileImageDefnList(const tiled::MapTilesetDefn& mapTilesetDefn, const tiled::TilesetDefn& tilesetDefn);
+
 			GameMapSpriteDefn convertToSpriteDefn(const tiled::MapLayerObjectDefn& source);
 
 			GameMapLayerDefn convertToLayerDefn(const tiled::MapLayerDefn& source);
-
-			typedef struct ColonCase_LoadTiledMapResult {
-				std::vector<std::string> errorList;
-				tiled::MapDefn mapDefn;
-				std::unordered_map<std::string, tiled::TilesetDefn> tilesetDefnMap;
-			} LoadTiledMapResult;
-
-			LoadTiledMapResult loadFromFile(const char* campaignFolder, const char* filePath);
 
 			typedef struct ColonCase_LoadGameMapResult {
 				std::vector<std::string> errorList;
 				GameMapDefn mapDefn;
 			} LoadGameMapResult;
 
-			// TODO LoadGameMapResult altLoadFromFile(const char* campaignFolder, const char* filePath);
+			LoadGameMapResult loadFromFile(const char* campaignFolder, const char* filePath);
 
 			// GameMapDefn convertTiledMapDefn(const LoadTiledMapResult& source);
 

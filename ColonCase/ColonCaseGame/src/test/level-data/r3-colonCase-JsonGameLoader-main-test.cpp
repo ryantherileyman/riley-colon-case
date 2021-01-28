@@ -23,6 +23,9 @@ void runGameLoaderUtilsTests() {
 }
 
 void runJsonGameMapLoaderTests() {
+	assert(JsonGameMapLoaderTests::testConvertToTileImageDefnList_Image());
+	assert(JsonGameMapLoaderTests::testConvertToTileImageDefnList_TileList());
+
 	assert(JsonGameMapLoaderTests::testConvertToSpriteDefn_Success());
 	assert(JsonGameMapLoaderTests::testConvertToSpriteDefn_InvalidType());
 

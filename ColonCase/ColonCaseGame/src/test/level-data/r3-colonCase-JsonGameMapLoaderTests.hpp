@@ -7,6 +7,9 @@ namespace r3 {
 
 		namespace JsonGameMapLoaderTests {
 
+			bool testConvertToTileImageDefnList_Image();
+			bool testConvertToTileImageDefnList_TileList();
+
 			bool testConvertToSpriteDefn_Success();
 			bool testConvertToSpriteDefn_InvalidType();
 
