@@ -1,6 +1,7 @@
 
 #include <math.h>
 #include <stdexcept>
+#include <regex>
 #include "r3-colonCase-JsonGameMapLoaderTests.hpp"
 #include "../../main/level-data/r3-colonCase-JsonGameLoader.hpp"
 
@@ -36,8 +37,8 @@ namespace r3 {
 				result.margin = 2;
 				result.spacing = 1;
 				result.imageDefn.imagePath = "../textures/texture-atlas.png";
-				result.imageDefn.imageWidth = 105;
-				result.imageDefn.imageHeight = 39;
+				result.imageDefn.imageWidth = 102;
+				result.imageDefn.imageHeight = 37;
 				return result;
 			}
 
@@ -115,8 +116,8 @@ namespace r3 {
 				for (const auto& currTileImageDefn : tileImageDefnList) {
 					allTileImageMatch = allTileImageMatch &&
 						(currTileImageDefn.filename.compare("../textures/texture-atlas.png") == 0) &&
-						(currTileImageDefn.imageSize.x == 105) &&
-						(currTileImageDefn.imageSize.y == 39) &&
+						(currTileImageDefn.imageSize.x == 102) &&
+						(currTileImageDefn.imageSize.y == 37) &&
 						(currTileImageDefn.textureRect.width == 32) &&
 						(currTileImageDefn.textureRect.height == 16);
 				}
@@ -125,11 +126,11 @@ namespace r3 {
 					(tileImageDefnList.size() == 6) &&
 					allTileImageMatch &&
 					(tileImageDefnList[0].tileId == 1) &&
-					(tileImageDefnList[0].textureRect.left == 3) &&
-					(tileImageDefnList[0].textureRect.top == 3) &&
+					(tileImageDefnList[0].textureRect.left == 2) &&
+					(tileImageDefnList[0].textureRect.top == 2) &&
 					(tileImageDefnList[5].tileId == 6) &&
-					(tileImageDefnList[5].textureRect.left == 69) &&
-					(tileImageDefnList[5].textureRect.top == 20);
+					(tileImageDefnList[5].textureRect.left == 68) &&
+					(tileImageDefnList[5].textureRect.top == 19);
 				return result;
 			}
 
@@ -242,6 +243,68 @@ namespace r3 {
 					(layerDefn.tileIdList.size() == 9) &&
 					(layerDefn.tileIdList[4] == 1) &&
 					(layerDefn.spriteDefnList.empty());
+				return result;
+			}
+
+			bool testLoadFromFile_InvalidMapPath() {
+				JsonGameMapLoader::LoadGameMapResult gameMapResult = JsonGameMapLoader::loadFromFile("my-campaign", "../missing.json");
+
+				bool result =
+					(gameMapResult.errorList.size() == 1) &&
+					(gameMapResult.errorList.at(0).find("The path to file") != std::string::npos) &&
+					(gameMapResult.errorList.at(0).find("is not valid") != std::string::npos);
+				return result;
+			}
+
+			bool testLoadFromFile_MissingMapFile() {
+				JsonGameMapLoader::LoadGameMapResult gameMapResult = JsonGameMapLoader::loadFromFile("my-campaign", "missing.json");
+
+				bool result =
+					(gameMapResult.errorList.size() == 1) &&
+					(gameMapResult.errorList.at(0).find("Syntax error") != std::string::npos);
+				return result;
+			}
+
+			bool testLoadFromFile_InvalidTilesetPath() {
+				JsonGameMapLoader::LoadGameMapResult gameMapResult = JsonGameMapLoader::loadFromFile("bad-campaign", "levels/bad_tileset_path_map.json");
+
+				bool result =
+					(gameMapResult.errorList.size() == 2) &&
+					(gameMapResult.errorList.at(0).find("The path to file") != std::string::npos) &&
+					(gameMapResult.errorList.at(0).find("is not valid") != std::string::npos) &&
+					(gameMapResult.errorList.at(1).find("The path to file") != std::string::npos) &&
+					(gameMapResult.errorList.at(1).find("is not valid") != std::string::npos);
+				return result;
+			}
+
+			bool testLoadFromFile_MissingTilesetFile() {
+				JsonGameMapLoader::LoadGameMapResult gameMapResult = JsonGameMapLoader::loadFromFile("bad-campaign", "levels/missing_tileset_path_map.json");
+
+				bool result =
+					(gameMapResult.errorList.size() == 2) &&
+					(gameMapResult.errorList.at(0).find("Syntax error") != std::string::npos) &&
+					(gameMapResult.errorList.at(1).find("Syntax error") != std::string::npos);
+				return result;
+			}
+
+			bool testLoadFromFile_Valid() {
+				JsonGameMapLoader::LoadGameMapResult gameMapResult = JsonGameMapLoader::loadFromFile("good-campaign", "levels/valid_map.json");
+
+				bool result =
+					(gameMapResult.errorList.empty()) &&
+					(gameMapResult.mapDefn.size.x == 10) &&
+					(gameMapResult.mapDefn.size.y == 10) &&
+					(gameMapResult.mapDefn.tileImageDefnMap.size() == 6) &&
+					(std::regex_match(gameMapResult.mapDefn.tileImageDefnMap[1].filename, std::regex("textures[\\\\/]grass.png"))) &&
+					(std::regex_match(gameMapResult.mapDefn.tileImageDefnMap[2].filename, std::regex("textures[\\\\/]path.png"))) &&
+					(gameMapResult.mapDefn.tileImageDefnMap[4].textureRect.left == 11) &&
+					(gameMapResult.mapDefn.tileImageDefnMap[4].textureRect.top == 2) &&
+					(gameMapResult.mapDefn.layerDefnList.size() == 3) &&
+					(!gameMapResult.mapDefn.layerDefnList[0].collisionFlag) &&
+					(gameMapResult.mapDefn.layerDefnList[0].tileIdList.size() == 100) &&
+					(gameMapResult.mapDefn.layerDefnList[1].collisionFlag) &&
+					(gameMapResult.mapDefn.layerDefnList[1].tileIdList.size() == 100) &&
+					(gameMapResult.mapDefn.layerDefnList[2].spriteDefnList.size() == 4);
 				return result;
 			}
 

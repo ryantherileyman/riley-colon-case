@@ -45,9 +45,9 @@ namespace r3 {
 				void buildAllFromImage() {
 					int currTileId = 0;
 					int currRow = 0;
-					int textureRectTop = this->tilesetDefn->margin + this->tilesetDefn->spacing;
+					int textureRectTop = this->tilesetDefn->margin;
 					while (currTileId < this->tilesetDefn->tileCount) {
-						int textureRectLeft = this->tilesetDefn->margin + this->tilesetDefn->spacing;
+						int textureRectLeft = this->tilesetDefn->margin;
 						for (int currColumn = 0; currColumn < this->tilesetDefn->columns; currColumn++) {
 							GameTileImageDefn currTileImageDefn;
 							currTileImageDefn.tileId = this->mapTilesetDefn->firstGid + currTileId;
@@ -196,25 +196,27 @@ namespace r3 {
 					}
 				}
 
-				void loadTilesetIfValid(const tiled::MapTilesetDefn& mapTilesetDefn) {
-					std::string tilesetRelativePath = GameLoaderUtils::resolveRelativeFilePath(this->mapFilePath, mapTilesetDefn.sourcePath.c_str());
+				void loadTilesetIfValid(const tiled::MapTilesetDefn& sourceMapTilesetDefn) {
+					std::string tilesetRelativePath = GameLoaderUtils::resolveRelativeFilePath(this->mapFilePath, sourceMapTilesetDefn.sourcePath.c_str());
 
 					if (GameLoaderUtils::isValidPath(this->campaignFolder, tilesetRelativePath.c_str())) {
-
+						this->loadTileset(sourceMapTilesetDefn);
 					}
 					else {
 						this->result.errorList.push_back(GameLoaderUtils::localizeInvalidPathError(this->campaignFolder, tilesetRelativePath.c_str()));
 					}
 				}
 
-				void loadTileset(const tiled::MapTilesetDefn& mapTilesetDefn) {
-					std::string tilesetRelativePath = GameLoaderUtils::resolveRelativeFilePath(this->mapFilePath, mapTilesetDefn.sourcePath.c_str());
+				void loadTileset(const tiled::MapTilesetDefn& sourceMapTilesetDefn) {
+					std::string tilesetRelativePath = GameLoaderUtils::resolveRelativeFilePath(this->mapFilePath, sourceMapTilesetDefn.sourcePath.c_str());
 					std::string tilesetFullPath = GameLoaderUtils::buildFullPath(this->campaignFolder, tilesetRelativePath.c_str());
 
 					tiled::JsonTilesetLoader::LoadTilesetResult loadTilesetResult = tiled::JsonTilesetLoader::loadFromJsonFile(tilesetFullPath.c_str());
 
 					if (loadTilesetResult.errorList.empty()) {
-						this->tilesetDefnMap[mapTilesetDefn.sourcePath] = loadTilesetResult.tilesetDefn;
+						this->tilesetDefnMap[sourceMapTilesetDefn.sourcePath] = loadTilesetResult.tilesetDefn;
+
+						std::string imageRelativePath = GameLoaderUtils::resolveRelativeFilePath(tilesetRelativePath.c_str(), loadTilesetResult.tilesetDefn.imageDefn.imagePath.c_str());
 					}
 					else {
 						this->result.errorList.insert(std::end(this->result.errorList), std::begin(loadTilesetResult.errorList), std::end(loadTilesetResult.errorList));
@@ -225,14 +227,49 @@ namespace r3 {
 					this->result.mapDefn.size.x = this->loadMapResult.mapDefn.width;
 					this->result.mapDefn.size.y = this->loadMapResult.mapDefn.height;
 
+					// TODO: support backgroundColor?
+
 					for (const auto& currMapTilesetDefn : this->loadMapResult.mapDefn.tilesetDefnList) {
 						const auto& currTilesetDefn = this->tilesetDefnMap[currMapTilesetDefn.sourcePath];
 
-						// TODO ...
+						std::string tilesetRelativePath = GameLoaderUtils::resolveRelativeFilePath(this->mapFilePath, currMapTilesetDefn.sourcePath.c_str());
+
+						std::vector<GameTileImageDefn> tileImageDefnList = convertToTileImageDefnList(currMapTilesetDefn, currTilesetDefn);
+						for (const auto& currTileImageDefn : tileImageDefnList) {
+							this->result.mapDefn.tileImageDefnMap[currTileImageDefn.tileId] = currTileImageDefn;
+
+							// Convert the image path to be relative to the campaign folder
+							std::string imageRelativePath = GameLoaderUtils::resolveRelativeFilePath(tilesetRelativePath.c_str(), currTileImageDefn.filename.c_str());
+							this->result.mapDefn.tileImageDefnMap[currTileImageDefn.tileId].filename = imageRelativePath;
+						}
+					}
+
+					for (const auto& currLayerDefn : this->loadMapResult.mapDefn.layerDefnList) {
+						this->attachGameMapLayerDefnList(currLayerDefn);
+					}
+				}
+
+				void attachGameMapLayerDefnList(const tiled::MapLayerDefn& sourceLayerDefn) {
+					if (
+						(sourceLayerDefn.type == tiled::MapLayerType::TILE) ||
+						(sourceLayerDefn.type == tiled::MapLayerType::OBJECT)
+					) {
+						this->result.mapDefn.layerDefnList.push_back(convertToLayerDefn(sourceLayerDefn));
+					}
+					else if (sourceLayerDefn.type == tiled::MapLayerType::GROUP) {
+						for (const auto& currChildLayerDefn : sourceLayerDefn.layerDefnList) {
+							this->attachGameMapLayerDefnList(currChildLayerDefn);
+						}
 					}
 				}
 
 			};
+
+			LoadGameMapResult loadFromFile(const char* campaignFolder, const char* filePath) {
+				GameMapDefnLoader loader(campaignFolder, filePath);
+				LoadGameMapResult result = loader.load();
+				return result;
+			}
 
 		}
 

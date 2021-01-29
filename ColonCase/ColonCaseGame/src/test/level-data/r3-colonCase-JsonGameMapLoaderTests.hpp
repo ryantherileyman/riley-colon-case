@@ -18,6 +18,12 @@ namespace r3 {
 			bool testConvertToLayerDefn_RenderFlag();
 			bool testConvertToLayerDefn_CollisionFlag();
 
+			bool testLoadFromFile_InvalidMapPath();
+			bool testLoadFromFile_MissingMapFile();
+			bool testLoadFromFile_InvalidTilesetPath();
+			bool testLoadFromFile_MissingTilesetFile();
+			bool testLoadFromFile_Valid();
+
 		}
 
 	}

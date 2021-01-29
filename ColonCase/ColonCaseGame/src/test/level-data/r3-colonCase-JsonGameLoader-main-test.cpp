@@ -33,6 +33,12 @@ void runJsonGameMapLoaderTests() {
 	assert(JsonGameMapLoaderTests::testConvertToLayerDefn_Sprites());
 	assert(JsonGameMapLoaderTests::testConvertToLayerDefn_RenderFlag());
 	assert(JsonGameMapLoaderTests::testConvertToLayerDefn_CollisionFlag());
+
+	assert(JsonGameMapLoaderTests::testLoadFromFile_InvalidMapPath());
+	assert(JsonGameMapLoaderTests::testLoadFromFile_MissingMapFile());
+	assert(JsonGameMapLoaderTests::testLoadFromFile_InvalidTilesetPath());
+	assert(JsonGameMapLoaderTests::testLoadFromFile_MissingTilesetFile());
+	assert(JsonGameMapLoaderTests::testLoadFromFile_Valid());
 }
 
 int main() {

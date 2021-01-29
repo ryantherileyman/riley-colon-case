@@ -44,8 +44,6 @@ namespace r3 {
 
 			LoadGameMapResult loadFromFile(const char* campaignFolder, const char* filePath);
 
-			// GameMapDefn convertTiledMapDefn(const LoadTiledMapResult& source);
-
 		}
 
 	}
