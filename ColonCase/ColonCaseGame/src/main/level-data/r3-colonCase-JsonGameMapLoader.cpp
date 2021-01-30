@@ -215,8 +215,6 @@ namespace r3 {
 
 					if (loadTilesetResult.errorList.empty()) {
 						this->tilesetDefnMap[sourceMapTilesetDefn.sourcePath] = loadTilesetResult.tilesetDefn;
-
-						std::string imageRelativePath = GameLoaderUtils::resolveRelativeFilePath(tilesetRelativePath.c_str(), loadTilesetResult.tilesetDefn.imageDefn.imagePath.c_str());
 					}
 					else {
 						this->result.errorList.insert(std::end(this->result.errorList), std::begin(loadTilesetResult.errorList), std::end(loadTilesetResult.errorList));
