@@ -178,6 +178,8 @@ namespace r3 {
 
 				if (result.type == MapLayerType::TILE) {
 					const Json::Value& dataListJsonValue = jsonValue[JsonPropertyName::Map::DATA];
+
+					result.data.reserve(dataListJsonValue.size());
 					for (Json::ArrayIndex index = 0; index < dataListJsonValue.size(); index++) {
 						result.data.push_back(dataListJsonValue[index].asInt());
 					}
