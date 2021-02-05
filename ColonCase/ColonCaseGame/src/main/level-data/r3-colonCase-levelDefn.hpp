@@ -37,6 +37,7 @@ namespace r3 {
 
 		typedef struct ColonCase_GameMapDefn {
 			sf::Vector2i size;
+			sf::Vector2i tileSize;
 			sf::Color backgroundColor;
 			std::unordered_map<int, GameTileImageDefn> tileImageDefnMap;
 			std::vector<GameMapLayerDefn> layerDefnList;

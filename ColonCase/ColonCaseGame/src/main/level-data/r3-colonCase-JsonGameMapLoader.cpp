@@ -225,6 +225,9 @@ namespace r3 {
 					this->result.mapDefn.size.x = this->loadMapResult.mapDefn.width;
 					this->result.mapDefn.size.y = this->loadMapResult.mapDefn.height;
 
+					this->result.mapDefn.tileSize.x = this->loadMapResult.mapDefn.tileWidth;
+					this->result.mapDefn.tileSize.y = this->loadMapResult.mapDefn.tileHeight;
+
 					// TODO: support backgroundColor?
 
 					for (const auto& currMapTilesetDefn : this->loadMapResult.mapDefn.tilesetDefnList) {
