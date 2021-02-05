@@ -96,6 +96,21 @@
     <ClCompile Include="src\main\tiled\r3-tiled-CustomPropertyDefnUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\level-data\r3-colonCase-GameSpriteImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\level-data\r3-colonCase-GameSpriteTile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\level-data\r3-colonCase-GameMapSprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\level-data\r3-colonCase-GameMapLayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\level-data\r3-colonCase-GameMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\splash-screen\r3-colonCase-mainMenu.hpp">
@@ -129,6 +144,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\main\level-data\r3-colonCase-JsonGameLoader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\level-data\r3-colonCase-GameMap.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

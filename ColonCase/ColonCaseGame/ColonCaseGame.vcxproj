@@ -152,6 +152,11 @@
     <ClCompile Include="src\main\json\r3-jsoncpp-JsonLoaderUtils.cpp" />
     <ClCompile Include="src\main\json\r3-jsoncpp-JsonValidationUtils.cpp" />
     <ClCompile Include="src\main\level-data\r3-colonCase-GameLoaderUtils.cpp" />
+    <ClCompile Include="src\main\level-data\r3-colonCase-GameMap.cpp" />
+    <ClCompile Include="src\main\level-data\r3-colonCase-GameMapLayer.cpp" />
+    <ClCompile Include="src\main\level-data\r3-colonCase-GameMapSprite.cpp" />
+    <ClCompile Include="src\main\level-data\r3-colonCase-GameSpriteImage.cpp" />
+    <ClCompile Include="src\main\level-data\r3-colonCase-GameSpriteTile.cpp" />
     <ClCompile Include="src\main\level-data\r3-colonCase-JsonGameMapLoader.cpp" />
     <ClCompile Include="src\main\r3-colonCase-GameClient.cpp" />
     <ClCompile Include="src\main\sfml-utils\r3-sfml-utils.cpp" />
@@ -177,6 +182,7 @@
   <ItemGroup>
     <ClInclude Include="src\main\gameplay\r3-colonCase-gameplay.hpp" />
     <ClInclude Include="src\main\json\r3-jsoncpp-utils.hpp" />
+    <ClInclude Include="src\main\level-data\r3-colonCase-GameMap.hpp" />
     <ClInclude Include="src\main\level-data\r3-colonCase-JsonGameLoader.hpp" />
     <ClInclude Include="src\main\level-data\r3-colonCase-levelDefn.hpp" />
     <ClInclude Include="src\main\r3-colonCase-client.hpp" />
