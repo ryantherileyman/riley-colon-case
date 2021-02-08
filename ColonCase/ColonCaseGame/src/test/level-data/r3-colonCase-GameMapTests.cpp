@@ -213,6 +213,32 @@ namespace r3 {
 				return result;
 			}
 
+			bool testGetTileImageFilename() {
+				GameMapDefn mapDefn = createGameMapDefn();
+
+				GameMap map(mapDefn);
+
+				std::string filename = map.getTileImageFilename(4);
+
+				bool result = (filename.compare("texture-atlas.png") == 0);
+				return result;
+			}
+
+			bool testGetTileTextureRect() {
+				GameMapDefn mapDefn = createGameMapDefn();
+
+				GameMap map(mapDefn);
+
+				sf::IntRect textureRect = map.getTileTextureRect(7);
+
+				bool result =
+					(textureRect.left == 96) &&
+					(textureRect.top == 32) &&
+					(textureRect.width == 32) &&
+					(textureRect.height == 32);
+				return result;
+			}
+
 			bool testGetSpriteRenderDetailsList_InvalidLayerType() {
 				GameMapDefn mapDefn = createGameMapDefn();
 

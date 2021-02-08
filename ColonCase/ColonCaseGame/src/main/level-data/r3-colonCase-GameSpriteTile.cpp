@@ -24,7 +24,7 @@ namespace r3 {
 			return this->imageId;
 		}
 
-		sf::IntRect GameSpriteTile::getTextureRect() const {
+		const sf::IntRect& GameSpriteTile::getTextureRect() const {
 			return this->textureRect;
 		}
 

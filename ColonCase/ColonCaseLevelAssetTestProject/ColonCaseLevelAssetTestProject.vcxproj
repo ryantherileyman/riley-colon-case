@@ -88,13 +88,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SFML_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Riley\DevData\cpp\SFML\SFML-2.5.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Riley\DevData\cpp\SFML\SFML-2.5.1\include;D:\Riley\DevData\cpp\jsoncpp\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\Riley\DevData\cpp\SFML\SFML-2.5.1\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-main-d.lib;freetype.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Riley\DevData\cpp\SFML\SFML-2.5.1\lib;D:\Riley\DevData\cpp\jsoncpp\build\lib\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;sfml-main-d.lib;freetype.lib;opengl32.lib;jsoncpp.lib;kernel32.lib;user32.lib;winmm.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -142,16 +143,41 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\ColonCaseGame\src\main\json\r3-jsoncpp-utils.hpp" />
+    <ClInclude Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-AssetManager.hpp" />
     <ClInclude Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-GameMap.hpp" />
+    <ClInclude Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-JsonGameLoader.hpp" />
     <ClInclude Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-levelDefn.hpp" />
+    <ClInclude Include="..\ColonCaseGame\src\main\tiled\r3-tiled-defn.hpp" />
+    <ClInclude Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonLoader.hpp" />
+    <ClInclude Include="..\ColonCaseGame\src\main\validation\r3-validation-utils.hpp" />
     <ClInclude Include="..\ColonCaseGame\src\test\level-data\r3-colonCase-GameMapTests.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\ColonCaseGame\src\main\json\r3-jsoncpp-JsonLoaderUtils.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\json\r3-jsoncpp-JsonValidationUtils.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-AssetLoadingTracker.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-AssetManager.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-GameLoaderUtils.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-GameMap.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-GameMapLayer.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-GameMapSprite.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-GameSpriteImage.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-GameSpriteTile.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-JsonGameMapLoader.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-CustomPropertyDefnUtils.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonCustomPropertyLoader.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonLoader.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonMapLayerLoader.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonMapLayerObjectLoader.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonMapLayerObjectPointLoader.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonMapLoader.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonMapTilesetLoader.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonTilesetImageLoader.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonTilesetLoader.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonTilesetTileLoader.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-MapLayerObjectTypeUtils.cpp" />
+    <ClCompile Include="..\ColonCaseGame\src\main\validation\r3-validation-IntRange.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\test\level-data\r3-colonCase-GameMapTests.cpp" />
     <ClCompile Include="..\ColonCaseGame\src\test\level-data\r3-colonCase-LevelAsset-main-test.cpp" />
   </ItemGroup>

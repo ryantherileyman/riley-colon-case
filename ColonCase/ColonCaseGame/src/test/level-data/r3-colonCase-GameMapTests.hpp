@@ -12,6 +12,8 @@ namespace r3 {
 			bool testGetTileIdPtr_InvalidLayerType();
 			bool testGetTileIdPtr_InvalidPosition();
 			bool testGetTileIdPtr();
+			bool testGetTileImageFilename();
+			bool testGetTileTextureRect();
 			bool testGetSpriteRenderDetailsList_InvalidLayerType();
 			bool testGetSpriteRenderDetailsList_None();
 			bool testGetSpriteRenderDetailsList_Partial();

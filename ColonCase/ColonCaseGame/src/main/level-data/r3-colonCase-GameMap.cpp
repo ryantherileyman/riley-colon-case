@@ -69,11 +69,11 @@ namespace r3 {
 			}
 		}
 
-		sf::Vector2i GameMap::getMapSize() const {
+		const sf::Vector2i& GameMap::getMapSize() const {
 			return this->mapSize;
 		}
 
-		sf::Vector2i GameMap::getTileSize() const {
+		const sf::Vector2i& GameMap::getTileSize() const {
 			return this->tileSize;
 		}
 
@@ -103,6 +103,19 @@ namespace r3 {
 
 			const int* result = this->layerList[layerIndex].getTileIdPtr();
 			result += (this->mapSize.x * y) + x;
+			return result;
+		}
+
+		const std::string& GameMap::getTileImageFilename(int tileId) const {
+			const GameSpriteTile& tile = this->tileMap.at(tileId);
+			const GameSpriteImage& image = this->imageMap.at(tile.getImageId());
+			const std::string& result = image.getFilename();
+			return result;
+		}
+
+		const sf::IntRect& GameMap::getTileTextureRect(int tileId) const {
+			const GameSpriteTile& tile = this->tileMap.at(tileId);
+			const sf::IntRect& result = tile.getTextureRect();
 			return result;
 		}
 

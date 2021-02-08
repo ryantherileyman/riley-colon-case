@@ -38,7 +38,7 @@ namespace r3 {
 		public:
 			int getImageId() const;
 			const std::string& getFilename() const;
-			sf::Vector2i getImageSize() const;
+			const sf::Vector2i& getImageSize() const;
 
 		};
 
@@ -56,7 +56,7 @@ namespace r3 {
 		public:
 			int getTileId() const;
 			int getImageId() const;
-			sf::IntRect getTextureRect() const;
+			const sf::IntRect& getTextureRect() const;
 
 		};
 
@@ -72,8 +72,8 @@ namespace r3 {
 
 		public:
 			int getTileId() const;
-			sf::Vector2f getPosition() const;
-			sf::Vector2f getSize() const;
+			const sf::Vector2f& getPosition() const;
+			const sf::Vector2f& getSize() const;
 
 		};
 
@@ -117,11 +117,13 @@ namespace r3 {
 			void initializeCollectionFlagList(const GameMapDefn& mapDefn);
 
 		public:
-			sf::Vector2i getMapSize() const;
-			sf::Vector2i getTileSize() const;
+			const sf::Vector2i& getMapSize() const;
+			const sf::Vector2i& getTileSize() const;
 			int getLayerCount() const;
 			const GameMapLayerType getLayerType(int layerIndex);
 			const int* getTileIdPtr(int layerIndex, int x, int y) const;
+			const std::string& getTileImageFilename(int tileId) const;
+			const sf::IntRect& getTileTextureRect(int tileId) const;
 			const std::vector<GameSpriteRenderDetails> getSpriteRenderDetailsList(int layerIndex, const sf::IntRect& visibleTileRect) const;
 
 		private:

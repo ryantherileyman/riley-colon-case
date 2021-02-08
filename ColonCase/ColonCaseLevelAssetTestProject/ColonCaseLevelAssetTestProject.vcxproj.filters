@@ -24,6 +24,24 @@
     <ClInclude Include="..\ColonCaseGame\src\test\level-data\r3-colonCase-GameMapTests.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-AssetManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-JsonGameLoader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ColonCaseGame\src\main\tiled\r3-tiled-defn.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonLoader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ColonCaseGame\src\main\json\r3-jsoncpp-utils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ColonCaseGame\src\main\validation\r3-validation-utils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-GameMap.cpp">
@@ -45,6 +63,63 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\ColonCaseGame\src\test\level-data\r3-colonCase-GameMapTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-AssetLoadingTracker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-AssetManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-GameLoaderUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-JsonGameMapLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-CustomPropertyDefnUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-MapLayerObjectTypeUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonCustomPropertyLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonTilesetImageLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonTilesetTileLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonTilesetLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonMapLayerObjectPointLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonMapLayerObjectLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonMapLayerLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonMapTilesetLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonMapLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\json\r3-jsoncpp-JsonValidationUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\json\r3-jsoncpp-JsonLoaderUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\validation\r3-validation-IntRange.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

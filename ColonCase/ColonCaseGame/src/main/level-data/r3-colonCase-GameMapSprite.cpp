@@ -15,11 +15,11 @@ namespace r3 {
 			return this->tileId;
 		}
 
-		sf::Vector2f GameMapSprite::getPosition() const {
+		const sf::Vector2f& GameMapSprite::getPosition() const {
 			return this->position;
 		}
 
-		sf::Vector2f GameMapSprite::getSize() const {
+		const sf::Vector2f& GameMapSprite::getSize() const {
 			return this->size;
 		}
 

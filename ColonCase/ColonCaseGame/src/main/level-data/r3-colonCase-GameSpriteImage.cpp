@@ -23,7 +23,7 @@ namespace r3 {
 			return this->filename;
 		}
 
-		sf::Vector2i GameSpriteImage::getImageSize() const {
+		const sf::Vector2i& GameSpriteImage::getImageSize() const {
 			return this->imageSize;
 		}
 
