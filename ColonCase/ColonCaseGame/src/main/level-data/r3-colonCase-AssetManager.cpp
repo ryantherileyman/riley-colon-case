@@ -15,6 +15,11 @@ namespace r3 {
 		AssetManager::AssetManager() {
 			this->queueMutexPtr.reset(new std::mutex());
 		}
+		AssetManager::~AssetManager() {
+			if (this->pendingLoadingFuture.has_value()) {
+				this->pendingLoadingFuture.value().get();
+			}
+		}
 
 		const std::string& AssetManager::getCampaignFolder() const {
 			return this->campaignFolder;

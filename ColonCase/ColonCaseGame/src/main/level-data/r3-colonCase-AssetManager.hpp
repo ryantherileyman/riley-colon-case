@@ -83,6 +83,7 @@ namespace r3 {
 
 		public:
 			AssetManager();
+			~AssetManager();
 
 		public:
 			const std::string& getCampaignFolder() const;

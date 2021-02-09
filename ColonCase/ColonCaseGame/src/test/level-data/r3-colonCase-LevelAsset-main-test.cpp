@@ -8,12 +8,17 @@ using namespace r3::colonCase;
 
 void runGameMapTests() {
 	assert(GameMapTests::testGetLayerCount());
+
 	assert(GameMapTests::testGetLayerType());
+
 	assert(GameMapTests::testGetTileIdPtr_InvalidLayerType());
 	assert(GameMapTests::testGetTileIdPtr_InvalidPosition());
 	assert(GameMapTests::testGetTileIdPtr());
+
 	assert(GameMapTests::testGetTileImageFilename());
+
 	assert(GameMapTests::testGetTileTextureRect());
+
 	assert(GameMapTests::testGetSpriteRenderDetailsList_InvalidLayerType());
 	assert(GameMapTests::testGetSpriteRenderDetailsList_None());
 	assert(GameMapTests::testGetSpriteRenderDetailsList_Partial());
@@ -28,12 +33,16 @@ void runAssetLoadingStatusTests() {
 
 void runAssetLoadingTrackerTests() {
 	assert(AssetLoadingTrackerTests::testConstructor());
+
 	assert(AssetLoadingTrackerTests::testMarkAsComplete());
 	assert(AssetLoadingTrackerTests::testMarkAsFailed());
+
 	assert(AssetLoadingTrackerTests::testAddResourceIdToLoad_NewResourceId());
 	assert(AssetLoadingTrackerTests::testAddResourceIdToLoad_ExistingResourceId());
+
 	assert(AssetLoadingTrackerTests::testMarkResourceIdLoaded_NotTracked());
 	assert(AssetLoadingTrackerTests::testMarkResourceIdLoaded_Tracked());
+
 	assert(AssetLoadingTrackerTests::testSetCurrentResourceId_NotTracked());
 	assert(AssetLoadingTrackerTests::testSetCurrentResourceId_Tracked());
 }
@@ -43,6 +52,8 @@ void runAssetManagerTests() {
 	assert(AssetManagerTests::testGetMapStatus_LoadingInitiated());
 	assert(AssetManagerTests::testGetMapStatus_ErrorLoadingMap());
 	assert(AssetManagerTests::testGetMapStatus_ErrorLoadingTexture());
+
+	assert(AssetManagerTests::testDestructor_WaitsIfLoadingIncomplete());
 }
 
 int main() {

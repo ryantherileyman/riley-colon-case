@@ -97,6 +97,18 @@ namespace r3 {
 				return true;
 			}
 
+			bool testDestructor_WaitsIfLoadingIncomplete() {
+				{
+					AssetManager assetManager;
+					assetManager.setCampaignFolder("good-campaign");
+					assetManager.loadMapAsync("levels/valid_map.json");
+				}
+
+				std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+				return true;
+			}
+
 		}
 
 	}

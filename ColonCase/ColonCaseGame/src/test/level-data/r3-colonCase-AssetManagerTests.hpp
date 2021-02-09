@@ -31,6 +31,7 @@ namespace r3 {
 			bool testGetMapStatus_LoadingInitiated();
 			bool testGetMapStatus_ErrorLoadingMap();
 			bool testGetMapStatus_ErrorLoadingTexture();
+			bool testDestructor_WaitsIfLoadingIncomplete();
 
 		}
 
