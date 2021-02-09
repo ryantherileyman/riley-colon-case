@@ -2,6 +2,7 @@
 #include <chrono>
 #include <future>
 #include <memory>
+#include <set>
 #include <stdexcept>
 #include <string>
 #include "r3-colonCase-AssetManager.hpp"
@@ -129,19 +130,21 @@ namespace r3 {
 			JsonGameMapLoader::LoadGameMapResult loadResult = JsonGameMapLoader::loadFromFile(this->campaignFolder.c_str(), filename.c_str());
 
 			if (loadResult.errorList.empty()) {
+				std::set<std::string> imageFilenameSet;
 				for (const auto& currTileImageDefnPair : loadResult.mapDefn.tileImageDefnMap) {
 					const std::string& currImageFilename = currTileImageDefnPair.second.filename;
 					this->addResourceIdToLoad(mapLoadingTracker, currImageFilename);
+					imageFilenameSet.insert(currImageFilename);
 				}
 
-				for (const auto& currTileImageDefnPair : loadResult.mapDefn.tileImageDefnMap) {
-					const std::string& currImageFilename = currTileImageDefnPair.second.filename;
-
+				for (const auto& currImageFilename : imageFilenameSet) {
 					this->setCurrentResourceId(mapLoadingTracker, currImageFilename);
 
 					if (this->textureMap.count(currImageFilename) == 0) {
+						std::string imagePath = GameLoaderUtils::buildFullPath(this->campaignFolder.c_str(), currImageFilename.c_str());
+
 						this->textureMap.insert(std::make_pair(currImageFilename, sf::Texture()));
-						if (this->textureMap.at(currImageFilename).loadFromFile(currImageFilename)) {
+						if (this->textureMap.at(currImageFilename).loadFromFile(imagePath)) {
 							this->markResourceIdLoaded(mapLoadingTracker, currImageFilename);
 						}
 						else {
@@ -164,7 +167,6 @@ namespace r3 {
 
 				this->markResourceIdLoaded(mapLoadingTracker, filename);
 				this->markAsComplete(mapLoadingTracker);
-
 			}
 			else {
 				this->markAsFailed(mapLoadingTracker);

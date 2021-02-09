@@ -29,12 +29,10 @@ namespace r3 {
 		}
 
 		void AssetLoadingTracker::addResourceIdToLoad(const std::string& resourceId) {
-			if (this->resourceIdLoadedMap.count(resourceId) > 0) {
-				throw std::logic_error("Resource already being loaded");
+			if (this->resourceIdLoadedMap.count(resourceId) == 0) {
+				this->status = AssetLoadingCompletionStatus::LOADING;
+				this->resourceIdLoadedMap[resourceId] = false;
 			}
-
-			this->status = AssetLoadingCompletionStatus::LOADING;
-			this->resourceIdLoadedMap[resourceId] = false;
 		}
 
 		void AssetLoadingTracker::markResourceIdLoaded(const std::string& resourceId) {
@@ -46,6 +44,10 @@ namespace r3 {
 		}
 
 		void AssetLoadingTracker::setCurrentResourceId(const std::string& resourceId) {
+			if (this->resourceIdLoadedMap.count(resourceId) == 0) {
+				throw std::logic_error("Resource did not yet begin loading");
+			}
+
 			this->currentResourceId = resourceId;
 		}
 

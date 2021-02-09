@@ -42,6 +42,9 @@
     <ClInclude Include="..\ColonCaseGame\src\main\validation\r3-validation-utils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\ColonCaseGame\src\test\level-data\r3-colonCase-AssetManagerTests.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ColonCaseGame\src\main\level-data\r3-colonCase-GameMap.cpp">
@@ -120,6 +123,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\ColonCaseGame\src\main\tiled\r3-tiled-JsonLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\test\level-data\r3-colonCase-AssetLoadingStatusTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\test\level-data\r3-colonCase-AssetLoadingTrackerTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ColonCaseGame\src\test\level-data\r3-colonCase-AssetManagerTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

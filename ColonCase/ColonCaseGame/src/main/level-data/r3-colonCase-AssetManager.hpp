@@ -32,7 +32,7 @@ namespace r3 {
 			float getLoadedPct() {
 				float result = 0;
 				if (totalCount > 0) {
-					result = (float)loadedCount / (float)totalCount;
+					result = 100.0f * ((float)loadedCount / (float)totalCount);
 				}
 				return result;
 			}
