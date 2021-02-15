@@ -6,23 +6,17 @@ namespace r3 {
 
 	namespace colonCase {
 
+		const char* MAP_FILENAME = "levels/level-investigator-house-start.json";
 		const float SECONDS_TO_MOVE = 0.5f;
 
 		GameplaySceneController::GameplaySceneController(sf::RenderWindow& window) {
 			this->window = &window;
 
-			this->floorTexture = new sf::Texture();
-			if (!this->floorTexture->loadFromFile("resources/textures/grass.png")) {
-				throw "Could not load floor texture";
-			}
-			this->floorTexture->setRepeated(true);
-			this->floorTexture->setSmooth(true);
-			this->floorTexture->generateMipmap();
-
-			this->playerTexture = new sf::Texture();
-			if (!this->playerTexture->loadFromFile("resources/textures/investigator-tileset.png")) {
+			if (!this->playerTexture.loadFromFile("resources/textures/investigator-tileset.png")) {
 				throw "Could not load player tileset texture";
 			}
+
+			this->assetManager.setCampaignFolder("colon-case");
 
 			this->playerPosition = sf::Vector2i(0, 0);
 			this->playerDirection = CompassDirection::DOWN;
@@ -30,15 +24,13 @@ namespace r3 {
 			this->playerAnimationStartSeconds = 0.0f;
 		}
 
-		GameplaySceneController::~GameplaySceneController() {
-			delete this->floorTexture;
-			delete this->playerTexture;
-		}
-
 		void GameplaySceneController::beginGameplay() {
+			this->assetManager.loadMapAsync(MAP_FILENAME);
+
 			this->gameplayClock.restart();
-			this->playerPosition = sf::Vector2i(0, 0);
-			this->playerDirection = CompassDirection::DOWN;
+
+			this->playerPosition = sf::Vector2i(17, 6);
+			this->playerDirection = CompassDirection::RIGHT;
 			this->playerMovingFlag = false;
 			this->playerAnimationStartSeconds = 0.0f;
 		}
@@ -106,23 +98,71 @@ namespace r3 {
 		}
 
 		void GameplaySceneController::render() {
-			float gameplaySeconds = this->gameplayClock.getElapsedTime().asSeconds();
-			sf::Vector2f playerRenderPosition = this->resolvePlayerPosition(gameplaySeconds);
+			AssetLoadingStatus mapLoadingStatus = this->assetManager.getMapStatus(MAP_FILENAME);
+			if (mapLoadingStatus.completionStatus == AssetLoadingCompletionStatus::COMPLETE) {
+				GameMap& gameMap = this->assetManager.getMap(MAP_FILENAME);
 
-			float viewWidth = 15.0f;
-			float viewHeight = 8.4375f;
+				float gameplaySeconds = this->gameplayClock.getElapsedTime().asSeconds();
+				sf::Vector2f playerRenderPosition = this->resolvePlayerPosition(gameplaySeconds);
 
-			this->window->setView(sf::View(sf::FloatRect(playerRenderPosition.x - viewWidth / 2.0f, playerRenderPosition.y - viewHeight / 2.0f, viewWidth, viewHeight)));
+				sf::Vector2u windowSize = this->window->getSize();
+				sf::Vector2f viewCenter(sf::Vector2f(playerRenderPosition.x + 0.5f, playerRenderPosition.y + 0.5f));
+				sf::Vector2f viewSize(sf::Vector2f((float)windowSize.x / 100.0f, (float)windowSize.y / 100.0f));
+				sf::Vector2f viewTopLeft(sf::Vector2f(viewCenter.x - viewSize.x * 0.5f, viewCenter.y - viewSize.y * 0.5f));
 
-			this->window->clear();
+				sf::IntRect visibleTileRect(sf::Vector2i((int)floorf(viewTopLeft.x), (int)floorf(viewTopLeft.y)), sf::Vector2i((int)ceilf(viewSize.x) + 1, (int)ceilf(viewSize.y) + 1));
 
-			this->window->draw(this->createGrassSprite());
+				sf::Vector2i visibleTileTopLeft(std::clamp(visibleTileRect.left, 0, gameMap.getMapSize().x - 1), std::clamp(visibleTileRect.top, 0, gameMap.getMapSize().y - 1));
+				sf::Vector2i visibleTileBottomRight(std::clamp(visibleTileRect.left + visibleTileRect.width, 0, gameMap.getMapSize().x - 1), std::clamp(visibleTileRect.top + visibleTileRect.height, 0, gameMap.getMapSize().y - 1));
 
-			sf::Sprite playerSprite = this->createPlayerSprite(gameplaySeconds);
-			playerSprite.setPosition(playerRenderPosition);
-			this->window->draw(playerSprite);
+				this->window->setView(sf::View(viewCenter, viewSize));
 
-			this->window->display();
+				this->window->clear();
+
+				for (auto layerIndex = 0; layerIndex < gameMap.getLayerCount(); layerIndex++) {
+					if (gameMap.getLayerType(layerIndex) == GameMapLayerType::TILE) {
+						for (auto y = visibleTileTopLeft.y; y <= visibleTileBottomRight.y; y++) {
+							const int* rowTileIdPtr = gameMap.getTileIdPtr(layerIndex, 0, y);
+							for (auto x = visibleTileTopLeft.x; x < visibleTileBottomRight.x; x++) {
+								int tileId = rowTileIdPtr[x];
+
+								if (tileId > 0) {
+									sf::Sprite tileSprite;
+									tileSprite.setTexture(this->assetManager.getTexture(gameMap.getTileImageFilename(tileId)));
+									tileSprite.setTextureRect(gameMap.getTileTextureRect(tileId));
+									tileSprite.setPosition((float)x, (float)y);
+									tileSprite.setScale(1.0f / (float)gameMap.getTileSize().x, 1.0f / (float)gameMap.getTileSize().y);
+									this->window->draw(tileSprite);
+								}
+							}
+						}
+					}
+
+					if (gameMap.getLayerType(layerIndex) == GameMapLayerType::SPRITE) {
+						std::vector<GameSpriteRenderDetails> spriteRenderDetailsList = gameMap.getSpriteRenderDetailsList(layerIndex, visibleTileRect);
+						for (size_t spriteIndex = 0; spriteIndex < spriteRenderDetailsList.size(); spriteIndex++) {
+							GameSpriteRenderDetails& currSpriteRenderDetails = spriteRenderDetailsList.at(spriteIndex);
+
+							sf::Vector2f spriteTilePos;
+							spriteTilePos.x = currSpriteRenderDetails.position.x / (float)gameMap.getTileSize().x;
+							spriteTilePos.y = (currSpriteRenderDetails.position.y / (float)gameMap.getTileSize().y) - (currSpriteRenderDetails.size.y / (float)gameMap.getTileSize().y);
+
+							sf::Sprite currSprite;
+							currSprite.setTexture(this->assetManager.getTexture(currSpriteRenderDetails.filename));
+							currSprite.setTextureRect(currSpriteRenderDetails.textureRect);
+							currSprite.setPosition(spriteTilePos);
+							currSprite.setScale(1.0f / (float)gameMap.getTileSize().x, 1.0f / (float)gameMap.getTileSize().y);
+							this->window->draw(currSprite);
+						}
+					}
+				}
+
+				sf::Sprite playerSprite = this->createPlayerSprite(gameplaySeconds);
+				playerSprite.setPosition(playerRenderPosition);
+				this->window->draw(playerSprite);
+
+				this->window->display();
+			}
 		}
 
 		void GameplaySceneController::startPlayerMovement(CompassDirection direction) {
@@ -146,16 +186,8 @@ namespace r3 {
 			return result;
 		}
 
-		sf::Sprite GameplaySceneController::createGrassSprite() {
-			sf::Sprite result(*this->floorTexture);
-			result.setPosition(-15.0f / 2.0f, -8.4375f / 2.0f);
-			result.setScale(1.0f / 256.0f, 1.0f / 256.0f);
-			result.setTextureRect(sf::IntRect(0, 0, 3840, 2160));
-			return result;
-		}
-
 		sf::Sprite GameplaySceneController::createPlayerSprite(float gameplaySeconds) {
-			sf::Sprite result(*this->playerTexture);
+			sf::Sprite result(this->playerTexture);
 
 			int textureRectTop = 0;
 			int textureRectLeft = 0;

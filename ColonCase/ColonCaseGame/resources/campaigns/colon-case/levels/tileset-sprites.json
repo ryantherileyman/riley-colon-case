@@ -1,0 +1,24 @@
+{ "columns":0,
+ "grid":
+    {
+     "height":1,
+     "orientation":"orthogonal",
+     "width":1
+    },
+ "margin":0,
+ "name":"Sprites",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"2020.12.18",
+ "tileheight":457,
+ "tiles":[
+        {
+         "id":0,
+         "image":"..\/textures\/couch-threeseater-right.png",
+         "imageheight":457,
+         "imagewidth":177
+        }],
+ "tilewidth":177,
+ "type":"tileset",
+ "version":1.4
+}

@@ -1,0 +1,22 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "levels/tileset-characters.json": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        }
+    },
+    "openFiles": [
+    ],
+    "project": "colon-case.tiled-project",
+    "property.type": "bool",
+    "recentFiles": [
+    ]
+}

@@ -1,4 +1,5 @@
 
+#include "../level-data/r3-colonCase-AssetManager.hpp"
 #include <SFML/Graphics.hpp>
 #pragma once
 
@@ -35,8 +36,8 @@ namespace r3 {
 			sf::RenderWindow* window;
 
 		private:
-			sf::Texture* floorTexture;
-			sf::Texture* playerTexture;
+			sf::Texture playerTexture;
+			AssetManager assetManager;
 
 		private:
 			sf::Clock gameplayClock;
@@ -49,9 +50,6 @@ namespace r3 {
 			GameplaySceneController(sf::RenderWindow& window);
 
 		public:
-			~GameplaySceneController();
-
-		public:
 			void beginGameplay();
 			GameplaySceneClientRequest processEvent(sf::Event& event);
 			void update();
@@ -62,7 +60,6 @@ namespace r3 {
 
 		private:
 			sf::Vector2f resolvePlayerPosition(float gameplaySeconds);
-			sf::Sprite createGrassSprite();
 			sf::Sprite createPlayerSprite(float gameplaySeconds);
 
 		};
