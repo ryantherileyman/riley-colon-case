@@ -22,6 +22,10 @@ void runGameMapTests() {
 	assert(GameMapTests::testGetSpriteRenderDetailsList_InvalidLayerType());
 	assert(GameMapTests::testGetSpriteRenderDetailsList_None());
 	assert(GameMapTests::testGetSpriteRenderDetailsList_Partial());
+
+	assert(GameMapTests::testGetPositionOccupied_InvalidPosition());
+	assert(GameMapTests::testGetPositionOccupied_NotOccupied());
+	assert(GameMapTests::testGetPositionOccupied_Occupied());
 }
 
 void runAssetLoadingStatusTests() {

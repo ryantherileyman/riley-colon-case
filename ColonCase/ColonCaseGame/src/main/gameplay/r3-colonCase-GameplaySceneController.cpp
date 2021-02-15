@@ -29,6 +29,7 @@ namespace r3 {
 
 			this->gameplayClock.restart();
 
+			this->requestedPlayerDirection = CompassDirection::NONE;
 			this->playerPosition = sf::Vector2i(17, 6);
 			this->playerDirection = CompassDirection::RIGHT;
 			this->playerMovingFlag = false;
@@ -48,6 +49,51 @@ namespace r3 {
 					result = GameplaySceneClientRequest::RETURN_TO_SPLASH;
 					break;
 
+				case sf::Keyboard::Key::Up:
+					this->requestedPlayerDirection = CompassDirection::UP;
+					break;
+
+				case sf::Keyboard::Key::Right:
+					this->requestedPlayerDirection = CompassDirection::RIGHT;
+					break;
+
+				case sf::Keyboard::Key::Down:
+					this->requestedPlayerDirection = CompassDirection::DOWN;
+					break;
+
+				case sf::Keyboard::Key::Left:
+					this->requestedPlayerDirection = CompassDirection::LEFT;
+					break;
+
+				}
+			}
+			else if (event.type == sf::Event::KeyReleased) {
+				switch (event.key.code) {
+
+				case sf::Keyboard::Key::Up:
+					if (this->requestedPlayerDirection == CompassDirection::UP) {
+						this->requestedPlayerDirection = CompassDirection::NONE;
+					}
+					break;
+
+				case sf::Keyboard::Key::Right:
+					if (this->requestedPlayerDirection == CompassDirection::RIGHT) {
+						this->requestedPlayerDirection = CompassDirection::NONE;
+					}
+					break;
+
+				case sf::Keyboard::Key::Down:
+					if (this->requestedPlayerDirection == CompassDirection::DOWN) {
+						this->requestedPlayerDirection = CompassDirection::NONE;
+					}
+					break;
+
+				case sf::Keyboard::Key::Left:
+					if (this->requestedPlayerDirection == CompassDirection::LEFT) {
+						this->requestedPlayerDirection = CompassDirection::NONE;
+					}
+					break;
+
 				}
 			}
 
@@ -57,42 +103,40 @@ namespace r3 {
 		void GameplaySceneController::update() {
 			float gameplaySeconds = this->gameplayClock.getElapsedTime().asSeconds();
 
-			bool upPressedFlag = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up);
-			bool rightPressedFlag = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right);
-			bool downPressedFlag = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down);
-			bool leftPressedFlag = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
+			bool acceptMovement =
+				!playerMovingFlag ||
+				(
+					playerMovingFlag &&
+					((gameplaySeconds - this->playerAnimationStartSeconds) > SECONDS_TO_MOVE)
+				);
 
-			CompassDirection currMovementDirection = CompassDirection::NONE;
-			if (upPressedFlag && !downPressedFlag) {
-				currMovementDirection = CompassDirection::UP;
-			}
-			if (downPressedFlag && !upPressedFlag) {
-				currMovementDirection = CompassDirection::DOWN;
-			}
-			if (rightPressedFlag && !leftPressedFlag) {
-				currMovementDirection = CompassDirection::RIGHT;
-			}
-			if (leftPressedFlag && !rightPressedFlag) {
-				currMovementDirection = CompassDirection::LEFT;
-			}
+			if (acceptMovement) {
+				if (playerMovingFlag) {
+					this->playerPosition += CompassDirectionUtils::convertToVector(this->playerDirection);
+				}
 
-			if (currMovementDirection != CompassDirection::NONE) {
-				if (!this->playerMovingFlag) {
-					this->startPlayerMovement(currMovementDirection);
+				CompassDirection currMovementDirection = this->requestedPlayerDirection;
+
+				AssetLoadingStatus mapLoadingStatus = this->assetManager.getMapStatus(MAP_FILENAME);
+				if (mapLoadingStatus.completionStatus == AssetLoadingCompletionStatus::COMPLETE) {
+					GameMap& gameMap = this->assetManager.getMap(MAP_FILENAME);
+
+					sf::Vector2i destination = this->playerPosition + CompassDirectionUtils::convertToVector(currMovementDirection);
+					if (gameMap.getPositionOccupied(destination.x, destination.y)) {
+						currMovementDirection = CompassDirection::NONE;
+					}
 				}
-				else if (gameplaySeconds - this->playerAnimationStartSeconds > SECONDS_TO_MOVE) {
-					this->playerPosition += CompassDirectionUtils::convertToVector(this->playerDirection);
-					this->startPlayerMovement(currMovementDirection);
-				}
-			}
-			else {
-				if (
-					this->playerMovingFlag &&
-					(gameplaySeconds - this->playerAnimationStartSeconds > SECONDS_TO_MOVE)
-				) {
-					this->playerPosition += CompassDirectionUtils::convertToVector(this->playerDirection);
+
+				if (currMovementDirection == CompassDirection::NONE) {
 					this->playerMovingFlag = false;
 					this->playerAnimationStartSeconds = this->gameplayClock.getElapsedTime().asSeconds();
+
+					if (this->requestedPlayerDirection != CompassDirection::NONE) {
+						this->playerDirection = this->requestedPlayerDirection;
+					}
+				}
+				else {
+					this->startPlayerMovement(currMovementDirection);
 				}
 			}
 		}

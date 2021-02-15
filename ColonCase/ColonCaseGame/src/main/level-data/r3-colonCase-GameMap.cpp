@@ -161,6 +161,20 @@ namespace r3 {
 			return result;
 		}
 
+		bool GameMap::getPositionOccupied(int x, int y) const {
+			if (
+				(x < 0) ||
+				(x >= this->mapSize.x) ||
+				(y < 0) ||
+				(y >= this->mapSize.y)
+			) {
+				throw std::out_of_range("x, y position is outside of the map size");
+			}
+
+			bool result = this->collisionFlagList.at(y * this->mapSize.x + x);
+			return result;
+		}
+
 	}
 
 }

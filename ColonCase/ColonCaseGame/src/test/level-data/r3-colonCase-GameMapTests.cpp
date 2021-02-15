@@ -287,6 +287,62 @@ namespace r3 {
 				return result;
 			}
 
+			bool testGetPositionOccupied_InvalidPosition() {
+				GameMapDefn mapDefn = createGameMapDefn();
+
+				GameMap map(mapDefn);
+
+				bool result = true;
+
+				try {
+					map.getPositionOccupied(-1, 0);
+					result = false;
+				}
+				catch (std::out_of_range) {
+				}
+
+				try {
+					map.getPositionOccupied(10, 0);
+					result = false;
+				}
+				catch (std::out_of_range) {
+				}
+
+				try {
+					map.getPositionOccupied(0, -1);
+					result = false;
+				}
+				catch (std::out_of_range) {
+				}
+
+				try {
+					map.getPositionOccupied(0, 10);
+					result = false;
+				}
+				catch (std::out_of_range) {
+				}
+
+				return result;
+			}
+
+			bool testGetPositionOccupied_NotOccupied() {
+				GameMapDefn mapDefn = createGameMapDefn();
+
+				GameMap map(mapDefn);
+
+				bool result = !map.getPositionOccupied(2, 1);
+				return result;
+			}
+
+			bool testGetPositionOccupied_Occupied() {
+				GameMapDefn mapDefn = createGameMapDefn();
+
+				GameMap map(mapDefn);
+
+				bool result = map.getPositionOccupied(2, 2);
+				return result;
+			}
+
 		}
 
 	}

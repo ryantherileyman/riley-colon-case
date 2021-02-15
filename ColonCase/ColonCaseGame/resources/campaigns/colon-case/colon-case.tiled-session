@@ -3,20 +3,48 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "levels/level-investigator-house-start.json",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "levels/level-investigator-house-start.json": {
+            "scale": 0.06,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 4258.333333333334,
+                "y": 1500.0000000000005
+            }
+        },
         "levels/tileset-characters.json": {
             "dynamicWrapping": true,
             "scaleInDock": 1
+        },
+        "levels/tileset-floors.json": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "levels/tileset-sprites.json": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "levels/tileset-walls.json": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         }
     },
     "openFiles": [
+        "levels/tileset-floors.json",
+        "levels/tileset-walls.json",
+        "levels/tileset-sprites.json",
+        "levels/level-investigator-house-start.json"
     ],
     "project": "colon-case.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "levels/tileset-floors.json",
+        "levels/tileset-walls.json",
+        "levels/tileset-sprites.json",
+        "levels/level-investigator-house-start.json"
     ]
 }

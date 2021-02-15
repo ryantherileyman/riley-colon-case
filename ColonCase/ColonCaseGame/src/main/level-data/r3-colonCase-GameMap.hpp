@@ -126,6 +126,9 @@ namespace r3 {
 			const sf::IntRect& getTileTextureRect(int tileId) const;
 			const std::vector<GameSpriteRenderDetails> getSpriteRenderDetailsList(int layerIndex, const sf::IntRect& visibleTileRect) const;
 
+		public:
+			bool getPositionOccupied(int x, int y) const;
+
 		private:
 			GameSpriteRenderDetails buildSpriteRenderDetails(const GameMapSprite& sprite) const;
 

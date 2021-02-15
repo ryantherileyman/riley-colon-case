@@ -17,6 +17,9 @@ namespace r3 {
 			bool testGetSpriteRenderDetailsList_InvalidLayerType();
 			bool testGetSpriteRenderDetailsList_None();
 			bool testGetSpriteRenderDetailsList_Partial();
+			bool testGetPositionOccupied_InvalidPosition();
+			bool testGetPositionOccupied_NotOccupied();
+			bool testGetPositionOccupied_Occupied();
 
 		}
 

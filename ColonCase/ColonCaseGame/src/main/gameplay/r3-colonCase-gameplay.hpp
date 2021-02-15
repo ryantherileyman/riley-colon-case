@@ -41,6 +41,7 @@ namespace r3 {
 
 		private:
 			sf::Clock gameplayClock;
+			CompassDirection requestedPlayerDirection;
 			sf::Vector2i playerPosition;
 			CompassDirection playerDirection;
 			bool playerMovingFlag;
