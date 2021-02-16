@@ -21,6 +21,7 @@
             "scaleInDock": 1
         },
         "levels/tileset-floors.json": {
+            "dynamicWrapping": true,
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
@@ -29,6 +30,7 @@
             "scaleInEditor": 1
         },
         "levels/tileset-walls.json": {
+            "dynamicWrapping": true,
             "scaleInDock": 1,
             "scaleInEditor": 1
         }

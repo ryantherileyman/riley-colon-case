@@ -1,4 +1,5 @@
 
+#include <optional>
 #include <string>
 #include <vector>
 #pragma once
@@ -150,6 +151,7 @@ namespace r3 {
 			int height = 0;
 			int tileWidth = 0;
 			int tileHeight = 0;
+			std::string backgroundColor;
 			std::vector<MapTilesetDefn> tilesetDefnList;
 			std::vector<MapLayerDefn> layerDefnList;
 			std::vector<CustomPropertyDefn> propertyDefnList;

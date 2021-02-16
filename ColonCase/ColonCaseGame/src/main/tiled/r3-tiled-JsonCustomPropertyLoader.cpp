@@ -71,8 +71,7 @@ namespace r3 {
 				case CustomPropertyType::COLOR:
 					result = result && jsonValue[JsonPropertyName::VALUE].isString();
 					if (result) {
-						std::regex colorRegEx("#[0-9a-f]{8}");
-						result = std::regex_match(jsonValue[JsonPropertyName::VALUE].asString(), colorRegEx);
+						result = JsonTiledValidationUtils::colorValueValid(jsonValue, JsonPropertyName::VALUE);
 					}
 					break;
 				case CustomPropertyType::FLOAT:

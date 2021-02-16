@@ -202,6 +202,8 @@ namespace r3 {
 			bool testValidate_MissingTileHeight();
 			bool testValidate_TileHeight(const Json::Value& tileHeightJsonValue, bool expectedTileHeightValid);
 
+			bool testValidate_BackgroundColor(const Json::Value& backgroundColorJsonValue, bool expectedBackgroundColorValid);
+
 			bool testValidate_InvalidTilesetList();
 
 			bool testValidate_InvalidLayerList();
@@ -216,11 +218,13 @@ namespace r3 {
 			bool testLocalizeValidationResult_HeightInvalid();
 			bool testLocalizeValidationResult_TileWidthInvalid();
 			bool testLocalizeValidationResult_TileHeightInvalid();
+			bool testLocalizeValidationResult_BackgroundColorInvalid();
 			bool testLocalizeValidationResult_TilesetListInvalid();
 			bool testLocalizeValidationResult_LayerListInvalid();
 			bool testLocalizeValidationResult_PropertyListInvalid();
 
 			bool testConvertToDefn();
+			bool testConvertToDefn_WithBackgroundColor();
 
 			bool testLoadFromJsonFile_InvalidJson();
 			bool testLoadFromJsonFile_InvalidMap();

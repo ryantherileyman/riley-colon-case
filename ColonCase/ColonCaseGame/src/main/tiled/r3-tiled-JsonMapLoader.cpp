@@ -45,6 +45,7 @@ namespace r3 {
 				result.heightValid = JsonTiledValidationUtils::dimensionValueValid(jsonValue, JsonPropertyName::HEIGHT);
 				result.tileWidthValid = JsonTiledValidationUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::TILE_WIDTH);
 				result.tileHeightValid = JsonTiledValidationUtils::dimensionValueValid(jsonValue, JsonPropertyName::Tileset::TILE_HEIGHT);
+				result.backgroundColorValid = JsonTiledValidationUtils::colorValueValid(jsonValue, JsonPropertyName::Map::BACKGROUND_COLOR);
 
 				if (JsonValidationUtils::optionalArray(jsonValue, JsonPropertyName::Map::TILESET_LIST)) {
 					Json::Value tilesetListJsonValue = jsonValue[JsonPropertyName::Map::TILESET_LIST];
@@ -101,6 +102,10 @@ namespace r3 {
 					result.push_back("The \"tileheight\" is invalid.  It must be an integer greater than 0.");
 				}
 
+				if (!validationResult.backgroundColorValid) {
+					result.push_back("The \"backgroundcolor\" is invalid.  It must be a string prefixed with a # symbol, followed by 6 or 8 hexadecimal characters.");
+				}
+
 				for (size_t index = 0; index < validationResult.tilesetValidationResultList.size(); index++) {
 					const auto& currTilesetValidationResult = validationResult.tilesetValidationResultList[index];
 					std::vector<std::string> currErrorList = JsonMapTilesetLoader::localizeValidationResult(currTilesetValidationResult);
@@ -144,6 +149,9 @@ namespace r3 {
 				result.height = jsonValue[JsonPropertyName::HEIGHT].asInt();
 				result.tileWidth = jsonValue[JsonPropertyName::Tileset::TILE_WIDTH].asInt();
 				result.tileHeight = jsonValue[JsonPropertyName::Tileset::TILE_HEIGHT].asInt();
+				if (jsonValue.isMember(JsonPropertyName::Map::BACKGROUND_COLOR)) {
+					result.backgroundColor = jsonValue[JsonPropertyName::Map::BACKGROUND_COLOR].asString();
+				}
 
 				if (JsonValidationUtils::optionalArray(jsonValue, JsonPropertyName::Map::TILESET_LIST)) {
 					Json::Value tilesetListJsonValue = jsonValue[JsonPropertyName::Map::TILESET_LIST];

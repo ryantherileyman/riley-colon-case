@@ -40,6 +40,7 @@ namespace r3 {
 
 				extern const char* ORIENTATION;
 				extern const char* INFINITE;
+				extern const char* BACKGROUND_COLOR;
 				extern const char* LAYER_LIST;
 
 				extern const char* DATA;
@@ -103,6 +104,7 @@ namespace r3 {
 		namespace JsonTiledValidationUtils {
 
 			bool dimensionValueValid(const Json::Value& jsonValue, const char* propertyName);
+			bool colorValueValid(const Json::Value& jsonValue, const char* propertyName);
 
 		}
 
@@ -429,6 +431,7 @@ namespace r3 {
 				bool heightValid = true;
 				bool tileWidthValid = true;
 				bool tileHeightValid = true;
+				bool backgroundColorValid = true;
 				std::vector<JsonMapTilesetLoader::ValidationResult> tilesetValidationResultList;
 				std::vector<JsonMapLayerLoader::ValidationResult> layerValidationResultList;
 				std::vector<JsonCustomPropertyLoader::ValidationResult> propertyValidationResultList;
@@ -457,6 +460,7 @@ namespace r3 {
 						heightValid &&
 						tileWidthValid &&
 						tileHeightValid &&
+						backgroundColorValid &&
 						tilesetListValid &&
 						layerListValid &&
 						propertyListValid;

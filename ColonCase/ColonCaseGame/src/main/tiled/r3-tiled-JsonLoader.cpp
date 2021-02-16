@@ -1,4 +1,5 @@
 
+#include <regex>
 #include <json/json.h>
 #include "../validation/r3-validation-utils.hpp"
 #include "../json/r3-jsoncpp-utils.hpp"
@@ -39,6 +40,7 @@ namespace r3 {
 
 				const char* ORIENTATION = "orientation";
 				const char* INFINITE = "infinite";
+				const char* BACKGROUND_COLOR = "backgroundcolor";
 				const char* LAYER_LIST = "layers";
 
 				const char* DATA = "data";
@@ -105,6 +107,16 @@ namespace r3 {
 				bool result =
 					JsonValidationUtils::requiredInt(jsonValue, propertyName) &&
 					JsonValidationUtils::intInRange(jsonValue, propertyName, r3::validation::IntRange::createMin(1));
+				return result;
+			}
+
+			std::regex COLOR_REGEX("#[0-9a-f]{6}([0-9a-f]{2})?");
+
+			bool colorValueValid(const Json::Value& jsonValue, const char* propertyName) {
+				bool result = JsonValidationUtils::optionalString(jsonValue, propertyName);
+				if (JsonValidationUtils::requiredString(jsonValue, propertyName)) {
+					result = std::regex_match(jsonValue[propertyName].asString(), COLOR_REGEX);
+				}
 				return result;
 			}
 

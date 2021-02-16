@@ -226,6 +226,16 @@ namespace r3 {
 				return result;
 			}
 
+			bool testValidate_BackgroundColor(const Json::Value& backgroundColorJsonValue, bool expectedBackgroundColorValid) {
+				Json::Value jsonValue = createValidMapJsonValue();
+				jsonValue[JsonPropertyName::Map::BACKGROUND_COLOR] = backgroundColorJsonValue;
+
+				JsonMapLoader::ValidationResult validationResult = JsonMapLoader::validate(jsonValue);
+
+				bool result = (validationResult.backgroundColorValid == expectedBackgroundColorValid);
+				return result;
+			}
+
 			bool testValidate_InvalidTilesetList() {
 				Json::Value jsonValue = createValidMapJsonValue();
 				jsonValue[JsonPropertyName::Map::TILESET_LIST][0][JsonPropertyName::Map::FIRST_GID] = "no";
@@ -362,6 +372,18 @@ namespace r3 {
 				return result;
 			}
 
+			bool testLocalizeValidationResult_BackgroundColorInvalid() {
+				JsonMapLoader::ValidationResult validationResult;
+				validationResult.backgroundColorValid = false;
+
+				std::vector<std::string> errorList = JsonMapLoader::localizeValidationResult(validationResult);
+
+				bool result =
+					(errorList.size() == 1) &&
+					(errorList.at(0).find("The \"backgroundcolor\" is invalid") != std::string::npos);
+				return result;
+			}
+
 			bool testLocalizeValidationResult_TilesetListInvalid() {
 				JsonMapTilesetLoader::ValidationResult tilesetValidationResult;
 				tilesetValidationResult.firstGidValid = false;
@@ -423,8 +445,19 @@ namespace r3 {
 					(defn.height == 2) &&
 					(defn.tileWidth == 128) &&
 					(defn.tileHeight == 128) &&
+					(defn.backgroundColor.empty()) &&
 					(defn.tilesetDefnList.at(0).sourcePath.compare("tilesets/characters.json") == 0) &&
 					(defn.layerDefnList.at(0).name.compare("Spawns") == 0);
+				return result;
+			}
+
+			bool testConvertToDefn_WithBackgroundColor() {
+				Json::Value jsonValue = createValidMapJsonValue();
+				jsonValue[JsonPropertyName::Map::BACKGROUND_COLOR] = "#66ccff33";
+
+				MapDefn defn = JsonMapLoader::convertToDefn(jsonValue);
+
+				bool result = (defn.backgroundColor.compare("#66ccff33") == 0);
 				return result;
 			}
 

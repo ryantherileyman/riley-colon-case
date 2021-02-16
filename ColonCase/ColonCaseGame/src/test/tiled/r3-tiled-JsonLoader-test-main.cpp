@@ -63,6 +63,9 @@ void runJsonCustomPropertyLoaderTests() {
 	assert(JsonCustomPropertyLoaderTests::testValidate_Value(JsonPropertyValue::CustomPropertyTypeValue::BOOLEAN, true, true));
 	assert(JsonCustomPropertyLoaderTests::testValidate_Value(JsonPropertyValue::CustomPropertyTypeValue::BOOLEAN, "mismatch type", false));
 	assert(JsonCustomPropertyLoaderTests::testValidate_Value(JsonPropertyValue::CustomPropertyTypeValue::COLOR, "#ffcc9966", true));
+	assert(JsonCustomPropertyLoaderTests::testValidate_Value(JsonPropertyValue::CustomPropertyTypeValue::COLOR, "#ffcc99", true));
+	assert(JsonCustomPropertyLoaderTests::testValidate_Value(JsonPropertyValue::CustomPropertyTypeValue::COLOR, "#ffcc9", false));
+	assert(JsonCustomPropertyLoaderTests::testValidate_Value(JsonPropertyValue::CustomPropertyTypeValue::COLOR, "#ffcc996", false));
 	assert(JsonCustomPropertyLoaderTests::testValidate_Value(JsonPropertyValue::CustomPropertyTypeValue::COLOR, "this ain't no color", false));
 	assert(JsonCustomPropertyLoaderTests::testValidate_Value(JsonPropertyValue::CustomPropertyTypeValue::COLOR, 0xffcc9966, false));
 	assert(JsonCustomPropertyLoaderTests::testValidate_Value(JsonPropertyValue::CustomPropertyTypeValue::FLOAT, 1.5, true));
@@ -443,6 +446,13 @@ void runJsonMapLoaderTests() {
 	assert(JsonMapLoaderTests::testValidate_TileHeight(0, false));
 	assert(JsonMapLoaderTests::testValidate_TileHeight("2", false));
 
+	assert(JsonMapLoaderTests::testValidate_BackgroundColor("#3366bb55", true));
+	assert(JsonMapLoaderTests::testValidate_BackgroundColor("#3366bb", true));
+	assert(JsonMapLoaderTests::testValidate_BackgroundColor("#3366bb5", false));
+	assert(JsonMapLoaderTests::testValidate_BackgroundColor("#3366b", false));
+	assert(JsonMapLoaderTests::testValidate_BackgroundColor("this ain't no color", false));
+	assert(JsonMapLoaderTests::testValidate_BackgroundColor(0x3366bb, false));
+
 	assert(JsonMapLoaderTests::testValidate_InvalidTilesetList());
 
 	assert(JsonMapLoaderTests::testValidate_InvalidLayerList());
@@ -457,11 +467,13 @@ void runJsonMapLoaderTests() {
 	assert(JsonMapLoaderTests::testLocalizeValidationResult_HeightInvalid());
 	assert(JsonMapLoaderTests::testLocalizeValidationResult_TileWidthInvalid());
 	assert(JsonMapLoaderTests::testLocalizeValidationResult_TileHeightInvalid());
+	assert(JsonMapLoaderTests::testLocalizeValidationResult_BackgroundColorInvalid());
 	assert(JsonMapLoaderTests::testLocalizeValidationResult_TilesetListInvalid());
 	assert(JsonMapLoaderTests::testLocalizeValidationResult_LayerListInvalid());
 	assert(JsonMapLoaderTests::testLocalizeValidationResult_PropertyListInvalid());
 
 	assert(JsonMapLoaderTests::testConvertToDefn());
+	assert(JsonMapLoaderTests::testConvertToDefn_WithBackgroundColor());
 
 	assert(JsonMapLoaderTests::testLoadFromJsonFile_InvalidJson());
 	assert(JsonMapLoaderTests::testLoadFromJsonFile_InvalidMap());
