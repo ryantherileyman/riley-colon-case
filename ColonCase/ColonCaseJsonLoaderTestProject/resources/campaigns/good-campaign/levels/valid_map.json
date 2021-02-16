@@ -1,4 +1,12 @@
-{ "compressionlevel":-1,
+{ "backgroundcolor":"#f0804000",
+ "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "target":"."
+        }
+    },
  "height":10,
  "infinite":false,
  "layers":[

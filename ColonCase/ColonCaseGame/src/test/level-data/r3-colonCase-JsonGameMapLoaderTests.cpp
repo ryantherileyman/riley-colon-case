@@ -296,6 +296,7 @@ namespace r3 {
 					(gameMapResult.mapDefn.size.y == 10) &&
 					(gameMapResult.mapDefn.tileSize.x == 8) &&
 					(gameMapResult.mapDefn.tileSize.y == 8) &&
+					(gameMapResult.mapDefn.backgroundColor.toInteger() == 0x804000f0) &&
 					(gameMapResult.mapDefn.tileImageDefnMap.size() == 6) &&
 					(std::regex_match(gameMapResult.mapDefn.tileImageDefnMap[1].filename, std::regex("textures[\\\\/]grass.png"))) &&
 					(std::regex_match(gameMapResult.mapDefn.tileImageDefnMap[2].filename, std::regex("textures[\\\\/]path.png"))) &&

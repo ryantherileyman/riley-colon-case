@@ -228,7 +228,9 @@ namespace r3 {
 					this->result.mapDefn.tileSize.x = this->loadMapResult.mapDefn.tileWidth;
 					this->result.mapDefn.tileSize.y = this->loadMapResult.mapDefn.tileHeight;
 
-					// TODO: support backgroundColor?
+					if (!this->loadMapResult.mapDefn.backgroundColor.empty()) {
+						this->result.mapDefn.backgroundColor = GameLoaderUtils::convertToSfmlColor(this->loadMapResult.mapDefn.backgroundColor);
+					}
 
 					for (const auto& currMapTilesetDefn : this->loadMapResult.mapDefn.tilesetDefnList) {
 						const auto& currTilesetDefn = this->tilesetDefnMap[currMapTilesetDefn.sourcePath];

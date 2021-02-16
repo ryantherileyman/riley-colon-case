@@ -66,6 +66,26 @@ namespace r3 {
 				return result;
 			}
 
+			sf::Color convertToSfmlColor(const std::string& colorString) {
+				sf::Color result;
+
+				int nextComponentIndex = 1;
+				if (colorString.size() == 9) {
+					result.a = (sf::Uint8)std::stoul(colorString.substr(nextComponentIndex, 2), nullptr, 16);
+					nextComponentIndex += 2;
+				}
+
+				result.r = (sf::Uint8)std::stoul(colorString.substr(nextComponentIndex, 2), nullptr, 16);
+				nextComponentIndex += 2;
+
+				result.g = (sf::Uint8)std::stoul(colorString.substr(nextComponentIndex, 2), nullptr, 16);
+				nextComponentIndex += 2;
+
+				result.b = (sf::Uint8)std::stoul(colorString.substr(nextComponentIndex, 2), nullptr, 16);
+
+				return result;
+			}
+
 		}
 
 	}

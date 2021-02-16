@@ -1,6 +1,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include <SFML/Graphics.hpp>
 #include "r3-colonCase-levelDefn.hpp"
 #include "../tiled/r3-tiled-defn.hpp"
 #include "../tiled/r3-tiled-JsonLoader.hpp"
@@ -26,6 +27,8 @@ namespace r3 {
 			std::string resolveRelativeFilePath(const char* baseFilePath, const char* childFilePath);
 
 			std::string localizeInvalidPathError(const char* campaignFolder, const char* filePath);
+
+			sf::Color convertToSfmlColor(const std::string& colorString);
 
 		}
 
