@@ -18,6 +18,7 @@ namespace r3 {
 
 			this->assetManager.setCampaignFolder("colon-case");
 
+			this->requestedPlayerDirection = CompassDirection::NONE;
 			this->playerPosition = sf::Vector2i(0, 0);
 			this->playerDirection = CompassDirection::DOWN;
 			this->playerMovingFlag = false;
@@ -129,7 +130,6 @@ namespace r3 {
 
 				if (currMovementDirection == CompassDirection::NONE) {
 					this->playerMovingFlag = false;
-					this->playerAnimationStartSeconds = this->gameplayClock.getElapsedTime().asSeconds();
 
 					if (this->requestedPlayerDirection != CompassDirection::NONE) {
 						this->playerDirection = this->requestedPlayerDirection;
