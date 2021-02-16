@@ -12,6 +12,7 @@ namespace r3 {
 	namespace colonCase {
 
 		GameMap::GameMap(const GameMapDefn& mapDefn) {
+			this->backgroundColor = mapDefn.backgroundColor;
 			this->mapSize = mapDefn.size;
 			this->tileSize = mapDefn.tileSize;
 			this->initializeImageAndTileMap(mapDefn);
@@ -67,6 +68,10 @@ namespace r3 {
 					}
 				}
 			}
+		}
+
+		const sf::Color& GameMap::getBackgroundColor() const {
+			return this->backgroundColor;
 		}
 
 		const sf::Vector2i& GameMap::getMapSize() const {

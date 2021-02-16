@@ -101,6 +101,7 @@ namespace r3 {
 		class GameMap {
 
 		private:
+			sf::Color backgroundColor;
 			sf::Vector2i mapSize;
 			sf::Vector2i tileSize;
 			std::unordered_map<int, GameSpriteImage> imageMap;
@@ -117,6 +118,7 @@ namespace r3 {
 			void initializeCollectionFlagList(const GameMapDefn& mapDefn);
 
 		public:
+			const sf::Color& getBackgroundColor() const;
 			const sf::Vector2i& getMapSize() const;
 			const sf::Vector2i& getTileSize() const;
 			int getLayerCount() const;

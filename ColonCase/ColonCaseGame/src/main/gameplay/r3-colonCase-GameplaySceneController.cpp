@@ -161,7 +161,7 @@ namespace r3 {
 
 				this->window->setView(sf::View(viewCenter, viewSize));
 
-				this->window->clear();
+				this->window->clear(gameMap.getBackgroundColor());
 
 				for (auto layerIndex = 0; layerIndex < gameMap.getLayerCount(); layerIndex++) {
 					if (gameMap.getLayerType(layerIndex) == GameMapLayerType::TILE) {
