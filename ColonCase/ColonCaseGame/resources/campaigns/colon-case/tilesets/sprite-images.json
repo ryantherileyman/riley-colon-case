@@ -6,17 +6,23 @@
      "width":1
     },
  "margin":0,
- "name":"Sprites",
+ "name":"sprite-images",
  "spacing":0,
- "tilecount":1,
+ "tilecount":2,
  "tiledversion":"2020.12.18",
  "tileheight":457,
  "tiles":[
         {
-         "id":0,
+         "id":1,
          "image":"..\/textures\/couch-threeseater-right.png",
          "imageheight":457,
          "imagewidth":177
+        }, 
+        {
+         "id":2,
+         "image":"..\/textures\/hidden-wall-128.png",
+         "imageheight":128,
+         "imagewidth":128
         }],
  "tilewidth":177,
  "type":"tileset",

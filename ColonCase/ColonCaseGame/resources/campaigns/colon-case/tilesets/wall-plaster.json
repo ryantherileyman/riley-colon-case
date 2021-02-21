@@ -1,0 +1,14 @@
+{ "columns":4,
+ "image":"..\/textures\/wall-plaster-128-tileset.png",
+ "imageheight":384,
+ "imagewidth":512,
+ "margin":0,
+ "name":"wall-plaster",
+ "spacing":0,
+ "tilecount":12,
+ "tiledversion":"2020.12.18",
+ "tileheight":128,
+ "tilewidth":128,
+ "type":"tileset",
+ "version":1.4
+}

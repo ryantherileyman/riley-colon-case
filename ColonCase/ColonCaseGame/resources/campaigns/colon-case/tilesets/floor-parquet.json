@@ -1,0 +1,14 @@
+{ "columns":3,
+ "image":"..\/textures\/parquet-tileset-128.png",
+ "imageheight":384,
+ "imagewidth":384,
+ "margin":0,
+ "name":"floor-parquet",
+ "spacing":0,
+ "tilecount":9,
+ "tiledversion":"2020.12.18",
+ "tileheight":128,
+ "tilewidth":128,
+ "type":"tileset",
+ "version":1.4
+}

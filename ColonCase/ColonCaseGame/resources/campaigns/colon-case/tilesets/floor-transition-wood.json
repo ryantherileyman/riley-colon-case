@@ -1,0 +1,14 @@
+{ "columns":3,
+ "image":"..\/textures\/wood-transition-tileset-128.png",
+ "imageheight":256,
+ "imagewidth":384,
+ "margin":0,
+ "name":"floor-transition-wood",
+ "spacing":0,
+ "tilecount":6,
+ "tiledversion":"2020.12.18",
+ "tileheight":128,
+ "tilewidth":128,
+ "type":"tileset",
+ "version":1.4
+}

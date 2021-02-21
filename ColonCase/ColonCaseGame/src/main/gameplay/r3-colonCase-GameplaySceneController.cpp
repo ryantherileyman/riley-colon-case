@@ -6,7 +6,7 @@ namespace r3 {
 
 	namespace colonCase {
 
-		const char* MAP_FILENAME = "levels/level-investigator-house-start.json";
+		const char* MAP_FILENAME = "levels/house-investigator.json";
 		const float SECONDS_TO_MOVE = 0.5f;
 
 		GameplaySceneController::GameplaySceneController(sf::RenderWindow& window) {
@@ -31,7 +31,7 @@ namespace r3 {
 			this->gameplayClock.restart();
 
 			this->requestedPlayerDirection = CompassDirection::NONE;
-			this->playerPosition = sf::Vector2i(17, 6);
+			this->playerPosition = sf::Vector2i(9, 5);
 			this->playerDirection = CompassDirection::RIGHT;
 			this->playerMovingFlag = false;
 			this->playerAnimationStartSeconds = 0.0f;
@@ -151,7 +151,7 @@ namespace r3 {
 
 				sf::Vector2u windowSize = this->window->getSize();
 				sf::Vector2f viewCenter(sf::Vector2f(playerRenderPosition.x + 0.5f, playerRenderPosition.y + 0.5f));
-				sf::Vector2f viewSize(sf::Vector2f((float)windowSize.x / 100.0f, (float)windowSize.y / 100.0f));
+				sf::Vector2f viewSize(sf::Vector2f((float)windowSize.x / 92.0f, (float)windowSize.y / 92.0f));
 				sf::Vector2f viewTopLeft(sf::Vector2f(viewCenter.x - viewSize.x * 0.5f, viewCenter.y - viewSize.y * 0.5f));
 
 				sf::IntRect visibleTileRect(sf::Vector2i((int)floorf(viewTopLeft.x), (int)floorf(viewTopLeft.y)), sf::Vector2i((int)ceilf(viewSize.x) + 1, (int)ceilf(viewSize.y) + 1));
@@ -167,7 +167,7 @@ namespace r3 {
 					if (gameMap.getLayerType(layerIndex) == GameMapLayerType::TILE) {
 						for (auto y = visibleTileTopLeft.y; y <= visibleTileBottomRight.y; y++) {
 							const int* rowTileIdPtr = gameMap.getTileIdPtr(layerIndex, 0, y);
-							for (auto x = visibleTileTopLeft.x; x < visibleTileBottomRight.x; x++) {
+							for (auto x = visibleTileTopLeft.x; x <= visibleTileBottomRight.x; x++) {
 								int tileId = rowTileIdPtr[x];
 
 								if (tileId > 0) {
@@ -187,15 +187,20 @@ namespace r3 {
 						for (size_t spriteIndex = 0; spriteIndex < spriteRenderDetailsList.size(); spriteIndex++) {
 							GameSpriteRenderDetails& currSpriteRenderDetails = spriteRenderDetailsList.at(spriteIndex);
 
+							sf::Texture& spriteTexture = this->assetManager.getTexture(currSpriteRenderDetails.filename);
+
+							float spriteScaleX = (currSpriteRenderDetails.size.x / currSpriteRenderDetails.textureRect.width) * (1.0f / (float)gameMap.getTileSize().x);
+							float spriteScaleY = (currSpriteRenderDetails.size.y / currSpriteRenderDetails.textureRect.height) * (1.0f / (float)gameMap.getTileSize().y);
+
 							sf::Vector2f spriteTilePos;
 							spriteTilePos.x = currSpriteRenderDetails.position.x / (float)gameMap.getTileSize().x;
 							spriteTilePos.y = (currSpriteRenderDetails.position.y / (float)gameMap.getTileSize().y) - (currSpriteRenderDetails.size.y / (float)gameMap.getTileSize().y);
 
 							sf::Sprite currSprite;
-							currSprite.setTexture(this->assetManager.getTexture(currSpriteRenderDetails.filename));
+							currSprite.setTexture(spriteTexture);
 							currSprite.setTextureRect(currSpriteRenderDetails.textureRect);
 							currSprite.setPosition(spriteTilePos);
-							currSprite.setScale(1.0f / (float)gameMap.getTileSize().x, 1.0f / (float)gameMap.getTileSize().y);
+							currSprite.setScale(spriteScaleX, spriteScaleY);
 							this->window->draw(currSprite);
 						}
 					}
