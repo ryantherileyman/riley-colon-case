@@ -18,6 +18,7 @@ namespace r3 {
 
 			this->assetManager.setCampaignFolder("colon-case");
 
+			this->pixelsPerTile = 96;
 			this->requestedPlayerDirection = CompassDirection::NONE;
 			this->playerPosition = sf::Vector2i(0, 0);
 			this->playerDirection = CompassDirection::DOWN;
@@ -64,6 +65,18 @@ namespace r3 {
 
 				case sf::Keyboard::Key::Left:
 					this->requestedPlayerDirection = CompassDirection::LEFT;
+					break;
+
+				case sf::Keyboard::Key::Add:
+					if (this->pixelsPerTile < 128) {
+						this->pixelsPerTile += 16;
+					}
+					break;
+
+				case sf::Keyboard::Key::Subtract:
+					if (this->pixelsPerTile > 64) {
+						this->pixelsPerTile -= 16;
+					}
 					break;
 
 				}
@@ -150,11 +163,11 @@ namespace r3 {
 				sf::Vector2f playerRenderPosition = this->resolvePlayerPosition(gameplaySeconds);
 
 				sf::Vector2u windowSize = this->window->getSize();
-				sf::Vector2f viewCenter(sf::Vector2f(playerRenderPosition.x + 0.5f, playerRenderPosition.y + 0.5f));
-				sf::Vector2f viewSize(sf::Vector2f((float)windowSize.x / 92.0f, (float)windowSize.y / 92.0f));
+				sf::Vector2f viewCenter(sf::Vector2f((float)gameMap.getTileSize().x * (playerRenderPosition.x + 0.5f), (float)gameMap.getTileSize().y * (playerRenderPosition.y + 0.5f)));
+				sf::Vector2f viewSize(sf::Vector2f((float)gameMap.getTileSize().x * (float)windowSize.x / (float)this->pixelsPerTile, (float)gameMap.getTileSize().y * (float)windowSize.y / (float)this->pixelsPerTile));
 				sf::Vector2f viewTopLeft(sf::Vector2f(viewCenter.x - viewSize.x * 0.5f, viewCenter.y - viewSize.y * 0.5f));
 
-				sf::IntRect visibleTileRect(sf::Vector2i((int)floorf(viewTopLeft.x), (int)floorf(viewTopLeft.y)), sf::Vector2i((int)ceilf(viewSize.x) + 1, (int)ceilf(viewSize.y) + 1));
+				sf::IntRect visibleTileRect(sf::Vector2i((int)floorf(viewTopLeft.x / gameMap.getTileSize().x), (int)floorf(viewTopLeft.y / gameMap.getTileSize().y)), sf::Vector2i((int)ceilf(viewSize.x / gameMap.getTileSize().x) + 1, (int)ceilf(viewSize.y / gameMap.getTileSize().y) + 1));
 
 				sf::Vector2i visibleTileTopLeft(std::clamp(visibleTileRect.left, 0, gameMap.getMapSize().x - 1), std::clamp(visibleTileRect.top, 0, gameMap.getMapSize().y - 1));
 				sf::Vector2i visibleTileBottomRight(std::clamp(visibleTileRect.left + visibleTileRect.width, 0, gameMap.getMapSize().x - 1), std::clamp(visibleTileRect.top + visibleTileRect.height, 0, gameMap.getMapSize().y - 1));
@@ -174,8 +187,7 @@ namespace r3 {
 									sf::Sprite tileSprite;
 									tileSprite.setTexture(this->assetManager.getTexture(gameMap.getTileImageFilename(tileId)));
 									tileSprite.setTextureRect(gameMap.getTileTextureRect(tileId));
-									tileSprite.setPosition((float)x, (float)y);
-									tileSprite.setScale(1.0f / (float)gameMap.getTileSize().x, 1.0f / (float)gameMap.getTileSize().y);
+									tileSprite.setPosition((float)x * gameMap.getTileSize().x, (float)y * gameMap.getTileSize().y);
 									this->window->draw(tileSprite);
 								}
 							}
@@ -189,12 +201,12 @@ namespace r3 {
 
 							sf::Texture& spriteTexture = this->assetManager.getTexture(currSpriteRenderDetails.filename);
 
-							float spriteScaleX = (currSpriteRenderDetails.size.x / currSpriteRenderDetails.textureRect.width) * (1.0f / (float)gameMap.getTileSize().x);
-							float spriteScaleY = (currSpriteRenderDetails.size.y / currSpriteRenderDetails.textureRect.height) * (1.0f / (float)gameMap.getTileSize().y);
+							float spriteScaleX = (currSpriteRenderDetails.size.x / currSpriteRenderDetails.textureRect.width);
+							float spriteScaleY = (currSpriteRenderDetails.size.y / currSpriteRenderDetails.textureRect.height);
 
 							sf::Vector2f spriteTilePos;
-							spriteTilePos.x = currSpriteRenderDetails.position.x / (float)gameMap.getTileSize().x;
-							spriteTilePos.y = (currSpriteRenderDetails.position.y / (float)gameMap.getTileSize().y) - (currSpriteRenderDetails.size.y / (float)gameMap.getTileSize().y);
+							spriteTilePos.x = currSpriteRenderDetails.position.x;
+							spriteTilePos.y = currSpriteRenderDetails.position.y - currSpriteRenderDetails.size.y;
 
 							sf::Sprite currSprite;
 							currSprite.setTexture(spriteTexture);
@@ -207,7 +219,8 @@ namespace r3 {
 				}
 
 				sf::Sprite playerSprite = this->createPlayerSprite(gameplaySeconds);
-				playerSprite.setPosition(playerRenderPosition);
+				playerSprite.setPosition(playerRenderPosition.x * (float)gameMap.getTileSize().x, playerRenderPosition.y * (float)gameMap.getTileSize().y);
+				playerSprite.setScale((float)gameMap.getTileSize().x / 256.0f, (float)gameMap.getTileSize().y / 256.0f);
 				this->window->draw(playerSprite);
 
 				this->window->display();
@@ -272,7 +285,6 @@ namespace r3 {
 				textureRectLeft = 512 + (256 * (int)truncf((secondsSinceAnimationStart / SECONDS_TO_MOVE) * 4));
 			}
 
-			result.setScale(1.0f / 256.0f, 1.0f / 256.0f);
 			result.setTextureRect(sf::IntRect(textureRectLeft, textureRectTop, 256, 256));
 
 			return result;
