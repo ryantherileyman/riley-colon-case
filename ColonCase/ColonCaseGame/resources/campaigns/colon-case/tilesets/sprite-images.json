@@ -1,4 +1,12 @@
 { "columns":0,
+ "editorsettings":
+    {
+     "export":
+        {
+         "format":"",
+         "target":"."
+        }
+    },
  "grid":
     {
      "height":1,
@@ -8,7 +16,7 @@
  "margin":0,
  "name":"sprite-images",
  "spacing":0,
- "tilecount":2,
+ "tilecount":5,
  "tiledversion":"2020.12.18",
  "tileheight":457,
  "tiles":[
@@ -23,8 +31,26 @@
          "image":"..\/textures\/hidden-wall-128.png",
          "imageheight":128,
          "imagewidth":128
+        }, 
+        {
+         "id":3,
+         "image":"..\/textures\/chair-single-right.png",
+         "imageheight":307,
+         "imagewidth":285
+        }, 
+        {
+         "id":4,
+         "image":"..\/textures\/coffe-table-oak-vertical.png",
+         "imageheight":209,
+         "imagewidth":128
+        }, 
+        {
+         "id":5,
+         "image":"..\/textures\/tv-stand-vertical.png",
+         "imageheight":330,
+         "imagewidth":168
         }],
- "tilewidth":177,
+ "tilewidth":285,
  "type":"tileset",
  "version":1.4
 }
