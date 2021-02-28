@@ -16,7 +16,7 @@
  "margin":0,
  "name":"sprite-images",
  "spacing":0,
- "tilecount":5,
+ "tilecount":7,
  "tiledversion":"2020.12.18",
  "tileheight":457,
  "tiles":[
@@ -49,6 +49,18 @@
          "image":"..\/textures\/tv-stand-vertical.png",
          "imageheight":330,
          "imagewidth":168
+        }, 
+        {
+         "id":6,
+         "image":"..\/textures\/window-three-panels-white-grass.png",
+         "imageheight":65,
+         "imagewidth":232
+        }, 
+        {
+         "id":7,
+         "image":"..\/textures\/end-table-oak-with-mug.png",
+         "imageheight":194,
+         "imagewidth":194
         }],
  "tilewidth":285,
  "type":"tileset",

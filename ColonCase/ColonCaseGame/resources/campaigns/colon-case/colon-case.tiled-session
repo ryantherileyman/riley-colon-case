@@ -10,10 +10,10 @@
     "fileStates": {
         "levels/house-investigator.json": {
             "scale": 1,
-            "selectedLayer": 0,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 841,
-                "y": 978
+                "x": 1502,
+                "y": 612
             }
         },
         "levels/level-investigator-house-start.json": {
@@ -69,6 +69,7 @@
             "scaleInEditor": 1
         },
         "tilesets/floor-void.json": {
+            "dynamicWrapping": false,
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
