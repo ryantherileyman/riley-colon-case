@@ -16,7 +16,7 @@
  "margin":0,
  "name":"sprite-images",
  "spacing":0,
- "tilecount":7,
+ "tilecount":11,
  "tiledversion":"2020.12.18",
  "tileheight":457,
  "tiles":[
@@ -61,8 +61,32 @@
          "image":"..\/textures\/end-table-oak-with-mug.png",
          "imageheight":194,
          "imagewidth":194
+        }, 
+        {
+         "id":8,
+         "image":"..\/textures\/lamp-standing.png",
+         "imageheight":102,
+         "imagewidth":103
+        }, 
+        {
+         "id":9,
+         "image":"..\/textures\/bed-queen-woodframe.png",
+         "imageheight":399,
+         "imagewidth":338
+        }, 
+        {
+         "id":10,
+         "image":"..\/textures\/bedsite-cabinet-with-lamp.png",
+         "imageheight":112,
+         "imagewidth":148
+        }, 
+        {
+         "id":11,
+         "image":"..\/textures\/window-single-lightwood-grass.png",
+         "imageheight":65,
+         "imagewidth":132
         }],
- "tilewidth":285,
+ "tilewidth":338,
  "type":"tileset",
  "version":1.4
 }
