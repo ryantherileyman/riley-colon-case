@@ -9,11 +9,11 @@
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "levels/house-investigator.json": {
-            "scale": 1,
-            "selectedLayer": 8,
+            "scale": 0.75,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": 704,
-                "y": 123
+                "x": 931.9999999999999,
+                "y": 517.3333333333334
             }
         },
         "levels/level-investigator-house-start.json": {

@@ -16,7 +16,7 @@
  "margin":0,
  "name":"sprite-images",
  "spacing":0,
- "tilecount":14,
+ "tilecount":17,
  "tiledversion":"2020.12.18",
  "tileheight":457,
  "tiles":[
@@ -103,8 +103,26 @@
          "image":"..\/textures\/office-chair-black-right.png",
          "imageheight":120,
          "imagewidth":131
+        }, 
+        {
+         "id":15,
+         "image":"..\/textures\/dining-table-circular.png",
+         "imageheight":343,
+         "imagewidth":342
+        }, 
+        {
+         "id":16,
+         "image":"..\/textures\/dining-chair-down.png",
+         "imageheight":207,
+         "imagewidth":176
+        }, 
+        {
+         "id":17,
+         "image":"..\/textures\/dining-chair-up.png",
+         "imageheight":172,
+         "imagewidth":172
         }],
- "tilewidth":338,
+ "tilewidth":342,
  "type":"tileset",
  "version":1.4
 }
