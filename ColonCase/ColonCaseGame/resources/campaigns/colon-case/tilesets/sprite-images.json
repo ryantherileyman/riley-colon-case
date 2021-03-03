@@ -16,7 +16,7 @@
  "margin":0,
  "name":"sprite-images",
  "spacing":0,
- "tilecount":12,
+ "tilecount":14,
  "tiledversion":"2020.12.18",
  "tileheight":457,
  "tiles":[
@@ -91,6 +91,18 @@
          "image":"..\/textures\/door-closet-wood-horizontal-back.png",
          "imageheight":128,
          "imagewidth":128
+        }, 
+        {
+         "id":13,
+         "image":"..\/textures\/desk-wood-vertical.png",
+         "imageheight":275,
+         "imagewidth":215
+        }, 
+        {
+         "id":14,
+         "image":"..\/textures\/office-chair-black-right.png",
+         "imageheight":120,
+         "imagewidth":131
         }],
  "tilewidth":338,
  "type":"tileset",
