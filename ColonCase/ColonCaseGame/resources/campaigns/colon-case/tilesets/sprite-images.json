@@ -16,7 +16,7 @@
  "margin":0,
  "name":"sprite-images",
  "spacing":0,
- "tilecount":17,
+ "tilecount":18,
  "tiledversion":"2020.12.18",
  "tileheight":457,
  "tiles":[
@@ -121,6 +121,12 @@
          "image":"..\/textures\/dining-chair-up.png",
          "imageheight":172,
          "imagewidth":172
+        }, 
+        {
+         "id":18,
+         "image":"..\/textures\/door-wood-horizontal.png",
+         "imageheight":128,
+         "imagewidth":128
         }],
  "tilewidth":342,
  "type":"tileset",
