@@ -16,7 +16,7 @@
  "margin":0,
  "name":"sprite-images",
  "spacing":0,
- "tilecount":11,
+ "tilecount":12,
  "tiledversion":"2020.12.18",
  "tileheight":457,
  "tiles":[
@@ -85,6 +85,12 @@
          "image":"..\/textures\/window-single-lightwood-grass.png",
          "imageheight":65,
          "imagewidth":132
+        }, 
+        {
+         "id":12,
+         "image":"..\/textures\/door-closet-wood-horizontal-back.png",
+         "imageheight":128,
+         "imagewidth":128
         }],
  "tilewidth":338,
  "type":"tileset",
