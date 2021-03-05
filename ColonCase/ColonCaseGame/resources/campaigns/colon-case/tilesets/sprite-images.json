@@ -16,7 +16,7 @@
  "margin":0,
  "name":"sprite-images",
  "spacing":0,
- "tilecount":19,
+ "tilecount":20,
  "tiledversion":"2020.12.18",
  "tileheight":457,
  "tiles":[
@@ -133,8 +133,14 @@
          "image":"..\/textures\/cupboards-triple-down.png",
          "imageheight":204,
          "imagewidth":409
+        }, 
+        {
+         "id":21,
+         "image":"..\/textures\/cupboards-quad-up.png",
+         "imageheight":200,
+         "imagewidth":546
         }],
- "tilewidth":409,
+ "tilewidth":546,
  "type":"tileset",
  "version":1.4
 }
