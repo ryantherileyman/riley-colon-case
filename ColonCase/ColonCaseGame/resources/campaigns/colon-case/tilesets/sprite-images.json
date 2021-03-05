@@ -16,7 +16,7 @@
  "margin":0,
  "name":"sprite-images",
  "spacing":0,
- "tilecount":20,
+ "tilecount":21,
  "tiledversion":"2020.12.18",
  "tileheight":457,
  "tiles":[
@@ -139,6 +139,12 @@
          "image":"..\/textures\/cupboards-quad-up.png",
          "imageheight":200,
          "imagewidth":546
+        }, 
+        {
+         "id":22,
+         "image":"..\/textures\/fridge.png",
+         "imageheight":128,
+         "imagewidth":128
         }],
  "tilewidth":546,
  "type":"tileset",
