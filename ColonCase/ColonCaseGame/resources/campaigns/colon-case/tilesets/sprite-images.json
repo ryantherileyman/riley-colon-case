@@ -16,7 +16,7 @@
  "margin":0,
  "name":"sprite-images",
  "spacing":0,
- "tilecount":18,
+ "tilecount":19,
  "tiledversion":"2020.12.18",
  "tileheight":457,
  "tiles":[
@@ -127,8 +127,14 @@
          "image":"..\/textures\/door-wood-horizontal.png",
          "imageheight":128,
          "imagewidth":128
+        }, 
+        {
+         "id":19,
+         "image":"..\/textures\/cupboards-triple-down.png",
+         "imageheight":204,
+         "imagewidth":409
         }],
- "tilewidth":342,
+ "tilewidth":409,
  "type":"tileset",
  "version":1.4
 }
