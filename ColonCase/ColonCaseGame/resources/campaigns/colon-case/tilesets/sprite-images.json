@@ -16,7 +16,7 @@
  "margin":0,
  "name":"sprite-images",
  "spacing":0,
- "tilecount":21,
+ "tilecount":22,
  "tiledversion":"2020.12.18",
  "tileheight":457,
  "tiles":[
@@ -143,6 +143,12 @@
         {
          "id":22,
          "image":"..\/textures\/fridge.png",
+         "imageheight":128,
+         "imagewidth":128
+        }, 
+        {
+         "id":23,
+         "image":"..\/textures\/stove-up.png",
          "imageheight":128,
          "imagewidth":128
         }],
