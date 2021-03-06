@@ -1,4 +1,5 @@
 
+#include <algorithm>
 #include <math.h>
 #include "r3-colonCase-gameplay.hpp"
 
@@ -45,70 +46,10 @@ namespace r3 {
 				result = GameplaySceneClientRequest::EXIT_GAME;
 			}
 			else if ( event.type == sf::Event::KeyPressed ) {
-				switch (event.key.code) {
-
-				case sf::Keyboard::Key::Escape:
-					result = GameplaySceneClientRequest::RETURN_TO_SPLASH;
-					break;
-
-				case sf::Keyboard::Key::Up:
-					this->requestedPlayerDirection = CompassDirection::UP;
-					break;
-
-				case sf::Keyboard::Key::Right:
-					this->requestedPlayerDirection = CompassDirection::RIGHT;
-					break;
-
-				case sf::Keyboard::Key::Down:
-					this->requestedPlayerDirection = CompassDirection::DOWN;
-					break;
-
-				case sf::Keyboard::Key::Left:
-					this->requestedPlayerDirection = CompassDirection::LEFT;
-					break;
-
-				case sf::Keyboard::Key::Add:
-					if (this->pixelsPerTile < 128) {
-						this->pixelsPerTile += 16;
-					}
-					break;
-
-				case sf::Keyboard::Key::Subtract:
-					if (this->pixelsPerTile > 64) {
-						this->pixelsPerTile -= 16;
-					}
-					break;
-
-				}
+				result = this->processKeyPressedEvent(event.key.code);
 			}
 			else if (event.type == sf::Event::KeyReleased) {
-				switch (event.key.code) {
-
-				case sf::Keyboard::Key::Up:
-					if (this->requestedPlayerDirection == CompassDirection::UP) {
-						this->requestedPlayerDirection = CompassDirection::NONE;
-					}
-					break;
-
-				case sf::Keyboard::Key::Right:
-					if (this->requestedPlayerDirection == CompassDirection::RIGHT) {
-						this->requestedPlayerDirection = CompassDirection::NONE;
-					}
-					break;
-
-				case sf::Keyboard::Key::Down:
-					if (this->requestedPlayerDirection == CompassDirection::DOWN) {
-						this->requestedPlayerDirection = CompassDirection::NONE;
-					}
-					break;
-
-				case sf::Keyboard::Key::Left:
-					if (this->requestedPlayerDirection == CompassDirection::LEFT) {
-						this->requestedPlayerDirection = CompassDirection::NONE;
-					}
-					break;
-
-				}
+				this->processKeyReleasedEvent(event.key.code);
 			}
 
 			return result;
@@ -225,6 +166,42 @@ namespace r3 {
 				this->window->draw(playerSprite);
 
 				this->window->display();
+			}
+		}
+
+		GameplaySceneClientRequest GameplaySceneController::processKeyPressedEvent(sf::Keyboard::Key keyCode) {
+			GameplaySceneClientRequest result = GameplaySceneClientRequest::NONE;
+
+			GameplayKeyPressedClientInput keyPressedClientInput;
+			keyPressedClientInput.keyCode = keyCode;
+
+			GameplayKeyPressedResult keyPressedResult = GameplayKeyboardEventUtils::processKeyPressed(keyPressedClientInput);
+
+			if (keyPressedResult.keyPressedClientRequest == GameplayKeyPressedClientRequest::SCENE_REQUEST) {
+				result = keyPressedResult.sceneClientRequest;
+			}
+			else if (keyPressedResult.keyPressedClientRequest == GameplayKeyPressedClientRequest::ZOOM_VIEW_IN_REQUEST) {
+				this->pixelsPerTile = std::clamp(this->pixelsPerTile + 16, 64, 128);
+			}
+			else if (keyPressedResult.keyPressedClientRequest == GameplayKeyPressedClientRequest::ZOOM_VIEW_OUT_REQUEST) {
+				this->pixelsPerTile = std::clamp(this->pixelsPerTile - 16, 64, 128);
+			}
+			else if (keyPressedResult.keyPressedClientRequest == GameplayKeyPressedClientRequest::MOVE_PLAYER) {
+				this->requestedPlayerDirection = keyPressedResult.requestedPlayerDirection;
+			}
+
+			return result;
+		}
+
+		void GameplaySceneController::processKeyReleasedEvent(sf::Keyboard::Key keyCode) {
+			GameplayKeyReleasedClientInput keyReleasedClientInput;
+			keyReleasedClientInput.keyCode = keyCode;
+			keyReleasedClientInput.requestedPlayerDirection = this->requestedPlayerDirection;
+
+			GameplayKeyReleasedResult keyReleasedResult = GameplayKeyboardEventUtils::processKeyReleased(keyReleasedClientInput);
+
+			if (keyReleasedResult.keyReleasedClientRequest == GameplayKeyReleasedClientRequest::STOP_PLAYER) {
+				this->requestedPlayerDirection = CompassDirection::NONE;
 			}
 		}
 

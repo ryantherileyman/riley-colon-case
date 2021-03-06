@@ -28,6 +28,45 @@ namespace r3 {
 			EXIT_GAME,
 		} GameplaySceneClientRequest;
 
+		typedef struct ColonCase_GameplayKeyPressedClientInput {
+			sf::Keyboard::Key keyCode = sf::Keyboard::Key::Unknown;
+		} GameplayKeyPressedClientInput;
+
+		typedef enum class ColonCase_GameplayKeyPressedClientRequest {
+			NONE,
+			SCENE_REQUEST,
+			ZOOM_VIEW_IN_REQUEST,
+			ZOOM_VIEW_OUT_REQUEST,
+			MOVE_PLAYER,
+		} GameplayKeyPressedClientRequest;
+
+		typedef struct ColonCase_GameplayKeyPressedResult {
+			GameplayKeyPressedClientRequest keyPressedClientRequest = GameplayKeyPressedClientRequest::NONE;
+			GameplaySceneClientRequest sceneClientRequest = GameplaySceneClientRequest::NONE;
+			CompassDirection requestedPlayerDirection = CompassDirection::NONE;
+		} GameplayKeyPressedResult;
+
+		typedef struct ColonCase_GameplayKeyReleasedClientInput {
+			sf::Keyboard::Key keyCode = sf::Keyboard::Key::Unknown;
+			CompassDirection requestedPlayerDirection = CompassDirection::NONE;
+		} GameplayKeyReleasedClientInput;
+
+		typedef enum class ColonCase_GameplayKeyReleasedClientRequest {
+			NONE,
+			STOP_PLAYER,
+		} GameplayKeyReleasedClientRequest;
+
+		typedef struct ColonCase_GameplayKeyReleasedResult {
+			GameplayKeyReleasedClientRequest keyReleasedClientRequest = GameplayKeyReleasedClientRequest::NONE;
+		} GameplayKeyReleasedResult;
+
+		namespace GameplayKeyboardEventUtils {
+
+			extern GameplayKeyPressedResult processKeyPressed(const GameplayKeyPressedClientInput& input);
+			extern GameplayKeyReleasedResult processKeyReleased(const GameplayKeyReleasedClientInput& input);
+
+		}
+
 		class GameplaySceneController;
 		
 		class GameplaySceneController {
@@ -56,6 +95,10 @@ namespace r3 {
 			GameplaySceneClientRequest processEvent(sf::Event& event);
 			void update();
 			void render();
+
+		private:
+			GameplaySceneClientRequest processKeyPressedEvent(sf::Keyboard::Key keyCode);
+			void processKeyReleasedEvent(sf::Keyboard::Key keyCode);
 
 		private:
 			void startPlayerMovement(CompassDirection direction);
