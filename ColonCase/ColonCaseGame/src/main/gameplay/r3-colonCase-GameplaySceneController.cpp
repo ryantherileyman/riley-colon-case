@@ -13,6 +13,8 @@ namespace r3 {
 		GameplaySceneController::GameplaySceneController(sf::RenderWindow& window) {
 			this->window = &window;
 
+			this->offscreenMapTexture.create(1920, 1080);
+
 			if (!this->playerTexture.loadFromFile("resources/textures/investigator-tileset.png")) {
 				throw "Could not load player tileset texture";
 			}
@@ -107,13 +109,24 @@ namespace r3 {
 				renderGameMapInput.pixelsPerTile = this->pixelsPerTile;
 				renderGameMapInput.centerPosition = sf::Vector2f(playerRenderPosition.x + 0.5f, playerRenderPosition.y + 0.5f);
 
-				this->mapRendererPtr.get()->renderMap(*this->window, renderGameMapInput);
+				this->mapRendererPtr.get()->renderMap(this->offscreenMapTexture, renderGameMapInput);
 
 				sf::Sprite playerSprite = this->createPlayerSprite(gameplaySeconds);
 				playerSprite.setPosition(playerRenderPosition.x, playerRenderPosition.y);
 				playerSprite.setScale(1.0f / 256.0f, 1.0f / 256.0f);
-				this->window->draw(playerSprite);
+				this->offscreenMapTexture.draw(playerSprite);
 
+				sf::View view;
+				view.setCenter(0.0f, 0.0f);
+				view.setSize((float)this->window->getSize().x, 0.0f - (float)this->window->getSize().y);
+
+				this->window->setView(view);
+
+				sf::Sprite mapSprite;
+				mapSprite.setTexture(this->offscreenMapTexture.getTexture());
+				mapSprite.setPosition(0.0f - ((float)this->offscreenMapTexture.getSize().x * 0.5f), 0.0f - ((float)this->offscreenMapTexture.getSize().y * 0.5f));
+				this->window->draw(mapSprite);
+				
 				this->window->display();
 			}
 		}

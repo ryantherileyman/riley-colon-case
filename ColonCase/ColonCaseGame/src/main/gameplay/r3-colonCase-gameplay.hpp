@@ -88,6 +88,7 @@ namespace r3 {
 
 		private:
 			sf::RenderWindow* window;
+			sf::RenderTexture offscreenMapTexture;
 
 		private:
 			sf::Texture playerTexture;
