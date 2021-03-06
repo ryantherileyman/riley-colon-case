@@ -87,7 +87,7 @@ namespace r3 {
 			return result;
 		}
 
-		const GameMapLayerType GameMap::getLayerType(int layerIndex) {
+		const GameMapLayerType GameMap::getLayerType(int layerIndex) const {
 			GameMapLayerType result = this->layerList[layerIndex].getLayerType();
 			return result;
 		}

@@ -122,7 +122,7 @@ namespace r3 {
 			const sf::Vector2i& getMapSize() const;
 			const sf::Vector2i& getTileSize() const;
 			int getLayerCount() const;
-			const GameMapLayerType getLayerType(int layerIndex);
+			const GameMapLayerType getLayerType(int layerIndex) const;
 			const int* getTileIdPtr(int layerIndex, int x, int y) const;
 			const std::string& getTileImageFilename(int tileId) const;
 			const sf::IntRect& getTileTextureRect(int tileId) const;

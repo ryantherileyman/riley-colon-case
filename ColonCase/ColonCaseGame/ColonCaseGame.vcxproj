@@ -147,9 +147,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main\colon-case-main.cpp" />
+    <ClCompile Include="src\main\gameplay\GameMapRenderer.cpp" />
     <ClCompile Include="src\main\gameplay\r3-colonCase-CompassDirectionUtils.cpp" />
     <ClCompile Include="src\main\gameplay\r3-colonCase-GameplayKeyboardEventUtils.cpp" />
     <ClCompile Include="src\main\gameplay\r3-colonCase-GameplaySceneController.cpp" />
+    <ClCompile Include="src\main\gameplay\r3-colonCase-GameMapRenderUtils.cpp" />
     <ClCompile Include="src\main\json\r3-jsoncpp-JsonLoaderUtils.cpp" />
     <ClCompile Include="src\main\json\r3-jsoncpp-JsonValidationUtils.cpp" />
     <ClCompile Include="src\main\level-data\r3-colonCase-AssetLoadingTracker.cpp" />

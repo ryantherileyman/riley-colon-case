@@ -1,6 +1,7 @@
 
-#include "../level-data/r3-colonCase-AssetManager.hpp"
+#include <memory>
 #include <SFML/Graphics.hpp>
+#include "../level-data/r3-colonCase-AssetManager.hpp"
 #pragma once
 
 namespace r3 {
@@ -67,6 +68,20 @@ namespace r3 {
 
 		}
 
+		typedef struct ColonCase_RenderGameMapInput {
+			std::string mapFilename;
+			int pixelsPerTile = 0;
+			sf::Vector2f centerPosition;
+		} RenderGameMapInput;
+
+		namespace GameMapRenderUtils {
+			
+			extern sf::Vector2f resolveViewSize(const sf::Vector2u& targetSize, int pixelsPerTile);
+			extern sf::IntRect resolveVisibleTileRect(const sf::View& view, const sf::Vector2i& mapSize);
+
+		}
+
+		class GameMapRenderer;
 		class GameplaySceneController;
 		
 		class GameplaySceneController {
@@ -77,6 +92,7 @@ namespace r3 {
 		private:
 			sf::Texture playerTexture;
 			AssetManager assetManager;
+			std::unique_ptr<GameMapRenderer> mapRendererPtr;
 
 		private:
 			sf::Clock gameplayClock;
@@ -106,6 +122,31 @@ namespace r3 {
 		private:
 			sf::Vector2f resolvePlayerPosition(float gameplaySeconds);
 			sf::Sprite createPlayerSprite(float gameplaySeconds);
+
+		};
+
+		class GameMapRenderer {
+
+		private:
+			AssetManager* assetManager;
+
+		private:
+			sf::View view;
+			sf::IntRect visibleTileRect;
+
+		public:
+			GameMapRenderer(AssetManager& assetManager);
+
+		public:
+			void renderMap(sf::RenderTarget& renderTarget, const RenderGameMapInput& renderInput);
+
+		private:
+			void renderTileLayer(sf::RenderTarget& renderTarget, const GameMap& gameMap, int layerIndex);
+			void renderSpriteLayer(sf::RenderTarget& renderTarget, const GameMap& gameMap, int layerIndex);
+
+		private:
+			sf::Sprite createTileSprite(const GameMap& gameMap, int tileId);
+			sf::Sprite createGameSprite(const GameMap& gameMap, const GameSpriteRenderDetails& spriteRenderDetails);
 
 		};
 
