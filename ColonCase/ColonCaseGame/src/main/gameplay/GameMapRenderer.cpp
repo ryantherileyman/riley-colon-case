@@ -75,11 +75,12 @@ namespace r3 {
 
 			sf::Vector2f spriteTilePos;
 			spriteTilePos.x = spriteRenderDetails.position.x / (float)gameMap.getTileSize().x;
-			spriteTilePos.y = (spriteRenderDetails.position.y / (float)gameMap.getTileSize().y) - (spriteRenderDetails.size.y / (float)gameMap.getTileSize().y);
+			spriteTilePos.y = spriteRenderDetails.position.y / (float)gameMap.getTileSize().y;
 
 			sf::Sprite result;
 			result.setTexture(spriteTexture);
 			result.setTextureRect(spriteRenderDetails.textureRect);
+			result.setOrigin(0.0f, (float)spriteRenderDetails.textureRect.height);
 			result.setPosition(spriteTilePos);
 			result.setScale(spriteScaleX, spriteScaleY);
 
