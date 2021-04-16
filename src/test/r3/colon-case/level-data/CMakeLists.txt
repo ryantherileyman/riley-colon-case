@@ -1,0 +1,10 @@
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED true)
+
+add_subdirectory(GameLoaderUtilsTests)
+add_subdirectory(JsonGameMapLoaderTests)
+add_subdirectory(GameMapTests)
+add_subdirectory(AssetLoadingStatusTests)
+add_subdirectory(AssetLoadingTrackerTests)
+add_subdirectory(AssetManagerTests)
