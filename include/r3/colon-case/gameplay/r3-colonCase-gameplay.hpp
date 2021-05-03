@@ -68,6 +68,11 @@ namespace r3 {
 
 		}
 
+		typedef enum class ColonCase_GameplayMouseCursorType {
+			STANDARD,
+			INVESTIGATE_ITEM,
+		} GameplayMouseCursorType;
+
 		typedef struct ColonCase_RenderGameMapInput {
 			std::string mapFilename;
 			int pixelsPerTile = 0;
@@ -91,6 +96,8 @@ namespace r3 {
 			sf::RenderTexture offscreenMapTexture;
 
 		private:
+			sf::Cursor defaultCursor;
+			sf::Cursor investigateCursor;
 			sf::Texture playerTexture;
 			AssetManager assetManager;
 			std::unique_ptr<GameMapRenderer> mapRendererPtr;
@@ -104,6 +111,9 @@ namespace r3 {
 			bool playerMovingFlag;
 			float playerAnimationStartSeconds;
 
+		private:
+			GameplayMouseCursorType currMouseCursorType;
+
 		public:
 			GameplaySceneController(sf::RenderWindow& window);
 
@@ -116,6 +126,10 @@ namespace r3 {
 		private:
 			GameplaySceneClientRequest processKeyPressedEvent(sf::Keyboard::Key keyCode);
 			void processKeyReleasedEvent(sf::Keyboard::Key keyCode);
+
+		private:
+			GameplayMouseCursorType resolveMouseCursorType();
+			void changeMouseCursor(GameplayMouseCursorType mouseCursorType);
 
 		private:
 			void startPlayerMovement(CompassDirection direction);

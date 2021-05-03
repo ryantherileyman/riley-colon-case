@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <math.h>
 #include <r3/colon-case/gameplay/r3-colonCase-gameplay.hpp>
+#include <r3/sfml/geometry/r3-sfml-Ellipse.hpp>
 
 namespace r3 {
 
@@ -14,6 +15,9 @@ namespace r3 {
 			this->window = &window;
 
 			this->offscreenMapTexture.create(1920, 1080);
+
+			this->defaultCursor.loadFromSystem(sf::Cursor::Arrow);
+			this->investigateCursor.loadFromSystem(sf::Cursor::Hand);
 
 			if (!this->playerTexture.loadFromFile("resources/textures/investigator-tileset.png")) {
 				throw "Could not load player tileset texture";
@@ -28,6 +32,8 @@ namespace r3 {
 			this->playerDirection = CompassDirection::DOWN;
 			this->playerMovingFlag = false;
 			this->playerAnimationStartSeconds = 0.0f;
+
+			this->currMouseCursorType = GameplayMouseCursorType::STANDARD;
 		}
 
 		void GameplaySceneController::beginGameplay() {
@@ -101,6 +107,11 @@ namespace r3 {
 		void GameplaySceneController::render() {
 			AssetLoadingStatus mapLoadingStatus = this->assetManager.getMapStatus(MAP_FILENAME);
 			if (mapLoadingStatus.completionStatus == AssetLoadingCompletionStatus::COMPLETE) {
+				GameplayMouseCursorType updatedMouseCursorType = this->resolveMouseCursorType();
+				if (updatedMouseCursorType != this->currMouseCursorType) {
+					this->changeMouseCursor(updatedMouseCursorType);
+				}
+
 				float gameplaySeconds = this->gameplayClock.getElapsedTime().asSeconds();
 				sf::Vector2f playerRenderPosition = this->resolvePlayerPosition(gameplaySeconds);
 
@@ -164,6 +175,43 @@ namespace r3 {
 
 			if (keyReleasedResult.keyReleasedClientRequest == GameplayKeyReleasedClientRequest::STOP_PLAYER) {
 				this->requestedPlayerDirection = CompassDirection::NONE;
+			}
+		}
+
+		GameplayMouseCursorType GameplaySceneController::resolveMouseCursorType() {
+			float gameplaySeconds = this->gameplayClock.getElapsedTime().asSeconds();
+			sf::Vector2f playerRenderPosition = this->resolvePlayerPosition(gameplaySeconds);
+
+			sf::Vector2f playerPosition = playerRenderPosition + sf::Vector2f(0.5f, 0.5f);
+			sf::Vector2f viewSize = GameMapRenderUtils::resolveViewSize(this->window->getSize(), this->pixelsPerTile);
+			sf::View view(playerPosition, viewSize);
+
+			sf::Vector2i mousePosition = sf::Mouse::getPosition(*this->window);
+
+			sf::Vector2f mapPosition = this->window->mapPixelToCoords(mousePosition, view);
+
+			r3::sfml::FloatEllipse mugRegion(8.43f, 2.79f, 0.07f, 0.07f);
+			sf::FloatRect bookRegion(14.68f, 5.21f, 0.34f, 0.28f);
+
+			bool mouseInInvestigateRegion =
+				mugRegion.contains(mapPosition) ||
+				bookRegion.contains(mapPosition);
+
+			GameplayMouseCursorType result = GameplayMouseCursorType::STANDARD;
+			if (mouseInInvestigateRegion) {
+				result = GameplayMouseCursorType::INVESTIGATE_ITEM;
+			}
+			return result;
+		}
+
+		void GameplaySceneController::changeMouseCursor(GameplayMouseCursorType mouseCursorType) {
+			this->currMouseCursorType = mouseCursorType;
+
+			if (mouseCursorType == GameplayMouseCursorType::STANDARD) {
+				this->window->setMouseCursor(this->defaultCursor);
+			}
+			else if (mouseCursorType == GameplayMouseCursorType::INVESTIGATE_ITEM) {
+				this->window->setMouseCursor(this->investigateCursor);
 			}
 		}
 

@@ -42,6 +42,7 @@ target_link_libraries(
 	sfml-window
 	sfml-system
 	sfml-main
+	r3-SfmlGeometryUtils-lib
 )
 target_include_directories(ColonCase PUBLIC "${PROJECT_SOURCE_DIR}/include")
 add_custom_command(

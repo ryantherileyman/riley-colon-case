@@ -8,6 +8,7 @@ add_subdirectory(dependencies/json-cpp)
 add_subdirectory(dependencies/riley-json-cpp-utils)
 add_subdirectory(dependencies/riley-tiled-json-loader)
 add_subdirectory(dependencies/sfml)
+add_subdirectory(dependencies/riley-sfml-utils)
 
 add_subdirectory(src/main/r3/colon-case)
 
