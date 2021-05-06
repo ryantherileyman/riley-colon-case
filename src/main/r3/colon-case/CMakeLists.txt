@@ -17,6 +17,7 @@ set(R3_COLON_CASE_SOURCES
 	level-data/r3-colonCase-GameSpriteImage.cpp
 	level-data/r3-colonCase-GameSpriteTile.cpp
 	level-data/r3-colonCase-JsonGameMapLoader.cpp
+	level-data/r3-colonCase-JsonDictionaryLoader.cpp
 	sfml-utils/r3-sfml-utils.cpp
 	splash-screen/r3-colonCase-MainMenu.cpp
 	splash-screen/r3-colonCase-MainMenuFactory.cpp
