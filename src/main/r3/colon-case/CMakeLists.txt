@@ -46,9 +46,10 @@ target_link_libraries(
 	r3-SfmlGeometryUtils-lib
 )
 target_include_directories(ColonCase PUBLIC "${PROJECT_SOURCE_DIR}/include")
-add_custom_command(
-	TARGET ColonCase
+add_custom_target(
+	ColonCaseResources
 	COMMAND ${CMAKE_COMMAND} -E copy_directory
 		${PROJECT_SOURCE_DIR}/src/resources
 		$<TARGET_FILE_DIR:ColonCase>/resources
 )
+add_dependencies(ColonCase ColonCaseResources)
