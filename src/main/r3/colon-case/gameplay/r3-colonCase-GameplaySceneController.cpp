@@ -1,6 +1,8 @@
 
 #include <algorithm>
 #include <math.h>
+#include <r3/jsoncpp/r3-jsoncpp-utils.hpp>
+#include <r3/colon-case/level-data/r3-colonCase-JsonDictionaryLoader.hpp>
 #include <r3/colon-case/gameplay/r3-colonCase-gameplay.hpp>
 #include <r3/sfml/geometry/r3-sfml-Ellipse.hpp>
 
@@ -24,6 +26,10 @@ namespace r3 {
 			}
 
 			this->assetManager.setCampaignFolder("colon-case");
+
+			r3::JsonLoaderUtils::LoadJsonDataResult dictionaryLoadResult = r3::JsonLoaderUtils::loadFromJsonFile("resources/campaigns/colon-case/dictionary.json");
+			this->dictionary = JsonDictionaryLoader::convertToDictionary(dictionaryLoadResult.jsonValue);
+			
 			this->mapRendererPtr.reset(new GameMapRenderer(this->assetManager));
 
 			this->pixelsPerTile = 96;

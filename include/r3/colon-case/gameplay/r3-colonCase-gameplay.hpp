@@ -1,5 +1,8 @@
 
 #include <memory>
+#include <string>
+#include <unordered_map>
+#include <vector>
 #include <SFML/Graphics.hpp>
 #include <r3/colon-case/level-data/r3-colonCase-AssetManager.hpp>
 #pragma once
@@ -100,6 +103,7 @@ namespace r3 {
 			sf::Cursor investigateCursor;
 			sf::Texture playerTexture;
 			AssetManager assetManager;
+			std::unordered_map<std::string, std::vector<std::string>> dictionary;
 			std::unique_ptr<GameMapRenderer> mapRendererPtr;
 
 		private:
