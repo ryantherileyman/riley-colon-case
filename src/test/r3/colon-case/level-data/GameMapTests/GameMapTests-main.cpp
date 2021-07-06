@@ -92,6 +92,16 @@ GameMapLayerDefn createCollisionTileLayerDefn() {
 	return result;
 }
 
+GameMapObjectDefn createObjectDefn(GameMapObjectType objectType, const char* key) {
+	GameMapObjectDefn result;
+	result.objectType = objectType;
+	result.shape = GameMapObjectShape::ELLIPSE;
+	result.position = sf::Vector2f(32.0f, 32.0f);
+	result.size = sf::Vector2f(32.0f, 32.0f);
+	result.key = key;
+	return result;
+}
+
 GameMapDefn createGameMapDefn() {
 	GameMapDefn result;
 
@@ -339,6 +349,19 @@ bool testGetPositionOccupied_Occupied() {
 	return result;
 }
 
+bool testGetObjectList() {
+	GameMapDefn mapDefn = createGameMapDefn();
+	mapDefn.objectDefnList.push_back(createObjectDefn(GameMapObjectType::POPUP_TEXT, "Puddle"));
+
+	GameMap map(mapDefn);
+
+	bool result =
+		(map.getObjectList().size() == 1) &&
+		(map.getObjectList().at(0).getObjectType() == GameMapObjectType::POPUP_TEXT) &&
+		(map.getObjectList().at(0).getKey().compare("Puddle") == 0);
+	return result;
+}
+
 int main() {
 	assert(testGetLayerCount());
 
@@ -359,6 +382,8 @@ int main() {
 	assert(testGetPositionOccupied_InvalidPosition());
 	assert(testGetPositionOccupied_NotOccupied());
 	assert(testGetPositionOccupied_Occupied());
+
+	assert(testGetObjectList());
 
 	std::cout << "All tests passed!\n";
 	return 0;

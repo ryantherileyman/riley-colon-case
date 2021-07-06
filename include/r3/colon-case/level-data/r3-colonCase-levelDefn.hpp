@@ -8,6 +8,23 @@ namespace r3 {
 
 	namespace colonCase {
 
+		typedef enum class ColonCase_GameMapLayerType {
+			UNKNOWN,
+			TILE,
+			SPRITE,
+		} GameMapLayerType;
+
+		typedef enum class ColonCase_GameMapObjectType {
+			UNKNOWN,
+			POPUP_TEXT,
+		} GameMapObjectType;
+
+		typedef enum class ColonCase_GameMapObjectShape {
+			UNKNOWN,
+			RECTANGLE,
+			ELLIPSE,
+		} GameMapObjectShape;
+
 		typedef struct ColonCase_GameTileImageDefn {
 			int tileId = 0;
 			std::string filename;
@@ -15,12 +32,6 @@ namespace r3 {
 			sf::IntRect textureRect;
 		} GameTileImageDefn;
 
-		typedef enum class ColonCase_GameMapLayerType {
-			UNKNOWN,
-			TILE,
-			SPRITE,
-		} GameMapLayerType;
-		
 		typedef struct ColonCase_GameMapSpriteDefn {
 			int tileId = 0;
 			sf::Vector2f position;
@@ -31,9 +42,18 @@ namespace r3 {
 			GameMapLayerType layerType = GameMapLayerType::UNKNOWN;
 			bool renderFlag = false;
 			bool collisionFlag = false;
+			bool interactiveFlag = false;
 			std::vector<int> tileIdList;
 			std::vector<GameMapSpriteDefn> spriteDefnList;
 		} GameMapLayerDefn;
+
+		typedef struct ColonCase_GameMapObjectDefn {
+			GameMapObjectType objectType = GameMapObjectType::UNKNOWN;
+			GameMapObjectShape shape = GameMapObjectShape::UNKNOWN;
+			sf::Vector2f position;
+			sf::Vector2f size;
+			std::string key;
+		} GameMapObjectDefn;
 
 		typedef struct ColonCase_GameMapDefn {
 			sf::Vector2i size;
@@ -41,6 +61,7 @@ namespace r3 {
 			sf::Color backgroundColor;
 			std::unordered_map<int, GameTileImageDefn> tileImageDefnMap;
 			std::vector<GameMapLayerDefn> layerDefnList;
+			std::vector<GameMapObjectDefn> objectDefnList;
 		} GameMapDefn;
 
 	}

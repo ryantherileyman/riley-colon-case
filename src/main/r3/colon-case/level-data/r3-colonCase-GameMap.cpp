@@ -18,6 +18,7 @@ namespace r3 {
 			this->initializeImageAndTileMap(mapDefn);
 			this->initializeLayerList(mapDefn);
 			this->initializeCollectionFlagList(mapDefn);
+			this->initializeObjectList(mapDefn);
 		}
 
 		void GameMap::initializeImageAndTileMap(const GameMapDefn& mapDefn) {
@@ -67,6 +68,12 @@ namespace r3 {
 						index++;
 					}
 				}
+			}
+		}
+
+		void GameMap::initializeObjectList(const GameMapDefn& mapDefn) {
+			for (const auto& currObjectDefn : mapDefn.objectDefnList) {
+				this->objectList.push_back(GameMapObject(currObjectDefn));
 			}
 		}
 
@@ -178,6 +185,10 @@ namespace r3 {
 
 			bool result = this->collisionFlagList.at(y * this->mapSize.x + x);
 			return result;
+		}
+
+		const std::vector<GameMapObject>& GameMap::getObjectList() const {
+			return this->objectList;
 		}
 
 	}

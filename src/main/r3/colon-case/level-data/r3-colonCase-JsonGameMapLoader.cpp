@@ -13,6 +13,13 @@ namespace r3 {
 
 			const char* RENDER_FLAG = "renderFlag";
 			const char* COLLISION_FLAG = "collisionFlag";
+			const char* INTERACTIVE_FLAG = "interactiveFlag";
+
+		}
+
+		namespace ObjectTypePropertyName {
+
+			const char* POPUP_TEXT = "PopupText";
 
 		}
 
@@ -134,6 +141,10 @@ namespace r3 {
 					result.collisionFlag = tiled::CustomPropertyDefnUtils::getBoolValue(source.propertyDefnList, LayerPropertyName::COLLISION_FLAG);
 				}
 
+				if (tiled::CustomPropertyDefnUtils::containsOfType(source.propertyDefnList, LayerPropertyName::INTERACTIVE_FLAG, tiled::CustomPropertyType::BOOLEAN)) {
+					result.interactiveFlag = tiled::CustomPropertyDefnUtils::getBoolValue(source.propertyDefnList, LayerPropertyName::INTERACTIVE_FLAG);
+				}
+
 				if (result.layerType == GameMapLayerType::TILE) {
 					result.tileIdList.insert(std::end(result.tileIdList), std::begin(source.data), std::end(source.data));
 				}
@@ -146,6 +157,48 @@ namespace r3 {
 						}
 					}
 				}
+
+				return result;
+			}
+
+			bool layerIsInteractive(const tiled::MapLayerDefn& source) {
+				bool result =
+					tiled::CustomPropertyDefnUtils::containsOfType(source.propertyDefnList, LayerPropertyName::INTERACTIVE_FLAG, tiled::CustomPropertyType::BOOLEAN) &&
+					tiled::CustomPropertyDefnUtils::getBoolValue(source.propertyDefnList, LayerPropertyName::INTERACTIVE_FLAG);
+				return result;
+			}
+
+			GameMapObjectType resolveGameMapObjectType(const tiled::MapLayerObjectDefn& source) {
+				GameMapObjectType result = GameMapObjectType::UNKNOWN;
+
+				if (source.type.compare(ObjectTypePropertyName::POPUP_TEXT) == 0) {
+					result = GameMapObjectType::POPUP_TEXT;
+				}
+
+				return result;
+			}
+
+			GameMapObjectShape resolveGameMapObjectShape(const tiled::MapLayerObjectDefn& source) {
+				GameMapObjectShape result = GameMapObjectShape::UNKNOWN;
+
+				if (source.objectType == tiled::MapLayerObjectType::RECTANGLE) {
+					result = GameMapObjectShape::RECTANGLE;
+				}
+				else if (source.objectType == tiled::MapLayerObjectType::ELLIPSE) {
+					result = GameMapObjectShape::ELLIPSE;
+				}
+
+				return result;
+			}
+
+			GameMapObjectDefn convertToObjectDefn(const tiled::MapLayerObjectDefn& source) {
+				GameMapObjectDefn result;
+
+				result.objectType = resolveGameMapObjectType(source);
+				result.shape = resolveGameMapObjectShape(source);
+				result.position = sf::Vector2f((float)source.position.x, (float)source.position.y);
+				result.size = sf::Vector2f((float)source.width, (float)source.height);
+				result.key = source.name;
 
 				return result;
 			}
@@ -247,12 +300,18 @@ namespace r3 {
 						}
 					}
 
+					this->attachGameMapLayerDefnList();
+
+					this->attachGameMapObjectDefnList();
+				}
+
+				void attachGameMapLayerDefnList() {
 					for (const auto& currLayerDefn : this->loadMapResult.mapDefn.layerDefnList) {
-						this->attachGameMapLayerDefnList(currLayerDefn);
+						this->attachGameMapLayerDefn(currLayerDefn);
 					}
 				}
 
-				void attachGameMapLayerDefnList(const tiled::MapLayerDefn& sourceLayerDefn) {
+				void attachGameMapLayerDefn(const tiled::MapLayerDefn& sourceLayerDefn) {
 					if (
 						(sourceLayerDefn.type == tiled::MapLayerType::TILE) ||
 						(sourceLayerDefn.type == tiled::MapLayerType::OBJECT)
@@ -261,8 +320,25 @@ namespace r3 {
 					}
 					else if (sourceLayerDefn.type == tiled::MapLayerType::GROUP) {
 						for (const auto& currChildLayerDefn : sourceLayerDefn.layerDefnList) {
-							this->attachGameMapLayerDefnList(currChildLayerDefn);
+							this->attachGameMapLayerDefn(currChildLayerDefn);
 						}
+					}
+				}
+
+				void attachGameMapObjectDefnList() {
+					for (const auto& currLayerDefn : this->loadMapResult.mapDefn.layerDefnList) {
+						if (layerIsInteractive(currLayerDefn)) {
+							for (const auto& currObjectDefn : currLayerDefn.objectDefnList) {
+								this->attachGameMapObjectDefn(currObjectDefn);
+							}
+						}
+					}
+				}
+
+				void attachGameMapObjectDefn(const tiled::MapLayerObjectDefn& sourceObjectDefn) {
+					GameMapObjectType objectType = resolveGameMapObjectType(sourceObjectDefn);
+					if (objectType != GameMapObjectType::UNKNOWN) {
+						this->result.mapDefn.objectDefnList.push_back(convertToObjectDefn(sourceObjectDefn));
 					}
 				}
 

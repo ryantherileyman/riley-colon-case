@@ -13,6 +13,7 @@ set(R3_COLON_CASE_SOURCES
 	level-data/r3-colonCase-GameLoaderUtils.cpp
 	level-data/r3-colonCase-GameMap.cpp
 	level-data/r3-colonCase-GameMapLayer.cpp
+	level-data/r3-colonCase-GameMapObject.cpp
 	level-data/r3-colonCase-GameMapSprite.cpp
 	level-data/r3-colonCase-GameSpriteImage.cpp
 	level-data/r3-colonCase-GameSpriteTile.cpp

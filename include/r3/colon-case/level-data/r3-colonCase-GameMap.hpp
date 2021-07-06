@@ -21,6 +21,7 @@ namespace r3 {
 		class GameSpriteImage;
 		class GameSpriteTile;
 		class GameMapSprite;
+		class GameMapObject;
 		class GameMapLayer;
 		class GameMap;
 
@@ -77,6 +78,27 @@ namespace r3 {
 
 		};
 
+		class GameMapObject {
+
+		private:
+			GameMapObjectShape shape;
+			GameMapObjectType objectType;
+			sf::Vector2f position;
+			sf::Vector2f size;
+			std::string key;
+
+		public:
+			GameMapObject(const GameMapObjectDefn& objectDefn);
+
+		public:
+			const GameMapObjectShape getShape() const;
+			const GameMapObjectType getObjectType() const;
+			const sf::Vector2f& getPosition() const;
+			const sf::Vector2f& getSize() const;
+			const std::string& getKey() const;
+
+		};
+
 		class GameMapLayer {
 
 		private:
@@ -108,6 +130,7 @@ namespace r3 {
 			std::unordered_map<int, GameSpriteTile> tileMap;
 			std::vector<GameMapLayer> layerList;
 			std::vector<bool> collisionFlagList;
+			std::vector<GameMapObject> objectList;
 
 		public:
 			GameMap(const GameMapDefn& mapDefn);
@@ -116,11 +139,14 @@ namespace r3 {
 			void initializeImageAndTileMap(const GameMapDefn& mapDefn);
 			void initializeLayerList(const GameMapDefn& mapDefn);
 			void initializeCollectionFlagList(const GameMapDefn& mapDefn);
+			void initializeObjectList(const GameMapDefn& mapDefn);
 
 		public:
 			const sf::Color& getBackgroundColor() const;
 			const sf::Vector2i& getMapSize() const;
 			const sf::Vector2i& getTileSize() const;
+
+		public:
 			int getLayerCount() const;
 			const GameMapLayerType getLayerType(int layerIndex) const;
 			const int* getTileIdPtr(int layerIndex, int x, int y) const;
@@ -130,6 +156,9 @@ namespace r3 {
 
 		public:
 			bool getPositionOccupied(int x, int y) const;
+
+		public:
+			const std::vector<GameMapObject>& getObjectList() const;
 
 		private:
 			GameSpriteRenderDetails buildSpriteRenderDetails(const GameMapSprite& sprite) const;

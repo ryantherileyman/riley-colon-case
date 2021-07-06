@@ -15,6 +15,13 @@ namespace r3 {
 
 			extern const char* RENDER_FLAG;
 			extern const char* COLLISION_FLAG;
+			extern const char* INTERACTIVE_FLAG;
+
+		}
+
+		namespace ObjectTypePropertyName {
+
+			extern const char* POPUP_TEXT;
 
 		}
 
@@ -39,6 +46,8 @@ namespace r3 {
 			GameMapSpriteDefn convertToSpriteDefn(const tiled::MapLayerObjectDefn& source);
 
 			GameMapLayerDefn convertToLayerDefn(const tiled::MapLayerDefn& source);
+
+			GameMapObjectDefn convertToObjectDefn(const tiled::MapLayerObjectDefn& source);
 
 			typedef struct ColonCase_LoadGameMapResult {
 				std::vector<std::string> errorList;

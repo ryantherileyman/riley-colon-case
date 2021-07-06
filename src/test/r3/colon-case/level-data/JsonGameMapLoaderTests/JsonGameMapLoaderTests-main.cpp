@@ -243,6 +243,25 @@ bool testConvertToLayerDefn_CollisionFlag() {
 	return result;
 }
 
+bool testConvertToObjectDefn_PopupText(r3::tiled::MapLayerObjectType sourceObjectType, GameMapObjectShape expectedShape) {
+	r3::tiled::MapLayerObjectDefn sourceObjectDefn = createMapLayerObjectDefn();
+	sourceObjectDefn.objectType = sourceObjectType;
+	sourceObjectDefn.type = ObjectTypePropertyName::POPUP_TEXT;
+	sourceObjectDefn.name = "Some Object ID";
+	
+	GameMapObjectDefn objectDefn = JsonGameMapLoader::convertToObjectDefn(sourceObjectDefn);
+
+	bool result =
+		(objectDefn.objectType == GameMapObjectType::POPUP_TEXT) &&
+		(objectDefn.shape == expectedShape) &&
+		(lround(objectDefn.position.x) == 90) &&
+		(lround(objectDefn.position.y) == 95) &&
+		(lround(objectDefn.size.x) == 64) &&
+		(lround(objectDefn.size.y) == 32) &&
+		(objectDefn.key.compare(sourceObjectDefn.name) == 0);
+	return result;
+}
+
 bool testLoadFromFile_InvalidMapPath() {
 	JsonGameMapLoader::LoadGameMapResult gameMapResult = JsonGameMapLoader::loadFromFile("my-campaign", "../missing.json");
 
@@ -319,6 +338,9 @@ int main() {
 	assert(testConvertToLayerDefn_Sprites());
 	assert(testConvertToLayerDefn_RenderFlag());
 	assert(testConvertToLayerDefn_CollisionFlag());
+
+	assert(testConvertToObjectDefn_PopupText(r3::tiled::MapLayerObjectType::RECTANGLE, GameMapObjectShape::RECTANGLE));
+	assert(testConvertToObjectDefn_PopupText(r3::tiled::MapLayerObjectType::ELLIPSE, GameMapObjectShape::ELLIPSE));
 
 	assert(testLoadFromFile_InvalidMapPath());
 	assert(testLoadFromFile_MissingMapFile());
