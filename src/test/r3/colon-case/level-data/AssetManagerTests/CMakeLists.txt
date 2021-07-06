@@ -7,6 +7,7 @@ add_executable(
 	${PROJECT_SOURCE_DIR}/src/main/r3/colon-case/level-data/r3-colonCase-GameSpriteTile.cpp
 	${PROJECT_SOURCE_DIR}/src/main/r3/colon-case/level-data/r3-colonCase-GameMapSprite.cpp
 	${PROJECT_SOURCE_DIR}/src/main/r3/colon-case/level-data/r3-colonCase-GameMapLayer.cpp
+	${PROJECT_SOURCE_DIR}/src/main/r3/colon-case/level-data/r3-colonCase-GameMapObject.cpp
 	${PROJECT_SOURCE_DIR}/src/main/r3/colon-case/level-data/r3-colonCase-GameMap.cpp
 	${PROJECT_SOURCE_DIR}/src/main/r3/colon-case/level-data/r3-colonCase-AssetLoadingTracker.cpp
 	${PROJECT_SOURCE_DIR}/src/main/r3/colon-case/level-data/r3-colonCase-AssetManager.cpp
