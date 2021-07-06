@@ -194,14 +194,15 @@ namespace r3 {
 
 			sf::Vector2i mousePosition = sf::Mouse::getPosition(*this->window);
 
+			GameMap map = this->assetManager.getMap(MAP_FILENAME);
 			sf::Vector2f mapPosition = this->window->mapPixelToCoords(mousePosition, view);
+			mapPosition.x *= (float)map.getTileSize().x;
+			mapPosition.y *= (float)map.getTileSize().y;
 
-			r3::sfml::FloatEllipse mugRegion(8.43f, 2.79f, 0.07f, 0.07f);
-			sf::FloatRect bookRegion(14.68f, 5.21f, 0.34f, 0.28f);
-
-			bool mouseInInvestigateRegion =
-				mugRegion.contains(mapPosition) ||
-				bookRegion.contains(mapPosition);
+			bool mouseInInvestigateRegion = false;
+			for (const auto& currObject : map.getObjectList()) {
+				mouseInInvestigateRegion = mouseInInvestigateRegion || currObject.contains(mapPosition);
+			}
 
 			GameplayMouseCursorType result = GameplayMouseCursorType::STANDARD;
 			if (mouseInInvestigateRegion) {

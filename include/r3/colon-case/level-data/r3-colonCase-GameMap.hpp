@@ -97,6 +97,9 @@ namespace r3 {
 			const sf::Vector2f& getSize() const;
 			const std::string& getKey() const;
 
+		public:
+			bool contains(const sf::Vector2f& point) const;
+
 		};
 
 		class GameMapLayer {

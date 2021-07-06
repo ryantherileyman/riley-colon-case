@@ -456,9 +456,49 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":11,
+         "name":"Interaction Objects",
+         "objects":[
+                {
+                 "ellipse":true,
+                 "height":33.3333333333334,
+                 "id":24,
+                 "name":"mug",
+                 "rotation":0,
+                 "type":"PopupText",
+                 "visible":true,
+                 "width":32,
+                 "x":1065.33333333333,
+                 "y":342.666666666667
+                }, 
+                {
+                 "height":48,
+                 "id":25,
+                 "name":"book",
+                 "rotation":0,
+                 "type":"PopupText",
+                 "visible":true,
+                 "width":50.6666666666667,
+                 "x":1874.66666666667,
+                 "y":658.666666666667
+                }],
+         "opacity":1,
+         "properties":[
+                {
+                 "name":"interactiveFlag",
+                 "type":"bool",
+                 "value":true
+                }],
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":11,
- "nextobjectid":24,
+ "nextlayerid":12,
+ "nextobjectid":26,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"2020.12.18",
