@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <r3/sfml/text/r3-sfml-FontFamily.hpp>
 #include <r3/colon-case/level-data/r3-colonCase-AssetManager.hpp>
 #pragma once
 
@@ -101,6 +102,7 @@ namespace r3 {
 		private:
 			sf::Cursor defaultCursor;
 			sf::Cursor investigateCursor;
+			r3::sfml::FontFamily uiFontFamily;
 			sf::Texture playerTexture;
 			AssetManager assetManager;
 			std::unordered_map<std::string, std::vector<std::string>> dictionary;
@@ -114,6 +116,7 @@ namespace r3 {
 			CompassDirection playerDirection;
 			bool playerMovingFlag;
 			float playerAnimationStartSeconds;
+			std::optional<std::string> playerThoughtKey;
 
 		private:
 			GameplayMouseCursorType currMouseCursorType;
@@ -130,6 +133,7 @@ namespace r3 {
 		private:
 			GameplaySceneClientRequest processKeyPressedEvent(sf::Keyboard::Key keyCode);
 			void processKeyReleasedEvent(sf::Keyboard::Key keyCode);
+			void processMouseButtonPressedEvent(sf::Event::MouseButtonEvent& event);
 
 		private:
 			GameplayMouseCursorType resolveMouseCursorType();

@@ -38,11 +38,17 @@ namespace r3 {
 			bool result = false;
 
 			if (this->shape == GameMapObjectShape::RECTANGLE) {
-				sf::FloatRect rectRegion(this->position, this->size);
-				result = rectRegion.contains(point);
+				result =
+					(point.x >= this->position.x) &&
+					(point.y >= this->position.y) &&
+					(point.x <= (this->position.x + this->size.x)) &&
+					(point.y <= (this->position.y + this->size.y));
 			}
 			else if (this->shape == GameMapObjectShape::ELLIPSE) {
-				r3::sfml::FloatEllipse ellipseRegion(this->position, this->size);
+				sf::Vector2f ellipseRadius(this->size.x / 2.0f, this->size.y / 2.0f);
+				sf::Vector2f ellipseCenter(this->position.x + ellipseRadius.x, this->position.y + ellipseRadius.y);
+
+				r3::sfml::FloatEllipse ellipseRegion(ellipseCenter, ellipseRadius);
 				result = ellipseRegion.contains(point);
 			}
 

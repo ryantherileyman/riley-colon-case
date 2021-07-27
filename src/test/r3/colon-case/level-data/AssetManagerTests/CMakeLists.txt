@@ -20,6 +20,7 @@ target_link_libraries(
 	r3-JsonCppUtils-lib
 	r3-TiledJsonLoader-lib
 	sfml-graphics
+	r3-SfmlGeometryUtils-lib
 )
 target_include_directories(AssetManagerTests PUBLIC "${PROJECT_SOURCE_DIR}/include")
 add_custom_command(

@@ -35,6 +35,7 @@ add_executable(
 )
 target_link_libraries(
 	ColonCase
+	r3-StringUtils-lib
 	r3-ValidationUtils-lib
 	jsoncpp_static
 	r3-JsonCppUtils-lib
@@ -45,6 +46,7 @@ target_link_libraries(
 	sfml-system
 	sfml-main
 	r3-SfmlGeometryUtils-lib
+	r3-SfmlTextUtils-lib
 )
 target_include_directories(ColonCase PUBLIC "${PROJECT_SOURCE_DIR}/include")
 add_custom_target(

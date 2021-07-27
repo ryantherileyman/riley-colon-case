@@ -1,10 +1,14 @@
 
 #include <algorithm>
 #include <math.h>
+#include <r3/string/r3-string-utils.hpp>
 #include <r3/jsoncpp/r3-jsoncpp-utils.hpp>
-#include <r3/colon-case/level-data/r3-colonCase-JsonDictionaryLoader.hpp>
-#include <r3/colon-case/gameplay/r3-colonCase-gameplay.hpp>
 #include <r3/sfml/geometry/r3-sfml-Ellipse.hpp>
+#include <r3/sfml/text/r3-sfml-FontFamily.hpp>
+#include <r3/sfml/text/r3-sfml-MultilineTypesettingBlock.hpp>
+#include <r3/colon-case/level-data/r3-colonCase-JsonDictionaryLoader.hpp>
+#include <r3/colon-case/sfml-utils/r3-sfml-utils.hpp>
+#include <r3/colon-case/gameplay/r3-colonCase-gameplay.hpp>
 
 namespace r3 {
 
@@ -20,6 +24,10 @@ namespace r3 {
 
 			this->defaultCursor.loadFromSystem(sf::Cursor::Arrow);
 			this->investigateCursor.loadFromSystem(sf::Cursor::Hand);
+
+			r3::sfml::LoadFontFamilyDefn uiFontFamilyDefn;
+			uiFontFamilyDefn.baseFontFilename = "resources/fonts/OpenSans-Bold.ttf";
+			this->uiFontFamily.load(uiFontFamilyDefn);
 
 			if (!this->playerTexture.loadFromFile("resources/textures/investigator-tileset.png")) {
 				throw "Could not load player tileset texture";
@@ -66,6 +74,9 @@ namespace r3 {
 			else if (event.type == sf::Event::KeyReleased) {
 				this->processKeyReleasedEvent(event.key.code);
 			}
+			else if (event.type == sf::Event::MouseButtonPressed) {
+				this->processMouseButtonPressedEvent(event.mouseButton);
+			}
 
 			return result;
 		}
@@ -106,6 +117,8 @@ namespace r3 {
 				}
 				else {
 					this->startPlayerMovement(currMovementDirection);
+
+					this->playerThoughtKey.reset();
 				}
 			}
 		}
@@ -143,7 +156,22 @@ namespace r3 {
 				mapSprite.setTexture(this->offscreenMapTexture.getTexture());
 				mapSprite.setPosition(0.0f - ((float)this->offscreenMapTexture.getSize().x * 0.5f), 0.0f - ((float)this->offscreenMapTexture.getSize().y * 0.5f));
 				this->window->draw(mapSprite);
-				
+
+				if (this->playerThoughtKey.has_value()) {
+					r3::sfml::MultilineTypesettingBlock sampleTextBlock(this->uiFontFamily);
+					sampleTextBlock.setTextAlignment(r3::sfml::TextAlignment::CENTER);
+					sampleTextBlock.setVerticalAlignment(r3::sfml::VerticalAlignment::BOTTOM);
+					sampleTextBlock.setPosition(sf::Vector2f(960.0f, 1000.0f));
+
+					std::vector<sf::String> thoughtStringList = sampleTextBlock.splitIntoLines(r3::StringUtils::join(this->dictionary[this->playerThoughtKey.value()], '\n'));
+					std::vector<sf::Text> thoughtTextList = sampleTextBlock.createAlignedTextList(thoughtStringList);
+
+					this->window->setView(r3::SfmlUtils::ViewUtils::createView(this->window->getSize().x, this->window->getSize().y));
+					for (const auto& currThoughtText : thoughtTextList) {
+						this->window->draw(currThoughtText);
+					}
+				}
+
 				this->window->display();
 			}
 		}
@@ -181,6 +209,31 @@ namespace r3 {
 
 			if (keyReleasedResult.keyReleasedClientRequest == GameplayKeyReleasedClientRequest::STOP_PLAYER) {
 				this->requestedPlayerDirection = CompassDirection::NONE;
+			}
+		}
+
+		void GameplaySceneController::processMouseButtonPressedEvent(sf::Event::MouseButtonEvent& event) {
+			if (event.button == sf::Mouse::Button::Left) {
+				float gameplaySeconds = this->gameplayClock.getElapsedTime().asSeconds();
+				sf::Vector2f playerRenderPosition = this->resolvePlayerPosition(gameplaySeconds);
+
+				sf::Vector2f playerPosition = playerRenderPosition + sf::Vector2f(0.5f, 0.5f);
+				sf::Vector2f viewSize = GameMapRenderUtils::resolveViewSize(this->window->getSize(), this->pixelsPerTile);
+				sf::View view(playerPosition, viewSize);
+
+				sf::Vector2i mousePosition = sf::Vector2i(event.x, event.y);
+
+				GameMap map = this->assetManager.getMap(MAP_FILENAME);
+				sf::Vector2f mapPosition = this->window->mapPixelToCoords(mousePosition, view);
+				mapPosition.x *= (float)map.getTileSize().x;
+				mapPosition.y *= (float)map.getTileSize().y;
+
+				this->playerThoughtKey.reset();
+				for (const auto& currObject : map.getObjectList()) {
+					if (currObject.contains(mapPosition)) {
+						this->playerThoughtKey = currObject.getKey();
+					}
+				}
 			}
 		}
 
